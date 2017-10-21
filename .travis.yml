@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - '7.1'
+
+dist: trusty
+
+before_script:
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" -a "$TRAVIS_PHP_VERSION" != "7.0" -a "$TRAVIS_PHP_VERSION" != "5.6" ]; then phpenv config-rm xdebug.ini; fi
+  - curl -s http://getcomposer.org/installer | php
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
+  - php composer.phar install --dev
+
+script: make unit-tests

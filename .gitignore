@@ -1,0 +1,7 @@
+coverage/
+composer
+composer.lock
+.idea/
+.php_cs.cache
+vendor/
+bin/
