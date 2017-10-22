@@ -41,7 +41,7 @@ final class CoordinatesTest extends TestCase
      */
     public function invalidLatitude(float $latitude)
     {
-        $coordinate = new Coordinates($latitude, 5.1511458, 10.0);
+        new Coordinates($latitude, 5.1511458, 10.0);
     }
 
     public function getInvalidLatitude(): array
@@ -59,7 +59,7 @@ final class CoordinatesTest extends TestCase
      */
     public function invalidLongitude(float $longitude)
     {
-        $coordinate = new Coordinates(52.3504547, $longitude, 10.0);
+        new Coordinates(52.3504547, $longitude, 10.0);
     }
 
     public function getInvalidLongitude(): array

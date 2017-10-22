@@ -39,9 +39,9 @@ final class Purchase
         int $purchaseNumber,
         Money $amount,
         Money $vatAmount,
-        $products,
-        $payments,
-        $vatAmounts,
+        array $products,
+        array $payments,
+        array $vatAmounts,
         bool $receiptCopyAllowed,
         ?bool $published = null,
         bool $refund,
@@ -81,7 +81,7 @@ final class Purchase
         return $this->timestamp;
     }
 
-    public function getCoordinates()
+    public function getCoordinates(): ?Coordinates
     {
         return $this->coordinates;
     }
@@ -116,17 +116,17 @@ final class Purchase
         return $this->vatAmount;
     }
 
-    public function getProducts()
+    public function getProducts(): array
     {
         return $this->products;
     }
 
-    public function getPayments()
+    public function getPayments(): array
     {
         return $this->payments;
     }
 
-    public function getVatAmounts()
+    public function getVatAmounts(): array
     {
         return $this->vatAmounts;
     }
