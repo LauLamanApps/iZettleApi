@@ -2,15 +2,16 @@ iZettleApi
 ===============
 The iZettleApi provides a simple integration of the [iZettle Api][izettleapi] for your PHP project.
 
-**Warning: Currently in development**
-
 [![Build Status](https://travis-ci.org/LauLamanApps/iZettleApi.svg?branch=master)](https://travis-ci.org/LauLamanApps/iZettleApi)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/LauLamanApps/iZettleApi/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/LauLamanApps/iZettleApi/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/LauLamanApps/iZettleApi/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/LauLamanApps/iZettleApi/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/laulamanapps/izettle-api/v/stable)](https://packagist.org/packages/laulamanapps/izettle-api)
+[![License](https://poser.pugx.org/laulamanapps/izettle-api/license)](https://packagist.org/packages/laulamanapps/izettle-api)
+
+**Warning: Currently in development**
 
 **TODO**
-- Create finalize intergration
-- Clean Client.php & AccessToken.php
+- Finalize integration
 
 
 Installation
@@ -24,23 +25,25 @@ $ composer require laulamanapps/izettle-api
 Usage
 -----
 
-Get yourself an accesstoken. you'll need an `clientId` and `clientSecret` for this (to get one apply [here](https://www.izettle.com/api-access/))
-for performance benefits it might be wise to store the accesstoken in a cache like [Redis](https://redis.io/).
+Get yourself an access token. you'll need an `clientId` and `clientSecret` for this (to get one apply [here](https://www.izettle.com/api-access/))
+for performance benefits, it might be wise to store the access token in a cache like [Redis](https://redis.io/).
 ```php
-$accessToken = AccessToken::getFromUserLogin(
-    'clientId',
-    'clientSecret',
-    'john.doe@example.com',
-    'password'
-);
+use GuzzleHttp\Client as GuzzleClient;
+
+$accessTokenFactory = new AccesTokenFactory(new GuzzleClient(), 'clientId', 'clientSecret');
+
+$accessToken = $accessTokenFactory->getFromUserLogin('john.doe@example.com', 'password');
 
 ```
 
 ### Make your first API call
 
 ```php
-$client = new Client($accessToken);
-$purchaseHistory = $client->getPurchaseHistory();
+
+use GuzzleHttp\Client as GuzzleClient;
+
+$iZettleClient = new iZettleClient(new GuzzleClient(), $accessToken);
+$purchaseHistory = $iZettleClient->getPurchaseHistory();
 ```
 
 
