@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LauLamanApps\iZettleApi;
 
+use DateTime;
 use GuzzleHttp\Client as GuzzleClient;
 use LauLamanApps\iZettleApi\API\Product\Category;
 use LauLamanApps\iZettleApi\API\Product\Discount;
@@ -11,16 +12,15 @@ use LauLamanApps\iZettleApi\API\Product\Library;
 use LauLamanApps\iZettleApi\API\Product\Product;
 use LauLamanApps\iZettleApi\API\Purchase\PurchaseHistory;
 use LauLamanApps\iZettleApi\Client\AccessToken;
-use LauLamanApps\iZettleApi\Client\AccessTokenExpired;
+use LauLamanApps\iZettleApi\Client\Exceptions\AccessTokenExpiredException;
 use LauLamanApps\iZettleApi\Client\Product\CategoryParser;
 use LauLamanApps\iZettleApi\Client\Product\DiscountParser;
 use LauLamanApps\iZettleApi\Client\Product\LibraryParser;
 use LauLamanApps\iZettleApi\Client\Product\ProductParser;
 use LauLamanApps\iZettleApi\Client\Purchase\PurchaseHistoryParser;
 use Psr\Http\Message\ResponseInterface;
-use Ramsey\Uuid\UuidInterface;
 
-final class Client
+final class iZettleClient
 {
     /**
      * iZettle' PRODUCTS domain
@@ -42,77 +42,83 @@ final class Client
     const PURCHASE_BASE_URL = 'https://purchase.izettle.com';
     const PURCHASE_HISTORY_URL = self::PURCHASE_BASE_URL . '/purchases/v2';
 
+    private $guzzleClient;
     private $accessToken;
+    private $organizationUuid = 'self';
 
-    public function __construct(AccessToken $accessToken)
+    public function __construct(GuzzleClient $guzzleClient, AccessToken $accessToken)
     {
+        $this->guzzleClient = $guzzleClient;
         $this->accessToken = $accessToken;
         $this->validateAccessToken();
     }
 
-    public function getCategories(?string $organizationUuid = null): array
+    public function setOrganizationUuid(int $organizationUuid): void
     {
-        $url = sprintf(self::PRODUCT_DISCOUNT_ALL, $this->getOrgUuid($organizationUuid));
+        $this->organizationUuid = $organizationUuid;
+    }
+
+    public function getCategories(): array
+    {
+        $url = sprintf(self::PRODUCT_CATEGORY_ALL, $this->organizationUuid);
 
         return CategoryParser::createFromResponse($this->get($url));
     }
 
-    public function createCategory(Category $category, ?UuidInterface $organizationUuid = null): void
+    public function createCategory(Category $category): void
     {
-        $url = sprintf(self::PRODUCT_CATEGORY_ALL, $this->getOrgUuid($organizationUuid));
-
+        $url = sprintf(self::PRODUCT_CATEGORY_ALL, $this->organizationUuid);
         $this->post($url, $category->getCreateData());
     }
 
-    public function getDiscounts(?string $organizationUuid = null): array
+    public function getDiscounts(): array
     {
-        $url = sprintf(self::PRODUCT_DISCOUNT_ALL, $this->getOrgUuid($organizationUuid));
+        $url = sprintf(self::PRODUCT_DISCOUNT_ALL, $this->organizationUuid);
 
         return DiscountParser::createFromResponse($this->get($url));
     }
 
-    public function createDiscount(Discount $discount, ?UuidInterface $organizationUuid = null): void
+    public function createDiscount(Discount $discount): void
     {
-        $url = sprintf(self::PRODUCT_DISCOUNT_ALL, $this->getOrgUuid($organizationUuid));
+        $url = sprintf(self::PRODUCT_DISCOUNT_ALL, $this->organizationUuid);
 
         $this->post($url, $discount->getCreateData());
     }
 
-    public function deleteDiscount(Discount $discount, ?UuidInterface $organizationUuid = null):void
+    public function deleteDiscount(Discount $discount): void
     {
-        $url = sprintf(self::PRODUCT_DISCOUNT_SINGLE, $this->getOrgUuid($organizationUuid), (string) $discount->getUuid());
+        $url = sprintf(self::PRODUCT_DISCOUNT_SINGLE, $this->organizationUuid, (string) $discount->getUuid());
 
         $this->delete($url);
     }
 
-    public function getLibrary(?string $organizationUuid = null): Library
+    public function getLibrary(): Library
     {
-        $url = sprintf(self::PRODUCT_LIBRARY, $this->getOrgUuid($organizationUuid));
+        $url = sprintf(self::PRODUCT_LIBRARY, $this->organizationUuid);
 
         return LibraryParser::createFromResponse($this->get($url));
     }
 
-    public function getProducts(?string $organizationUuid = null): array
+    public function getProducts(): array
     {
-        $url = sprintf(self::PRODUCT_PRODUCTS_ALL, $this->getOrgUuid($organizationUuid));
+        $url = sprintf(self::PRODUCT_PRODUCTS_ALL, $this->organizationUuid);
 
         return ProductParser::createFromResponse($this->get($url));
     }
 
-    public function createProduct(Product $product, ?string $organizationUuid = null): void
+    public function createProduct(Product $product): void
     {
-        $url = sprintf(self::PRODUCT_PRODUCTS_ALL, $this->getOrgUuid($organizationUuid));
+        $url = sprintf(self::PRODUCT_PRODUCTS_ALL, $this->organizationUuid);
 
         $this->post($url, $product->getCreateData());
     }
 
-    public function deleteProduct(Product $product, ?string $organizationUuid = null): void
+    public function deleteProduct(Product $product): void
     {
-        $url = sprintf(self::PRODUCT_PRODUCTS_SINGLE, $this->getOrgUuid($organizationUuid), (string) $product->getUuid());
+        $url = sprintf(self::PRODUCT_PRODUCTS_SINGLE, $this->organizationUuid, (string) $product->getUuid());
 
         $this->delete($url);
     }
-
 
     public function getPurchaseHistory(): PurchaseHistory
     {
@@ -121,46 +127,46 @@ final class Client
 
     private function get(string $url, ?array $queryParameters = null): ResponseInterface
     {
-        $options['query'] = $queryParameters;
+        $options =  array_merge(['headers' => $this->getAuthorizationHeader()], ['query' => $queryParameters]);
 
-        return $this->getClient()->get($url, $options);
+        return $this->guzzleClient->get($url, $options);
     }
 
     private function post(string $url, string $data): void
     {
-        $options['headers'] = [
-            'content-type' => 'application/json',
-            'Accept' => 'application/json',
-        ];
-        $options['body'] = $data;
+        $headers = array_merge(
+            $this->getAuthorizationHeader(),
+            [
+                'content-type' => 'application/json',
+                'Accept' => 'application/json',
+            ]
+        );
 
-        $this->getClient()->post($url, $options);
+        $options =  array_merge(['headers' => $headers], ['body' => $data]);
+
+        $this->guzzleClient->post($url, $options);
     }
 
     private function delete(string $url): void
     {
-        $this->getClient()->delete($url);
+        $this->guzzleClient->delete($url, ['headers' => $this->getAuthorizationHeader()]);
     }
 
-    private function validateAccessToken()
+    private function validateAccessToken(): void
     {
         if ($this->accessToken->isExpired()) {
-            throw new AccessTokenExpired(
+            throw new AccessTokenExpiredException(
                 sprintf(
-                    'Access Token was valid till \'%s\'',
-                    $this->accessToken->getExpires()->format('Y-m-d H:i:s')
+                    'Access Token was valid till \'%s\' its now \'%s\'',
+                    $this->accessToken->getExpires()->format('Y-m-d H:i:s.u'),
+                    (new DateTime())->format('Y-m-d H:i:s.u')
                 )
             );
         }
     }
 
-    private function getOrgUuid($organizationUuid): string
+    private function getAuthorizationHeader(): array
     {
-        return $organizationUuid ?? 'self';
-    }
-
-    private function getClient(): GuzzleClient
-    {
-        return new GuzzleClient(['headers' => ['Authorization' => sprintf('Bearer %s', (string) $this->accessToken)]]);
+        return ['Authorization' => sprintf('Bearer %s', $this->accessToken->getToken())];
     }
 }
