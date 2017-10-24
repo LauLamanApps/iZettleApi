@@ -7,7 +7,7 @@ namespace LauLamanApps\IzettleApi\Client\Product;
 use DateTime;
 use LauLamanApps\IzettleApi\API\Product\Product;
 use LauLamanApps\IzettleApi\API\Product\ProductCollection;
-use LauLamanApps\IzettleApi\Client\ImageParser;
+use LauLamanApps\IzettleApi\Client\Universal\ImageParser;
 use Psr\Http\Message\ResponseInterface;
 use Ramsey\Uuid\Uuid;
 

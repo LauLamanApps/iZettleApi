@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\IzettleApi\Client;
+namespace LauLamanApps\IzettleApi\Client\Universal;
 
 use LauLamanApps\IzettleApi\API\Image;
 use LauLamanApps\IzettleApi\API\ImageCollection;

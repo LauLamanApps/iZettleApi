@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\IzettleApi\Tests\Unit\Client;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Purchase;
 
 use LauLamanApps\IzettleApi\Client\Purchase\VatParser;
 use Money\Currency;

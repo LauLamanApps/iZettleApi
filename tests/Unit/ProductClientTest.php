@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\IzettleApi\Tests\Unit\Client;
+namespace LauLamanApps\IzettleApi\Tests\Unit;
 
-use DateTime;
-use GuzzleHttp\Client as GuzzleClient;
 use LauLamanApps\IzettleApi\API\ImageCollection;
 use LauLamanApps\IzettleApi\API\Product\Category;
 use LauLamanApps\IzettleApi\API\Product\CategoryCollection;
@@ -14,44 +12,22 @@ use LauLamanApps\IzettleApi\API\Product\Library;
 use LauLamanApps\IzettleApi\API\Product\Product;
 use LauLamanApps\IzettleApi\API\Product\Variant;
 use LauLamanApps\IzettleApi\API\Product\VariantCollection;
-use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
-use LauLamanApps\IzettleApi\Client\AccessToken;
-use LauLamanApps\IzettleApi\IzettleClient;
-use Mockery;
+use LauLamanApps\IzettleApi\ProductClient;
 use Money\Money;
-use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  * @small
  */
-final class IzettleClientTest extends TestCase
+final class ProductClientTest extends AbstractClientTest
 {
-    const ACCESS_TOKEN = 'access-token';
-    const DEFAULT_ORGANIZATION_UUID = 'self';
-
-    /**
-     * @test
-     */
-    public function setOrganizationUuid()
-    {
-        $newOrganizationUuid = 123456;
-        $IzettleClient = new IzettleClient(new GuzzleClient(), $this->getAccessToken());
-        self::assertAttributeEquals(self::DEFAULT_ORGANIZATION_UUID, 'organizationUuid', $IzettleClient);
-
-        $IzettleClient->setOrganizationUuid($newOrganizationUuid);
-
-        self::assertAttributeEquals($newOrganizationUuid, 'organizationUuid', $IzettleClient);
-    }
-
     /**
      * @test
      */
     public function getCategories()
     {
         $method = 'get';
-        $url = sprintf(IzettleClient::PRODUCT_CATEGORY_ALL, self::DEFAULT_ORGANIZATION_UUID);
+        $url = sprintf(ProductClient::GET_CATEGORIES, self::DEFAULT_ORGANIZATION_UUID);
         $options = [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', self::ACCESS_TOKEN)
@@ -59,8 +35,8 @@ final class IzettleClientTest extends TestCase
             'query' => null,
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
-        $categories = $IzettleClient->getCategories();
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
+        $categories = $productClient->getCategories();
         self::assertTrue(is_array($categories));
     }
 
@@ -71,7 +47,7 @@ final class IzettleClientTest extends TestCase
     {
         $category = Category::new('name');
         $method = 'post';
-        $url = sprintf(IzettleClient::PRODUCT_CATEGORY_ALL, self::DEFAULT_ORGANIZATION_UUID);
+        $url = sprintf(ProductClient::POST_CATEGORY, self::DEFAULT_ORGANIZATION_UUID);
         $options = [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', self::ACCESS_TOKEN),
@@ -81,8 +57,8 @@ final class IzettleClientTest extends TestCase
             'body' => $category->getCreateData(),
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
-        $IzettleClient->createCategory($category);
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
+        $productClient->createCategory($category);
 
         self::assertTrue(true); //-- fix till issue is solved: https://github.com/mockery/mockery/issues/376
     }
@@ -93,7 +69,7 @@ final class IzettleClientTest extends TestCase
     public function getDiscounts()
     {
         $method = 'get';
-        $url = sprintf(IzettleClient::PRODUCT_DISCOUNT_ALL, self::DEFAULT_ORGANIZATION_UUID);
+        $url = sprintf(ProductClient::GET_DISCOUNTS, self::DEFAULT_ORGANIZATION_UUID);
         $options = [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', self::ACCESS_TOKEN)
@@ -101,8 +77,8 @@ final class IzettleClientTest extends TestCase
             'query' => null,
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
-        $discounts = $IzettleClient->getDiscounts();
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
+        $discounts = $productClient->getDiscounts();
         self::assertTrue(is_array($discounts));
     }
 
@@ -113,7 +89,7 @@ final class IzettleClientTest extends TestCase
     {
         $discount = $this->getDiscount();
         $method = 'post';
-        $url = sprintf(IzettleClient::PRODUCT_DISCOUNT_ALL, self::DEFAULT_ORGANIZATION_UUID);
+        $url = sprintf(ProductClient::POST_DISCOUNT, self::DEFAULT_ORGANIZATION_UUID);
         $options = [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', self::ACCESS_TOKEN),
@@ -123,8 +99,8 @@ final class IzettleClientTest extends TestCase
             'body' => $discount->getCreateData(),
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
-        $IzettleClient->createDiscount($discount);
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
+        $productClient->createDiscount($discount);
 
         self::assertTrue(true); //-- fix till issue is solved: https://github.com/mockery/mockery/issues/376
     }
@@ -137,7 +113,7 @@ final class IzettleClientTest extends TestCase
         $discount = $this->getDiscount();
         $method = 'delete';
         $url = sprintf(
-            IzettleClient::PRODUCT_DISCOUNT_SINGLE,
+            ProductClient::DELETE_DISCOUNT,
             self::DEFAULT_ORGANIZATION_UUID,
             (string) $discount->getUuid()
         );
@@ -147,8 +123,8 @@ final class IzettleClientTest extends TestCase
             ],
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
-        $IzettleClient->deleteDiscount($discount);
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
+        $productClient->deleteDiscount($discount);
 
         self::assertTrue(true); //-- fix till issue is solved: https://github.com/mockery/mockery/issues/376
     }
@@ -159,7 +135,7 @@ final class IzettleClientTest extends TestCase
     public function getLibrary()
     {
         $method = 'get';
-        $url = sprintf(IzettleClient::PRODUCT_LIBRARY, self::DEFAULT_ORGANIZATION_UUID);
+        $url = sprintf(ProductClient::GET_LIBRARY, self::DEFAULT_ORGANIZATION_UUID);
         $options = [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', self::ACCESS_TOKEN)
@@ -176,8 +152,8 @@ final class IzettleClientTest extends TestCase
             'deletedDiscounts' => [],
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options, $return), $this->getAccessToken());
-        $library = $IzettleClient->getLibrary();
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options, $return), $this->getAccessToken());
+        $library = $productClient->getLibrary();
         self::assertInstanceOf(Library::class, $library);
     }
 
@@ -187,7 +163,7 @@ final class IzettleClientTest extends TestCase
     public function getProducts()
     {
         $method = 'get';
-        $url = sprintf(IzettleClient::PRODUCT_PRODUCTS_ALL, self::DEFAULT_ORGANIZATION_UUID);
+        $url = sprintf(ProductClient::GET_PRODUCTS, self::DEFAULT_ORGANIZATION_UUID);
         $options = [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', self::ACCESS_TOKEN)
@@ -199,8 +175,8 @@ final class IzettleClientTest extends TestCase
 
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options, $return), $this->getAccessToken());
-        $products = $IzettleClient->getProducts();
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options, $return), $this->getAccessToken());
+        $products = $productClient->getProducts();
         self::assertTrue(is_array($products));
     }
 
@@ -211,7 +187,7 @@ final class IzettleClientTest extends TestCase
     {
         $product = $this->getProduct();
         $method = 'post';
-        $url = sprintf(IzettleClient::PRODUCT_PRODUCTS_ALL, self::DEFAULT_ORGANIZATION_UUID);
+        $url = sprintf(ProductClient::POST_PRODUCT, self::DEFAULT_ORGANIZATION_UUID);
         $options = [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', self::ACCESS_TOKEN),
@@ -221,8 +197,8 @@ final class IzettleClientTest extends TestCase
             'body' => $product->getCreateData(),
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
-        $IzettleClient->createProduct($product);
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
+        $productClient->createProduct($product);
 
         self::assertTrue(true); //-- fix till issue is solved: https://github.com/mockery/mockery/issues/376
     }
@@ -235,7 +211,7 @@ final class IzettleClientTest extends TestCase
         $product = $this->getProduct();
         $method = 'delete';
         $url = sprintf(
-            IzettleClient::PRODUCT_PRODUCTS_SINGLE,
+            ProductClient::DELETE_PRODUCT,
             self::DEFAULT_ORGANIZATION_UUID,
             (string) $product->getUuid()
         );
@@ -245,67 +221,10 @@ final class IzettleClientTest extends TestCase
             ],
         ];
 
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
-        $IzettleClient->deleteProduct($product);
+        $productClient = new ProductClient($this->getGuzzleClient($method, $url, $options), $this->getAccessToken());
+        $productClient->deleteProduct($product);
 
         self::assertTrue(true); //-- fix till issue is solved: https://github.com/mockery/mockery/issues/376
-    }
-
-    /**
-     * @test
-     */
-    public function getPurchaseHistory()
-    {
-        $method = 'get';
-        $url = sprintf(IzettleClient::PURCHASE_HISTORY_URL, self::DEFAULT_ORGANIZATION_UUID);
-        $options = [
-            'headers' => [
-                'Authorization' => sprintf('Bearer %s', self::ACCESS_TOKEN)
-            ],
-            'query' => null,
-        ];
-
-        $return = [
-            'firstPurchaseHash' => Uuid::uuid1(),
-            'lastPurchaseHash' => Uuid::uuid1(),
-            'purchases' => [],
-        ];
-
-        $IzettleClient = new IzettleClient($this->getGuzzleClient($method, $url, $options, $return), $this->getAccessToken());
-        $purchaseHistory = $IzettleClient->getPurchaseHistory();
-        self::assertInstanceOf(PurchaseHistory::class, $purchaseHistory);
-    }
-
-    /**
-     * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Exceptions\AccessTokenExpiredException
-     */
-    public function validateAccessToken()
-    {
-        $invalidAccessToken =  new AccessToken('', new DateTime('-1 day'), '');
-
-        new IzettleClient(new GuzzleClient(), $invalidAccessToken);
-    }
-
-    private function getAccessToken() : AccessToken
-    {
-        return new AccessToken(self::ACCESS_TOKEN, new DateTime('+ 1 day'), '');
-    }
-
-    private function getGuzzleClient(
-        string $method,
-        string $url,
-        array $options,
-        ?array $return = []
-    ): GuzzleClient {
-        $guzzleResponseMock = Mockery::mock(ResponseInterface::class);
-        $guzzleResponseMock->shouldReceive('getBody')->andReturnSelf();
-        $guzzleResponseMock->shouldReceive('getContents')->andReturn(json_encode($return));
-
-        $guzzleClientMock = Mockery::mock(GuzzleClient::class);
-        $guzzleClientMock->shouldReceive($method)->withArgs([$url, $options])->andReturn($guzzleResponseMock);
-
-        return $guzzleClientMock;
     }
 
     private function getDiscount(): Discount

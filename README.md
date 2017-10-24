@@ -28,9 +28,9 @@ Usage
 Get yourself an access token. you'll need an `clientId` and `clientSecret` for this (to get one apply [here](https://www.izettle.com/api-access/))
 for performance benefits, it might be wise to store the access token in a cache like [Redis](https://redis.io/).
 ```php
-use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Client;
 
-$accessTokenFactory = new AccesTokenFactory(new GuzzleClient(), 'clientId', 'clientSecret');
+$accessTokenFactory = new AccesTokenFactory(new Client(), 'clientId', 'clientSecret');
 
 $accessToken = $accessTokenFactory->getFromUserLogin('john.doe@example.com', 'password');
 
@@ -40,10 +40,13 @@ $accessToken = $accessTokenFactory->getFromUserLogin('john.doe@example.com', 'pa
 
 ```php
 
-use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Client;
 
-$IzettleClient = new IzettleClient(new GuzzleClient(), $accessToken);
-$purchaseHistory = $IzettleClient->getPurchaseHistory();
+$purchaseClient = new PurchaseClient(new Client(), $accessToken);
+$purchaseHistory = $purchaseClient->getPurchaseHistory();
+
+$productClient = new ProductClient(new Client(), $accessToken);
+$categories = $productClient->getCategories();
 ```
 
 
