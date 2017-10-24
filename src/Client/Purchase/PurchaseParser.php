@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Client\Purchase;
 
 use DateTime;
-use LauLamanApps\iZettleApi\API\Purchase\Purchase;
-use LauLamanApps\iZettleApi\API\Purchase\User;
+use LauLamanApps\IzettleApi\API\Purchase\Purchase;
+use LauLamanApps\IzettleApi\API\Purchase\User;
 use Money\Currency;
 use Money\Money;
 use Ramsey\Uuid\Uuid;

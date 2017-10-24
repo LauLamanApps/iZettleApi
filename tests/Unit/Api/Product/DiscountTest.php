@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Api\Product;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Api\Product;
 
-use LauLamanApps\iZettleApi\API\Image;
-use LauLamanApps\iZettleApi\API\ImageCollection;
-use LauLamanApps\iZettleApi\API\Product\Discount;
+use LauLamanApps\IzettleApi\API\Image;
+use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Product\Discount;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

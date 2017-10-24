@@ -1,6 +1,6 @@
 {
-  "name": "laulamanapps/izettle-api",
-  "description": "iZettle API PHP Client",
+  "name": "laulamanapps/Izettle-api",
+  "description": "Izettle API PHP Client",
   "license": "MIT",
   "authors": [
     {
@@ -10,12 +10,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "LauLamanApps\\iZettleApi\\": ["src/"]
+      "LauLamanApps\\IzettleApi\\": ["src/"]
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "LauLamanApps\\iZettleApi\\Tests\\": ["tests/"]
+      "LauLamanApps\\IzettleApi\\Tests\\": ["tests/"]
     }
   },
   "require": {

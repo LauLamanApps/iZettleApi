@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\API\Purchase;
+namespace LauLamanApps\IzettleApi\API\Purchase;
 
 final class User
 {

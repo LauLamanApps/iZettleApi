@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Api\Product;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Api\Product;
 
-use LauLamanApps\iZettleApi\API\ImageCollection;
-use LauLamanApps\iZettleApi\API\Product\Category;
-use LauLamanApps\iZettleApi\API\Product\CategoryCollection;
-use LauLamanApps\iZettleApi\API\Product\Product;
-use LauLamanApps\iZettleApi\API\Product\Variant;
-use LauLamanApps\iZettleApi\API\Product\VariantCollection;
+use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Product\Category;
+use LauLamanApps\IzettleApi\API\Product\CategoryCollection;
+use LauLamanApps\IzettleApi\API\Product\Product;
+use LauLamanApps\IzettleApi\API\Product\Variant;
+use LauLamanApps\IzettleApi\API\Product\VariantCollection;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -48,7 +48,7 @@ final class ProductTest extends TestCase
 
     /**
      * @test
-     * @expectedException \LauLamanApps\iZettleApi\Client\Exceptions\CantCreateProductException
+     * @expectedException \LauLamanApps\IzettleApi\Client\Exceptions\CantCreateProductException
      */
     public function cantCreateProductWithoutVariant(): void
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Purchase;
 
-use LauLamanApps\iZettleApi\API\Purchase\Coordinates;
-use LauLamanApps\iZettleApi\Client\Purchase\CoordinatesParser;
+use LauLamanApps\IzettleApi\API\Purchase\Coordinates;
+use LauLamanApps\IzettleApi\Client\Purchase\CoordinatesParser;
 use PHPUnit\Framework\TestCase;
 
 /**

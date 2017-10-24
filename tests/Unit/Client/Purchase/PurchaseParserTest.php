@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Purchase;
 
 use DateTime;
-use LauLamanApps\iZettleApi\API\Purchase\Coordinates;
-use LauLamanApps\iZettleApi\API\Purchase\Purchase;
-use LauLamanApps\iZettleApi\Client\Purchase\PurchaseParser;
+use LauLamanApps\IzettleApi\API\Purchase\Coordinates;
+use LauLamanApps\IzettleApi\API\Purchase\Purchase;
+use LauLamanApps\IzettleApi\Client\Purchase\PurchaseParser;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 

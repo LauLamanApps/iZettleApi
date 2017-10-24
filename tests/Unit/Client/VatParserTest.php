@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client;
 
-use LauLamanApps\iZettleApi\Client\Purchase\VatParser;
+use LauLamanApps\IzettleApi\Client\Purchase\VatParser;
 use Money\Currency;
 use PHPUnit\Framework\TestCase;
 

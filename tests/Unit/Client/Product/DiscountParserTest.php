@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client\Product;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Product;
 
 use DateTime;
-use LauLamanApps\iZettleApi\API\ImageCollection;
-use LauLamanApps\iZettleApi\API\Product\Discount;
-use LauLamanApps\iZettleApi\Client\Product\DiscountParser;
+use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Product\Discount;
+use LauLamanApps\IzettleApi\Client\Product\DiscountParser;
 use Mockery;
 use Money\Money;
 use PHPUnit\Framework\TestCase;

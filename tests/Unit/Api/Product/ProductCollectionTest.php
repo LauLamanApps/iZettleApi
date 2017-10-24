@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Api\Product;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Api\Product;
 
-use LauLamanApps\iZettleApi\API\ImageCollection;
-use LauLamanApps\iZettleApi\API\Product\CategoryCollection;
-use LauLamanApps\iZettleApi\API\Product\Product;
-use LauLamanApps\iZettleApi\API\Product\ProductCollection;
-use LauLamanApps\iZettleApi\API\Product\VariantCollection;
+use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Product\CategoryCollection;
+use LauLamanApps\IzettleApi\API\Product\Product;
+use LauLamanApps\IzettleApi\API\Product\ProductCollection;
+use LauLamanApps\IzettleApi\API\Product\VariantCollection;
 use PHPUnit\Framework\TestCase;
 
 final class ProductCollectionTest extends TestCase

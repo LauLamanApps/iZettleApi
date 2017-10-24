@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi;
+namespace LauLamanApps\IzettleApi;
 
 use DateTime;
 use GuzzleHttp\Client as GuzzleClient;
-use LauLamanApps\iZettleApi\API\Product\Category;
-use LauLamanApps\iZettleApi\API\Product\Discount;
-use LauLamanApps\iZettleApi\API\Product\Library;
-use LauLamanApps\iZettleApi\API\Product\Product;
-use LauLamanApps\iZettleApi\API\Purchase\PurchaseHistory;
-use LauLamanApps\iZettleApi\Client\AccessToken;
-use LauLamanApps\iZettleApi\Client\Exceptions\AccessTokenExpiredException;
-use LauLamanApps\iZettleApi\Client\Product\CategoryParser;
-use LauLamanApps\iZettleApi\Client\Product\DiscountParser;
-use LauLamanApps\iZettleApi\Client\Product\LibraryParser;
-use LauLamanApps\iZettleApi\Client\Product\ProductParser;
-use LauLamanApps\iZettleApi\Client\Purchase\PurchaseHistoryParser;
+use LauLamanApps\IzettleApi\API\Product\Category;
+use LauLamanApps\IzettleApi\API\Product\Discount;
+use LauLamanApps\IzettleApi\API\Product\Library;
+use LauLamanApps\IzettleApi\API\Product\Product;
+use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
+use LauLamanApps\IzettleApi\Client\AccessToken;
+use LauLamanApps\IzettleApi\Client\Exceptions\AccessTokenExpiredException;
+use LauLamanApps\IzettleApi\Client\Product\CategoryParser;
+use LauLamanApps\IzettleApi\Client\Product\DiscountParser;
+use LauLamanApps\IzettleApi\Client\Product\LibraryParser;
+use LauLamanApps\IzettleApi\Client\Product\ProductParser;
+use LauLamanApps\IzettleApi\Client\Purchase\PurchaseHistoryParser;
 use Psr\Http\Message\ResponseInterface;
 
-final class iZettleClient
+final class IzettleClient
 {
     /**
-     * iZettle' PRODUCTS domain
+     * Izettle' PRODUCTS domain
      * API documentation https://products.izettle.com/swagger#/
      */
     const PRODUCT_BASE_URL = 'https://products.izettle.com';
@@ -36,7 +36,7 @@ final class iZettleClient
     const PRODUCT_PRODUCTS_SINGLE = self::PRODUCT_PRODUCTS_ALL . '/%s';
 
     /**
-     * iZettle' Purchase domain
+     * Izettle' Purchase domain
      * API documentation https://products.izettle.com/swagger#/
      */
     const PURCHASE_BASE_URL = 'https://purchase.izettle.com';

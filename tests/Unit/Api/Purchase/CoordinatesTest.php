@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Api\Purchase;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Api\Purchase;
 
-use LauLamanApps\iZettleApi\API\Purchase\Coordinates;
+use LauLamanApps\IzettleApi\API\Purchase\Coordinates;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -36,7 +36,7 @@ final class CoordinatesTest extends TestCase
 
     /**
      * @test
-     * @expectedException  \LauLamanApps\iZettleApi\API\Purchase\Exceptions\InvalidLatitudeException
+     * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exceptions\InvalidLatitudeException
      * @dataProvider getInvalidLatitude
      */
     public function invalidLatitude(float $latitude)
@@ -54,7 +54,7 @@ final class CoordinatesTest extends TestCase
 
     /**
      * @test
-     * @expectedException  \LauLamanApps\iZettleApi\API\Purchase\Exceptions\InvalidLongitudeException
+     * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exceptions\InvalidLongitudeException
      * @dataProvider getInvalidLongitude
      */
     public function invalidLongitude(float $longitude)

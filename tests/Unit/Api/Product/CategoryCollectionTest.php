@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Api\Product;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Api\Product;
 
-use LauLamanApps\iZettleApi\API\Product\Category;
-use LauLamanApps\iZettleApi\API\Product\CategoryCollection;
+use LauLamanApps\IzettleApi\API\Product\Category;
+use LauLamanApps\IzettleApi\API\Product\CategoryCollection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 

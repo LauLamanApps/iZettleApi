@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\API\Product;
+namespace LauLamanApps\IzettleApi\API\Product;
 
 use DateTime;
-use LauLamanApps\iZettleApi\API\ImageCollection;
-use LauLamanApps\iZettleApi\Client\Exceptions\CantCreateProductException;
+use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\Client\Exceptions\CantCreateProductException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\API\Purchase\Payment;
+namespace LauLamanApps\IzettleApi\API\Purchase\Payment;
 
-use LauLamanApps\iZettleApi\API\Purchase\AbstractPayment;
+use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
 use Money\Money;
 use Ramsey\Uuid\UuidInterface;
 

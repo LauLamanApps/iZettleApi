@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Client\Purchase;
 
-use LauLamanApps\iZettleApi\API\Purchase\AbstractPayment;
-use LauLamanApps\iZettleApi\API\Purchase\Payment\CardPayment;
-use LauLamanApps\iZettleApi\API\Purchase\Payment\CashPayment;
-use LauLamanApps\iZettleApi\API\Purchase\Payment\InvoicePayment;
-use LauLamanApps\iZettleApi\API\Purchase\Payment\MobilePayment;
-use LauLamanApps\iZettleApi\API\Purchase\Payment\SwishPayment;
-use LauLamanApps\iZettleApi\API\Purchase\Payment\VippsPayment;
-use LauLamanApps\iZettleApi\Client\Exceptions\PaymentTypeNotConfiguredException;
+use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\CardPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\CashPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\InvoicePayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\MobilePayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\SwishPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\VippsPayment;
+use LauLamanApps\IzettleApi\Client\Exceptions\PaymentTypeNotConfiguredException;
 use Money\Currency;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
