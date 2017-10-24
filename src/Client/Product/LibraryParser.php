@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client\Product;
+namespace LauLamanApps\IzettleApi\Client\Product;
 
-use LauLamanApps\iZettleApi\API\Product\Library;
+use LauLamanApps\IzettleApi\API\Product\Library;
 use Psr\Http\Message\ResponseInterface;
 use Ramsey\Uuid\Uuid;
 

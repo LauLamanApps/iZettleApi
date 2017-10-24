@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Api\Purchase;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Api\Purchase;
 
 use DateTime;
-use LauLamanApps\iZettleApi\API\Purchase\Purchase;
-use LauLamanApps\iZettleApi\API\Purchase\User;
+use LauLamanApps\IzettleApi\API\Purchase\Purchase;
+use LauLamanApps\IzettleApi\API\Purchase\User;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

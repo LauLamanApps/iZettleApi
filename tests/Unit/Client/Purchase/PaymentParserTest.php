@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Purchase;
 
-use LauLamanApps\iZettleApi\API\Purchase\AbstractPayment;
-use LauLamanApps\iZettleApi\API\Purchase\Payment\CardPayment;
-use LauLamanApps\iZettleApi\API\Purchase\Payment\CashPayment;
-use LauLamanApps\iZettleApi\Client\Purchase\PaymentParser;
+use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\CardPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\CashPayment;
+use LauLamanApps\IzettleApi\Client\Purchase\PaymentParser;
 use Money\Currency;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -123,7 +123,7 @@ final class PaymentParserTest extends TestCase
 
     /**
      * @test
-     * @expectedException \LauLamanApps\iZettleApi\Client\Exceptions\PaymentTypeNotConfiguredException
+     * @expectedException \LauLamanApps\IzettleApi\Client\Exceptions\PaymentTypeNotConfiguredException
      */
     public function parseNonConfiguredPaymentType(): void
     {

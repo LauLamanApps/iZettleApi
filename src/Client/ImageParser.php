@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client;
+namespace LauLamanApps\IzettleApi\Client;
 
-use LauLamanApps\iZettleApi\API\Image;
-use LauLamanApps\iZettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Image;
+use LauLamanApps\IzettleApi\API\ImageCollection;
 
 final class ImageParser
 {

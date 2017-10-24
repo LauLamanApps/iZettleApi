@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Client\Purchase;
 
-use LauLamanApps\iZettleApi\API\Purchase\PurchaseHistory;
+use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
 use Psr\Http\Message\ResponseInterface;
 
 final class PurchaseHistoryParser

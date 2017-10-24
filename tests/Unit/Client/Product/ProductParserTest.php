@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client\Product;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Product;
 
 use DateTime;
-use LauLamanApps\iZettleApi\API\ImageCollection;
-use LauLamanApps\iZettleApi\API\Product\CategoryCollection;
-use LauLamanApps\iZettleApi\API\Product\Product;
-use LauLamanApps\iZettleApi\API\Product\VariantCollection;
-use LauLamanApps\iZettleApi\Client\Product\ProductParser;
+use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Product\CategoryCollection;
+use LauLamanApps\IzettleApi\API\Product\Product;
+use LauLamanApps\IzettleApi\API\Product\VariantCollection;
+use LauLamanApps\IzettleApi\Client\Product\ProductParser;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Client\Purchase;
 
 use Money\Currency;
 use Money\Money;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Purchase;
 
-use LauLamanApps\iZettleApi\API\Purchase\PurchaseHistory;
-use LauLamanApps\iZettleApi\Client\Purchase\PurchaseHistoryParser;
+use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
+use LauLamanApps\IzettleApi\Client\Purchase\PurchaseHistoryParser;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client\Product;
+namespace LauLamanApps\IzettleApi\Client\Product;
 
 use DateTime;
-use LauLamanApps\iZettleApi\API\Product\Discount;
-use LauLamanApps\iZettleApi\API\Product\DiscountCollection;
-use LauLamanApps\iZettleApi\Client\ImageParser;
+use LauLamanApps\IzettleApi\API\Product\Discount;
+use LauLamanApps\IzettleApi\API\Product\DiscountCollection;
+use LauLamanApps\IzettleApi\Client\ImageParser;
 use Money\Currency;
 use Money\Money;
 use Psr\Http\Message\ResponseInterface;

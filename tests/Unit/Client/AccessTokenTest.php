@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client;
 
 use DateTime;
-use LauLamanApps\iZettleApi\Client\AccessToken;
+use LauLamanApps\IzettleApi\Client\AccessToken;
 use PHPUnit\Framework\TestCase;
 
 /**

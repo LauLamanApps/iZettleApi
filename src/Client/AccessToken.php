@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client;
+namespace LauLamanApps\IzettleApi\Client;
 
 use DateInterval;
 use DateTime;

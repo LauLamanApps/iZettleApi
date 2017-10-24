@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\API\Purchase\Exceptions;
+namespace LauLamanApps\IzettleApi\API\Purchase\Exceptions;
 
 use Exception;
 

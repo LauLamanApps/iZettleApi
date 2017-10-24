@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client\Product;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Product;
 
-use LauLamanApps\iZettleApi\API\Product\Variant;
-use LauLamanApps\iZettleApi\API\Product\VariantCollection;
-use LauLamanApps\iZettleApi\Client\Product\VariantParser;
+use LauLamanApps\IzettleApi\API\Product\Variant;
+use LauLamanApps\IzettleApi\API\Product\VariantCollection;
+use LauLamanApps\IzettleApi\Client\Product\VariantParser;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

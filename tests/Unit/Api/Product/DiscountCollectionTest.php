@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Api\Prozduct;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Api\Prozduct;
 
-use LauLamanApps\iZettleApi\API\ImageCollection;
-use LauLamanApps\iZettleApi\API\Product\Discount;
-use LauLamanApps\iZettleApi\API\Product\DiscountCollection;
+use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Product\Discount;
+use LauLamanApps\IzettleApi\API\Product\DiscountCollection;
 use PHPUnit\Framework\TestCase;
 
 /** * @small */

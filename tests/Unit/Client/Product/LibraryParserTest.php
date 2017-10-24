@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Client\Product;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Product;
 
-use LauLamanApps\iZettleApi\API\Product\DiscountCollection;
-use LauLamanApps\iZettleApi\API\Product\ProductCollection;
-use LauLamanApps\iZettleApi\Client\Product\LibraryParser;
+use LauLamanApps\IzettleApi\API\Product\DiscountCollection;
+use LauLamanApps\IzettleApi\API\Product\ProductCollection;
+use LauLamanApps\IzettleApi\Client\Product\LibraryParser;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;

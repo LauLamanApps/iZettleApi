@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Client\Purchase;
 
-use LauLamanApps\iZettleApi\API\Image;
-use LauLamanApps\iZettleApi\API\Purchase\Product;
+use LauLamanApps\IzettleApi\API\Image;
+use LauLamanApps\IzettleApi\API\Purchase\Product;
 use Money\Currency;
 use Money\Money;
 use Ramsey\Uuid\Uuid;

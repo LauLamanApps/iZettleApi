@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\API;
+namespace LauLamanApps\IzettleApi\API;
 
 final class Image
 {

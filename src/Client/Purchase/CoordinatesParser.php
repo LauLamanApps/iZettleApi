@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Client\Purchase;
+namespace LauLamanApps\IzettleApi\Client\Purchase;
 
-use LauLamanApps\iZettleApi\API\Purchase\Coordinates;
+use LauLamanApps\IzettleApi\API\Purchase\Coordinates;
 
 final class CoordinatesParser
 {

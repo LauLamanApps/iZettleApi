@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\iZettleApi\Tests\Unit\Api;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Api;
 
-use LauLamanApps\iZettleApi\API\Image;
-use LauLamanApps\iZettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Image;
+use LauLamanApps\IzettleApi\API\ImageCollection;
 use PHPUnit\Framework\TestCase;
 
 final class ImageCollectionTest extends TestCase
