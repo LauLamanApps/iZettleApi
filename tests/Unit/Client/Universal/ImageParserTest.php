@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\IzettleApi\Tests\Unit\Client;
+namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Universal;
 
 use LauLamanApps\IzettleApi\API\Image;
 use LauLamanApps\IzettleApi\API\ImageCollection;
-use LauLamanApps\IzettleApi\Client\ImageParser;
+use LauLamanApps\IzettleApi\Client\Universal\ImageParser;
 use PHPUnit\Framework\TestCase;
 
 /**

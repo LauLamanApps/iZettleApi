@@ -7,7 +7,7 @@ namespace LauLamanApps\IzettleApi\Client\Product;
 use DateTime;
 use LauLamanApps\IzettleApi\API\Product\Discount;
 use LauLamanApps\IzettleApi\API\Product\DiscountCollection;
-use LauLamanApps\IzettleApi\Client\ImageParser;
+use LauLamanApps\IzettleApi\Client\Universal\ImageParser;
 use Money\Currency;
 use Money\Money;
 use Psr\Http\Message\ResponseInterface;

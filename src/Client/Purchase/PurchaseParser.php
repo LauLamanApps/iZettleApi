@@ -24,6 +24,13 @@ final class PurchaseParser
         return $data;
     }
 
+    public static function createFromResponse($response): Purchase
+    {
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        return self::parse($data);
+    }
+
     public static function parse(array $purchase): Purchase
     {
         $currency = new Currency($purchase['currency']);
