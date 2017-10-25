@@ -30,10 +30,8 @@ use Ramsey\Uuid\Uuid;
 /**
  * @small
  */
-final class ProductClientTest extends TestCase
+final class ProductClientTest extends AbstractClientMock
 {
-    use MockeryAssertionTrait;
-
     /**
      * @test
      */
@@ -45,7 +43,7 @@ final class ProductClientTest extends TestCase
 
         $izettleClientMock = $this->getIzettleGetMock($url, $data);
 
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $categoryBuilderMock->shouldReceive('buildFromJson')->with(json_encode($data))->once();
 
@@ -70,7 +68,7 @@ final class ProductClientTest extends TestCase
         $url = sprintf(ProductClient::POST_CATEGORY, (string) $organizationUuid);
 
         $izettleClientMock = $this->getIzettlePostMock($url, $category->getCreateData());
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $productClient = new ProductClient(
             $izettleClientMock,
@@ -94,7 +92,7 @@ final class ProductClientTest extends TestCase
         $url = sprintf(ProductClient::GET_DISCOUNTS, $organizationUuid);
 
         $izettleClientMock = $this->getIzettleGetMock($url, $data);
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
         $discountBuilderMock->shouldReceive('buildFromJson')->with(json_encode($data))->once();
 
         $productClient = new ProductClient(
@@ -119,7 +117,7 @@ final class ProductClientTest extends TestCase
         $url = sprintf(ProductClient::POST_DISCOUNT, (string) $organizationUuid);
 
         $izettleClientMock = $this->getIzettlePostMock($url, $discount->getCreateData());
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $productClient = new ProductClient(
             $izettleClientMock,
@@ -143,7 +141,7 @@ final class ProductClientTest extends TestCase
         $url = sprintf(ProductClient::DELETE_DISCOUNT, (string) $organizationUuid, (string) $discount->getUuid());
 
         $izettleClientMock = $this->getIzettleDeleteMock($url);
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $productClient = new ProductClient(
             $izettleClientMock,
@@ -167,7 +165,7 @@ final class ProductClientTest extends TestCase
         $url = sprintf(ProductClient::GET_LIBRARY, $organizationUuid);
 
         $izettleClientMock = $this->getIzettleGetMock($url, $data);
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
         $libraryBuilderMock->shouldReceive('buildFromJson')->with(json_encode($data))->once()
             ->andReturn(new Library(
                 Uuid::uuid1(),
@@ -200,7 +198,7 @@ final class ProductClientTest extends TestCase
         $url = sprintf(ProductClient::GET_PRODUCTS, $organizationUuid);
 
         $izettleClientMock = $this->getIzettleGetMock($url, $data);
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
         $productBuilderMock->shouldReceive('buildFromJson')->with(json_encode($data))->once();
 
         $productClient = new ProductClient(
@@ -225,7 +223,7 @@ final class ProductClientTest extends TestCase
         $url = sprintf(ProductClient::POST_PRODUCT, (string) $organizationUuid);
 
         $izettleClientMock = $this->getIzettlePostMock($url, $product->getCreateData());
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $productClient = new ProductClient(
             $izettleClientMock,
@@ -249,7 +247,7 @@ final class ProductClientTest extends TestCase
         $url = sprintf(ProductClient::DELETE_PRODUCT, (string) $organizationUuid, (string) $product->getUuid());
 
         $izettleClientMock = $this->getIzettleDeleteMock($url);
-        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getMocks();
+        list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $productClient = new ProductClient(
             $izettleClientMock,
@@ -289,46 +287,7 @@ final class ProductClientTest extends TestCase
         );
     }
 
-    private function getIzettleGetMock($url, $data): IzettleClientInterface
-    {
-        $responseMock = Mockery::mock(ResponseInterface::class);
-
-        $izettleClientMock = Mockery::mock(IzettleClientInterface::class);
-        $izettleClientMock
-            ->shouldReceive('get')
-            ->once()
-            ->with($url)
-            ->andReturn($responseMock);
-        $izettleClientMock->shouldReceive('getJson')->once()->andReturn(json_encode($data));
-
-        return $izettleClientMock;
-    }
-
-    private function getIzettlePostMock($url, $postData): IzettleClientInterface
-    {
-        $izettleClientMock = Mockery::mock(IzettleClientInterface::class);
-        $izettleClientMock
-            ->shouldReceive('post')
-            ->once()
-            ->with($url, $postData)
-            ->andReturnNull();
-
-        return $izettleClientMock;
-    }
-
-    private function getIzettleDeleteMock($url): IzettleClientInterface
-    {
-        $izettleClientMock = Mockery::mock(IzettleClientInterface::class);
-        $izettleClientMock
-            ->shouldReceive('delete')
-            ->once()
-            ->with($url)
-            ->andReturnNull();
-
-        return $izettleClientMock;
-    }
-
-    private function getMocks(): array
+    protected function getDependencyMocks(): array
     {
         return [
             Mockery::mock(CategoryBuilderInterface::class),

@@ -1,0 +1,9 @@
+{
+  "data": {
+    "currencyId": "EUR",
+    "totalBalance": 10000,
+    "nextPayoutAmount": 2000,
+    "discountRemaining": 300,
+    "periodicity": "DAILY"
+  }
+}

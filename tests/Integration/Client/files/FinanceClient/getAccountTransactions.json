@@ -1,0 +1,52 @@
+{
+  "data": [
+    {
+      "timestamp": "2017-11-03T22:59:17.162+0000",
+      "amount": -4,
+      "originatorTransactionType": "CARD_PAYMENT_FEE",
+      "originatingTransactionUuid": "713e7b0e-c4d7-11e7-abc4-cec278b6b50a"
+    },
+    {
+      "timestamp": "2017-11-03T22:59:17.162+0000",
+      "amount": 150,
+      "originatorTransactionType": "CARD_PAYMENT",
+      "originatingTransactionUuid": "713e7b0e-c4d7-11e7-abc4-cec278b6b50a"
+    },
+    {
+      "timestamp": "2017-11-03T22:52:13.319+0000",
+      "amount": -4,
+      "originatorTransactionType": "CARD_PAYMENT_FEE",
+      "originatingTransactionUuid": "713e82a2-c4d7-11e7-abc4-cec278b6b50a"
+    },
+    {
+      "timestamp": "2017-11-03T22:52:13.319+0000",
+      "amount": 150,
+      "originatorTransactionType": "CARD_PAYMENT",
+      "originatingTransactionUuid": "713e82a2-c4d7-11e7-abc4-cec278b6b50a"
+    },
+    {
+      "timestamp": "2017-11-03T22:51:32.444+0000",
+      "amount": -10,
+      "originatorTransactionType": "CARD_PAYMENT_FEE",
+      "originatingTransactionUuid": "713e83ce-c4d7-11e7-abc4-cec278b6b50a"
+    },
+    {
+      "timestamp": "2017-11-03T22:51:32.444+0000",
+      "amount": 350,
+      "originatorTransactionType": "CARD_PAYMENT",
+      "originatingTransactionUuid": "713e83ce-c4d7-11e7-abc4-cec278b6b50a"
+    },
+    {
+      "timestamp": "2017-11-03T22:50:08.876+0000",
+      "amount": -41,
+      "originatorTransactionType": "CARD_PAYMENT_FEE",
+      "originatingTransactionUuid": "713e84b4-c4d7-11e7-abc4-cec278b6b50a"
+    },
+    {
+      "timestamp": "2017-11-03T22:50:08.876+0000",
+      "amount": 1500,
+      "originatorTransactionType": "CARD_PAYMENT",
+      "originatingTransactionUuid": "713e84b4-c4d7-11e7-abc4-cec278b6b50a"
+    }
+  ]
+}

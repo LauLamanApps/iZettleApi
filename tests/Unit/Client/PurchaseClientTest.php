@@ -22,21 +22,18 @@ use Ramsey\Uuid\Uuid;
 /**
  * @small
  */
-final class PurchaseClientTest extends TestCase
+final class PurchaseClientTest extends AbstractClientMock
 {
-    use MockeryAssertionTrait;
-
     /**
      * @test
      */
     public function getPurchaseHistory()
     {
         $data = ['getPurchaseHistoryTest'];
-        $izettleClientMock = $this->getIzettleMock(PurchaseClient::GET_PURCHASES, $data);
+        $izettleClientMock = $this->getIzettleGetMock(PurchaseClient::GET_PURCHASES, $data);
 
-        $purchaseHistoryBuilder = Mockery::mock(PurchaseHistoryBuilderInterface::class);
+        list($purchaseHistoryBuilder, $purchaseBuilder) = $this->getDependencyMocks();
         $purchaseHistoryBuilder->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn($this->getPurchaseHistoryObject());
-        $purchaseBuilder = Mockery::mock(PurchaseBuilderInterface::class);
 
         $purchaseClient = new PurchaseClient($izettleClientMock, $purchaseHistoryBuilder, $purchaseBuilder);
         $purchaseClient->getPurchaseHistory();
@@ -50,29 +47,13 @@ final class PurchaseClientTest extends TestCase
         $purchaseUuid = Uuid::uuid1();
         $data = ['getPurchaseTest'];
         $url = sprintf(PurchaseClient::GET_PURCHASE, (string) $purchaseUuid);
-        $izettleClientMock = $this->getIzettleMock($url, $data);
+        $izettleClientMock = $this->getIzettleGetMock($url, $data);
 
-        $purchaseHistoryBuilder = Mockery::mock(PurchaseHistoryBuilderInterface::class);
-        $purchaseBuilder = Mockery::mock(PurchaseBuilderInterface::class);
+        list($purchaseHistoryBuilder, $purchaseBuilder) = $this->getDependencyMocks();
         $purchaseBuilder->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn($this->getPurchaseObject());
 
         $purchaseClient = new PurchaseClient($izettleClientMock, $purchaseHistoryBuilder, $purchaseBuilder);
         $purchaseClient->getPurchase($purchaseUuid);
-    }
-
-    private function getIzettleMock($url, $data): IzettleClientInterface
-    {
-        $responseMock = Mockery::mock(ResponseInterface::class);
-
-        $izettleClientMock = Mockery::mock(IzettleClientInterface::class);
-        $izettleClientMock
-            ->shouldReceive('get')
-            ->once()
-            ->with($url)
-            ->andReturn($responseMock);
-        $izettleClientMock->shouldReceive('getJson')->once()->andReturn(json_encode($data));
-
-        return $izettleClientMock;
     }
 
     private function getPurchaseHistoryObject(): PurchaseHistory
@@ -101,5 +82,13 @@ final class PurchaseClientTest extends TestCase
             false,
             false
         );
+    }
+
+    protected function getDependencyMocks(): array
+    {
+        return [
+            Mockery::mock(PurchaseHistoryBuilderInterface::class),
+            Mockery::mock(PurchaseBuilderInterface::class)
+        ];
     }
 }

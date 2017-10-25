@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi;
 
+use LauLamanApps\IzettleApi\Client\Finance\AccountTransactionBuilder;
+use LauLamanApps\IzettleApi\Client\Finance\PayoutInfoBuilder;
+use LauLamanApps\IzettleApi\Client\FinanceClient;
 use LauLamanApps\IzettleApi\Client\Product\CategoryBuilder;
 use LauLamanApps\IzettleApi\Client\Product\DiscountBuilder;
 use LauLamanApps\IzettleApi\Client\Product\LibraryBuilder;
@@ -54,6 +57,16 @@ final class IzettleClientFactory
             $client,
             $purchaseHistoryBuilder,
             $purchaseBuilder
+        );
+    }
+
+    public static function getFinanceClient(IzettleClientInterface $client, ?UuidInterface $organizationUuid = null): FinanceClient
+    {
+        return new FinanceClient(
+            $client,
+            $organizationUuid,
+            new AccountTransactionBuilder(),
+            new PayoutInfoBuilder()
         );
     }
 }

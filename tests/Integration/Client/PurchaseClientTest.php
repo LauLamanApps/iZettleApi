@@ -5,31 +5,20 @@ declare(strict_types=1);
 namespace LauLamanApps\IzettleApi\Tests\Integration\Client;
 
 use DateTime;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\CardPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\CashPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Product;
 use LauLamanApps\IzettleApi\API\Purchase\Purchase;
 use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
-use LauLamanApps\IzettleApi\Client\AccessToken;
-use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use LauLamanApps\IzettleApi\IzettleClientFactory;
-use LauLamanApps\IzettleApi\IzettleClientInterface;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 /**
  * @medium
  */
-final class PurchaseClientTest extends TestCase
+final class PurchaseClientTest extends AbstractClientTest
 {
-    const CLIENT_ID = 'clientId';
-    const CLIENT_SECRET = 'clientSecret';
-
     /**
      * @test
      */
@@ -144,21 +133,5 @@ final class PurchaseClientTest extends TestCase
 
         self::assertSame($data["refund"], $purchase->isRefund());
         self::assertSame($data["refunded"], $purchase->isRefunded());
-    }
-
-    private function getGuzzleIzettleClient(int $status, string $body): IzettleClientInterface
-    {
-        $mock = new MockHandler([new Response($status, [], $body)]);
-        $handler = HandlerStack::create($mock);
-
-        $izettleClient = new GuzzleIzettleClient(new GuzzleClient(['handler' => $handler]), self::CLIENT_ID, self::CLIENT_SECRET);
-        $izettleClient->setAccessToken($this->getAccessToken());
-
-        return $izettleClient;
-    }
-
-    private function getAccessToken() : AccessToken
-    {
-        return new AccessToken('', new DateTime('+ 1 day'), '');
     }
 }
