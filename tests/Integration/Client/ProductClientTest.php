@@ -5,26 +5,16 @@ declare(strict_types=1);
 namespace LauLamanApps\IzettleApi\Tests\Integration\Client;
 
 use DateTime;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use LauLamanApps\IzettleApi\API\ImageCollection;
 use LauLamanApps\IzettleApi\API\Product\Category;
 use LauLamanApps\IzettleApi\API\Product\Discount;
-use LauLamanApps\IzettleApi\Client\AccessToken;
-use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use LauLamanApps\IzettleApi\IzettleClientFactory;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @medium
  */
-final class ProductClientTest extends TestCase
+final class ProductClientTest extends AbstractClientTest
 {
-    const CLIENT_ID = 'clientId';
-    const CLIENT_SECRET = 'clientSecret';
-
     /**
      * @test
      */
@@ -126,21 +116,5 @@ final class ProductClientTest extends TestCase
 //            self::assertSame($data[$index]['unitName'], $product->getUnitName());
             self::assertSame((float) $data[$index]['vatPercentage'], $product->getVatPercentage());
         }
-    }
-
-    private function getGuzzleIzettleClient(int $status, string $body): GuzzleIzettleClient
-    {
-        $mock = new MockHandler([new Response($status, [], $body)]);
-        $handler = HandlerStack::create($mock);
-
-        $izettleClient = new GuzzleIzettleClient(new GuzzleClient(['handler' => $handler]), self::CLIENT_ID, self::CLIENT_SECRET);
-        $izettleClient->setAccessToken($this->getAccessToken());
-
-        return $izettleClient;
-    }
-
-    private function getAccessToken() : AccessToken
-    {
-        return new AccessToken('', new DateTime('+ 1 day'), '');
     }
 }

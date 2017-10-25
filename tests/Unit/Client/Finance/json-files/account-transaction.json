@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "originatingTransactionUuid": "d752ae66-c4cc-11e7-abc4-cec278b6b50a",
+      "originatorTransactionType": "CARD_PAYMENT",
+      "timestamp": "2017-11-08 21:36:32",
+      "amount": 100
+    },
+    {
+      "originatingTransactionUuid": "14fe65a2-c4cd-11e7-abc4-cec278b6b50a",
+      "originatorTransactionType": "CARD_REFUND",
+      "timestamp": "2019-05-04 13:36:32",
+      "amount": 200
+    }
+  ]
+}
