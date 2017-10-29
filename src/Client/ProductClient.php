@@ -71,6 +71,9 @@ final class ProductClient
         $this->productBuilder = $productBuilder;
     }
 
+    /**
+     * @return Category[]
+     */
     public function getCategories(): array
     {
         $url = sprintf(self::GET_CATEGORIES, $this->organizationUuid);
@@ -85,6 +88,9 @@ final class ProductClient
         $this->client->post($url, $category->getCreateData());
     }
 
+    /**
+     * @return Discount[]
+     */
     public function getDiscounts(): array
     {
         $url = sprintf(self::GET_DISCOUNTS, $this->organizationUuid);
@@ -115,6 +121,9 @@ final class ProductClient
         return $this->libraryBuilder->buildFromJson($json);
     }
 
+    /**
+     * @return Product[]
+     */
     public function getProducts(): array
     {
         $url = sprintf(self::GET_PRODUCTS, $this->organizationUuid);

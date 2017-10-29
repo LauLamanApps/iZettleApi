@@ -21,6 +21,94 @@ final class GuzzleIzettleClientTest extends TestCase
     use MockeryAssertionTrait;
 
     const ACCESS_TOKEN = 'access-token';
+    const CLIENT_ID = 'clientId';
+    const CLIENT_SECRET = 'clientSecret';
+
+    /**
+     * @test
+     */
+    public function getAccessTokenFromUserLogin(): void
+    {
+        $accessToken = 'accessToken';
+        $refreshToken = 'refreshToken';
+        $expiresIn = 7200;
+        $username ='username';
+        $password ='password';
+        $options = [
+            'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
+            'form_params' => [
+                'grant_type' => GuzzleIzettleClient::API_ACCESS_TOKEN_PASSWORD_GRANT,
+                'client_id' => self::CLIENT_ID,
+                'client_secret' => self::CLIENT_SECRET,
+                'username' => $username,
+                'password' => $password
+            ],
+        ];
+
+        $guzzleClientMock = Mockery::mock(GuzzleClient::class);
+        $guzzleClientMock->shouldReceive('post')->withArgs([GuzzleIzettleClient::API_ACCESS_TOKEN_REQUEST_URL, $options])->once()->andReturnSelf();
+        $guzzleClientMock->shouldReceive('getBody')->once()->andReturnSelf();
+        $guzzleClientMock->shouldReceive('getContents')->once()->andReturn(json_encode(
+            [
+                'access_token' => $accessToken,
+                'expires_in' => $expiresIn,
+                'refresh_token' => $refreshToken
+            ]
+        ));
+
+
+        $accessTokenFactory =  new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
+        $accessTokenObject =  $accessTokenFactory->getAccessTokenFromUserLogin($username, $password);
+
+        self::assertSame($accessToken, $accessTokenObject->getToken());
+        self::assertSame($refreshToken, $accessTokenObject->getRefreshToken());
+        self::assertEquals(
+            (new DateTime($expiresIn . ' second'))->format('Y-m-d H:i:s'),
+            $accessTokenObject->getExpires()->format('Y-m-d H:i:s')
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function refreshAccessToken(): void
+    {
+        $oldAccessToken = new AccessToken('accessToken', new DateTime(), 'refreshToken');
+        $newAccessToken = 'accessToken2';
+        $newRefreshToken = 'refreshToken2';
+        $newExpiresIn = 7200;
+
+        $options = [
+            'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
+            'form_params' => [
+                'grant_type' => GuzzleIzettleClient::API_ACCESS_TOKEN_REFRESH_TOKEN_GRANT,
+                'client_id' => self::CLIENT_ID,
+                'client_secret' => self::CLIENT_SECRET,
+                'refresh_token' => $oldAccessToken->getRefreshToken(),
+            ],
+        ];
+
+        $guzzleClientMock = Mockery::mock(GuzzleClient::class);
+        $guzzleClientMock->shouldReceive('post')->withArgs([GuzzleIzettleClient::API_ACCESS_TOKEN_REFRESH_TOKEN_URL, $options])->once()->andReturnSelf();
+        $guzzleClientMock->shouldReceive('getBody')->once()->andReturnSelf();
+        $guzzleClientMock->shouldReceive('getContents')->once()->andReturn(json_encode(
+            [
+                'access_token' => $newAccessToken,
+                'expires_in' => $newExpiresIn,
+                'refresh_token' => $newRefreshToken
+            ]
+        ));
+
+        $accessTokenFactory =  new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
+        $accessTokenObject =  $accessTokenFactory->refreshAccessToken($oldAccessToken);
+
+        self::assertSame($newAccessToken, $accessTokenObject->getToken());
+        self::assertSame($newRefreshToken, $accessTokenObject->getRefreshToken());
+        self::assertEquals(
+            (new DateTime($newExpiresIn . ' second'))->format('Y-m-d H:i:s'),
+            $accessTokenObject->getExpires()->format('Y-m-d H:i:s')
+        );
+    }
 
     /**
      * @test
@@ -38,7 +126,8 @@ final class GuzzleIzettleClientTest extends TestCase
         $guzzleClientMock = Mockery::mock(GuzzleClientInterface::class);
         $guzzleClientMock->shouldReceive('get')->with($url, $options)->once()->andReturn(Mockery::mock(ResponseInterface::class));
 
-        $izettleClient = new GuzzleIzettleClient($guzzleClientMock, $this->getAccessToken());
+        $izettleClient = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
+        $izettleClient->setAccessToken($this->getAccessToken());
         $izettleClient->get($url, $queryParameters);
     }
 
@@ -69,7 +158,8 @@ final class GuzzleIzettleClientTest extends TestCase
         $guzzleClientMock = Mockery::mock(GuzzleClientInterface::class);
         $guzzleClientMock->shouldReceive('post')->with($url, $options)->once();
 
-        $izettleClient = new GuzzleIzettleClient($guzzleClientMock, $this->getAccessToken());
+        $izettleClient = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
+        $izettleClient->setAccessToken($this->getAccessToken());
         $izettleClient->post($url, $data);
     }
 
@@ -99,7 +189,8 @@ final class GuzzleIzettleClientTest extends TestCase
         $guzzleClientMock = Mockery::mock(GuzzleClientInterface::class);
         $guzzleClientMock->shouldReceive('put')->with($url, $options)->once();
 
-        $izettleClient = new GuzzleIzettleClient($guzzleClientMock, $this->getAccessToken());
+        $izettleClient = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
+        $izettleClient->setAccessToken($this->getAccessToken());
         $izettleClient->put($url, $data);
     }
 
@@ -126,7 +217,8 @@ final class GuzzleIzettleClientTest extends TestCase
         $guzzleClientMock = Mockery::mock(GuzzleClientInterface::class);
         $guzzleClientMock->shouldReceive('delete')->with($url, $options)->once();
 
-        $izettleClient = new GuzzleIzettleClient($guzzleClientMock, $this->getAccessToken());
+        $izettleClient = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
+        $izettleClient->setAccessToken($this->getAccessToken());
         $izettleClient->delete($url);
     }
 
@@ -147,7 +239,8 @@ final class GuzzleIzettleClientTest extends TestCase
         $responseMock->shouldReceive('getBody')->once()->andReturnSelf();
         $responseMock->shouldReceive('getContents')->once()->andReturn($data);
 
-        $izettleClient = new GuzzleIzettleClient(new GuzzleClient(), $this->getAccessToken());
+        $izettleClient = new GuzzleIzettleClient(new GuzzleClient(), self::CLIENT_ID, self::CLIENT_SECRET);
+        $izettleClient->setAccessToken($this->getAccessToken());
         $returnedData = $izettleClient->getJson($responseMock);
 
         self::assertSame($data, $returnedData);
@@ -161,7 +254,8 @@ final class GuzzleIzettleClientTest extends TestCase
     {
         $invalidAccessToken =  new AccessToken('', new DateTime('-1 day'), '');
 
-        new GuzzleIzettleClient(new GuzzleClient(), $invalidAccessToken);
+        $izettleClient = new GuzzleIzettleClient(new GuzzleClient(), self::CLIENT_ID, self::CLIENT_SECRET);
+        $izettleClient->setAccessToken($invalidAccessToken);
     }
 
     protected function getAccessToken() : AccessToken

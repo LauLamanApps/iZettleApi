@@ -20,7 +20,7 @@ use LauLamanApps\IzettleApi\Client\PurchaseClient;
 use LauLamanApps\IzettleApi\Client\Universal\ImageBuilder;
 use Ramsey\Uuid\UuidInterface;
 
-final class ClientFactory
+final class IzettleClientFactory
 {
     public static function getProductClient(IzettleClientInterface $client, ?UuidInterface $organizationUuid = null): ProductClient
     {
