@@ -1,0 +1,35 @@
+[
+  {
+    "uuid":"cf8416ca-bb5d-11e7-abc4-cec278b6b50a",
+    "name":"discount1",
+    "description":"descriptionq",
+    "imageLookupKeys":[
+      "image1.jpeg"
+    ],
+    "amount":{
+      "amount":100,
+      "currencyId":"EUR"
+    },
+    "percentage":null,
+    "externalReference":"externalReference",
+    "etag":"93D4F5F748933923890C91056A6F0230",
+    "updated":"2017-12-06T13:21:59.722+0000",
+    "updatedBy":"cf8417c4-bb5d-11e7-abc4-cec278b6b50a",
+    "created":"2017-12-21T13:12:49.272+0000"
+  },
+  {
+    "uuid":"cf841896-bb5d-11e7-abc4-cec278b6b50a",
+    "name":"discount2",
+    "description":"description2",
+    "imageLookupKeys":[
+      "image2.jpeg"
+    ],
+    "amount":null,
+    "percentage":"10",
+    "externalReference":"externalReference2",
+    "etag":"35D7775289BC0A05E580BE3B466C927B",
+    "updated":"2017-12-06T13:21:59.722+0000",
+    "updatedBy":"5f2b4a0a-bb5e-11e7-abc4-cec278b6b50a",
+    "created":"2017-12-21T13:12:49.272+0000"
+  }
+]

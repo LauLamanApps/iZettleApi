@@ -6,8 +6,8 @@ namespace LauLamanApps\IzettleApi\Tests\Unit\Client;
 
 use DateTime;
 use GuzzleHttp\Client as GuzzleClient;
+use LauLamanApps\IzettleApi\AccessTokenFactory;
 use LauLamanApps\IzettleApi\Client\AccessToken;
-use LauLamanApps\IzettleApi\Client\AccessTokenFactory;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 

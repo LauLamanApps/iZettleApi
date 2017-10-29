@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace LauLamanApps\IzettleApi\Client\Universal;
+
+use LauLamanApps\IzettleApi\API\Image;
+use LauLamanApps\IzettleApi\API\ImageCollection;
+
+final class ImageBuilder implements ImageBuilderInterface
+{
+    public function buildFromArray(array $images)
+    {
+        $collection = new ImageCollection();
+
+        foreach ($images as $image) {
+            $collection->add($this->build($image));
+        }
+
+        return $collection;
+    }
+
+    private function build($data): Image
+    {
+        return new Image($data);
+    }
+}

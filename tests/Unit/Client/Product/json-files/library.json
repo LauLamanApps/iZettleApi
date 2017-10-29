@@ -1,0 +1,16 @@
+{
+  "untilEventLogUuid":"06225cfe-bb69-11e7-abc4-cec278b6b50a",
+  "fromEventLogUuid":"06225dee-bb69-11e7-abc4-cec278b6b50a",
+  "products":[
+    "productsArray"
+  ],
+  "discounts":[
+    "discountsArray"
+  ],
+  "deletedProducts":[
+    "deletedProductsArray"
+  ],
+  "deletedDiscounts":[
+    "deletedDiscountsArray"
+  ]
+}
