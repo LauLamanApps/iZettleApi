@@ -1,0 +1,206 @@
+{
+  "untilEventLogUuid": "0eb74990-bd91-11e7-9902-0b02433a976c",
+  "fromEventLogUuid": "0eb74990-bd91-11e7-9902-0b02433a976c",
+  "products": [
+    {
+      "uuid": "465fc4ec-bd93-11e7-abc4-cec278b6b50a",
+      "categories": [],
+      "name": "Soda",
+      "description": null,
+      "imageLookupKeys": [],
+      "variants": [
+        {
+          "uuid": "465fc820-bd93-11e7-abc4-cec278b6b50a",
+          "name": "DR Pepper",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 100,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "6.0"
+        },
+        {
+          "uuid": "465fc942-bd93-11e7-abc4-cec278b6b50a",
+          "name": "Cola",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 100,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "6.0"
+        },
+        {
+          "uuid": "465fca5a-bd93-11e7-abc4-cec278b6b50a",
+          "name": "Fanta",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 100,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "6.0"
+        },
+        {
+          "uuid": "465fcb4a-bd93-11e7-abc4-cec278b6b50a",
+          "name": "Sprite",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 100,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "6.0"
+        }
+      ],
+      "externalReference": null,
+      "etag": "AB8856456AA0A5D91513ED668709059B",
+      "updated": "2017-10-30T16:40:28.579+0000",
+      "updatedBy": "465fcff0-bd93-11e7-abc4-cec278b6b50a",
+      "created": "2017-10-30T15:26:06.374+0000",
+      "unitName": null,
+      "vatPercentage": "6.0"
+    },
+    {
+      "uuid": "465fd0e0-bd93-11e7-abc4-cec278b6b50a",
+      "categories": [],
+      "name": "Espresso",
+      "description": null,
+      "imageLookupKeys": [],
+      "variants": [
+        {
+          "uuid": "465fd1b2-bd93-11e7-abc4-cec278b6b50a",
+          "name": "Espresso",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 150,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "6.0"
+        }
+      ],
+      "externalReference": null,
+      "etag": "F02F5A0271E9BBA95DF3BD8AED8A9362",
+      "updated": "2017-10-30T15:19:06.327+0000",
+      "updatedBy": "465fd270-bd93-11e7-abc4-cec278b6b50a",
+      "created": "2017-10-30T15:19:06.327+0000",
+      "unitName": null,
+      "vatPercentage": "6.0"
+    },
+    {
+      "uuid": "465fd32e-bd93-11e7-abc4-cec278b6b50a",
+      "categories": [],
+      "name": "Cappuccino",
+      "description": null,
+      "imageLookupKeys": [],
+      "variants": [
+        {
+          "uuid": "465fd3f6-bd93-11e7-abc4-cec278b6b50a",
+          "name": "Normal",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 200,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "6.0"
+        },
+        {
+          "uuid": "465fd4be-bd93-11e7-abc4-cec278b6b50a",
+          "name": "Caramel",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 250,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "6.0"
+        },
+        {
+          "uuid": "465fde14-bd93-11e7-abc4-cec278b6b50a",
+          "name": "Wip Cream",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 250,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "6.0"
+        }
+      ],
+      "externalReference": null,
+      "etag": "9B0DC5ADD8F995B8A0B7366BD4598C7A",
+      "updated": "2017-10-30T15:20:13.684+0000",
+      "updatedBy": "465fdefa-bd93-11e7-abc4-cec278b6b50a",
+      "created": "2017-10-30T15:20:13.684+0000",
+      "unitName": null,
+      "vatPercentage": "6.0"
+    }
+  ],
+  "discounts": [
+    {
+      "uuid": "e87c5582-bd3f-11e7-abc4-cec278b6b50a",
+      "name": "Stamps discount",
+      "description": "full card of stamps discount",
+      "imageLookupKeys": [
+        "stamps-discount.jpeg"
+      ],
+      "amount": null,
+      "percentage": "10",
+      "externalReference": "none",
+      "etag": "283F26E6BEF43C4C4AF86624B808179C",
+      "updated": "2017-10-19T19:24:32.832+0000",
+      "updatedBy": "e87c57ee-bd3f-11e7-abc4-cec278b6b50a",
+      "created": "2017-10-19T19:24:32.832+0000"
+    },
+    {
+      "uuid": "e87c58e8-bd3f-11e7-abc4-cec278b6b50a",
+      "name": "Employee discount",
+      "description": "",
+      "imageLookupKeys": [],
+      "amount": null,
+      "percentage": "5",
+      "externalReference": "none",
+      "etag": "7DC64B62F268EDB04E1FC1F7B3DB8414",
+      "updated": "2017-10-19T19:16:40.773+0000",
+      "updatedBy": "e87c5cbc-bd3f-11e7-abc4-cec278b6b50a",
+      "created": "2017-10-19T19:16:40.773+0000"
+    }
+  ],
+  "deletedProducts": [],
+  "deletedDiscounts": []
+}

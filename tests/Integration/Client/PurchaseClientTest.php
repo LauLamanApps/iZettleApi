@@ -1,0 +1,164 @@
+<?php
+
+declare(strict_types=1);
+
+namespace LauLamanApps\IzettleApi\Tests\Integration\Client;
+
+use DateTime;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
+use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\CardPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\CashPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Product;
+use LauLamanApps\IzettleApi\API\Purchase\Purchase;
+use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
+use LauLamanApps\IzettleApi\Client\AccessToken;
+use LauLamanApps\IzettleApi\GuzzleIzettleClient;
+use LauLamanApps\IzettleApi\IzettleClientFactory;
+use LauLamanApps\IzettleApi\IzettleClientInterface;
+use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
+
+/**
+ * @medium
+ */
+final class PurchaseClientTest extends TestCase
+{
+    const CLIENT_ID = 'clientId';
+    const CLIENT_SECRET = 'clientSecret';
+
+    /**
+     * @test
+     */
+    public function getPurchaseHistory(): void
+    {
+        $json = file_get_contents(dirname(__FILE__) . '/files/PurchaseClient/getPurchaseHistory.json');
+        $data = json_decode($json, true);
+        $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
+        $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
+
+        $purchaseHistory = $purchaseClient->getPurchaseHistory();
+
+        self::assertInstanceOf(PurchaseHistory::class, $purchaseHistory);
+
+        $index = 0;
+        foreach ($purchaseHistory->getPurchases() as $purchase) {
+            $this->assertPurchase($purchase, $data['purchases'][$index]);
+            $index++;
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function getPurchase(): void
+    {
+        $json = file_get_contents(dirname(__FILE__) . '/files/PurchaseClient/getPurchase.json');
+        $data = json_decode($json, true);
+        $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
+        $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
+
+        $purchase = $purchaseClient->getPurchase(Uuid::uuid1());
+
+        $this->assertPurchase($purchase, $data);
+    }
+
+    /**
+     * @test
+     * @expectedException \LauLamanApps\IzettleApi\Client\Exceptions\PurchaseNotFoundException
+     */
+    public function getPurchase_404ShouldThrowException(): void
+    {
+        $iZettleClient = $this->getGuzzleIzettleClient(404, '');
+        $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
+
+        $purchaseHistory = $purchaseClient->getPurchase(Uuid::uuid1());
+
+        self::assertInstanceOf(Purchase::class, $purchaseHistory);
+    }
+
+    private function assertPurchase($purchase, $data): void
+    {
+        self::assertInstanceOf(Purchase::class, $purchase);
+        self::assertSame($data['purchaseUUID'], $purchase->getUuid());
+        self::assertSame($data['purchaseUUID1'], (string) $purchase->getUuid1());
+        self::assertSame($data["amount"], (int) $purchase->getAmount()->getAmount());
+        self::assertSame($data["vatAmount"], (int) $purchase->getVatAmount()->getAmount());
+        self::assertSame($data["country"], $purchase->getCountry());
+        self::assertSame($data["currency"], $purchase->getAmount()->getCurrency()->getCode());
+        self::assertEquals(new DateTime($data["timestamp"]), $purchase->getTimestamp());
+        self::assertSame($data["gpsCoordinates"]['latitude'], $purchase->getCoordinates()->getLatitude());
+        self::assertSame($data["gpsCoordinates"]['longitude'], $purchase->getCoordinates()->getLongitude());
+        self::assertSame((float) $data["gpsCoordinates"]['accuracyMeters'], $purchase->getCoordinates()->getAccuracyMeters());
+        self::assertSame($data["purchaseNumber"], $purchase->getPurchaseNumber());
+        self::assertSame($data["userDisplayName"], $purchase->getUser()->getDisplayName());
+        self::assertSame($data["userId"], $purchase->getUser()->getId());
+        self::assertSame($data["organizationId"], $purchase->getOrganizationId());
+
+        foreach ($purchase->getProducts() as $index => $product) {
+            self::assertInstanceOf(Product::class, $product);
+            self::assertSame($data["products"][$index]['quantity'], (string)$product->getQuantity());
+            self::assertSame((float) $data["products"][$index]['vatPercentage'], $product->getVatPercentage());
+            self::assertSame($data["products"][$index]['unitPrice'], (int) $product->getUnitPrice()->getAmount());
+            self::assertSame($data["products"][$index]['rowTaxableAmount'], (int) $product->getRowTaxableAmount()->getAmount());
+            self::assertSame($data["products"][$index]['name'], $product->getName());
+            self::assertSame($data["products"][$index]['variantName'], $product->getVariantName());
+            self::assertSame($data["products"][$index]['autoGenerated'], $product->isAutoGenerated());
+            self::assertSame($data["products"][$index]['libraryProduct'], $product->isLibraryProduct());
+        }
+
+        foreach ($purchase->getPayments() as $index => $payment) {
+            self::assertInstanceOf(AbstractPayment::class, $payment);
+            self::assertSame($data["payments"][$index]['uuid'], (string) $payment->getUuid());
+            self::assertSame($data["payments"][$index]['amount'], (int) $payment->getAmount()->getAmount());
+            if ($payment instanceof CashPayment) {
+                self::assertSame($data['payments'][$index]['attributes']['handedAmount'], (int) $payment->getHandedAmount()->getAmount());
+            }
+            if ($payment instanceof CardPayment) {
+                self::assertSame($data['payments'][$index]['attributes']['cardPaymentEntryMode'], $payment->getCardPaymentEntryMode());
+                self::assertSame($data['payments'][$index]['attributes']['maskedPan'], $payment->getMaskedPan());
+                self::assertSame($data['payments'][$index]['attributes']['referenceNumber'], $payment->getReferenceNumber());
+                self::assertSame($data['payments'][$index]['attributes']['nrOfInstallments'], $payment->getNrOfInstallments());
+                self::assertSame($data['payments'][$index]['attributes']['cardType'], $payment->getCardType());
+                self::assertSame($data['payments'][$index]['attributes']['terminalVerificationResults'], $payment->getTerminalVerificationResults());
+                if (array_key_exists('applicationIdentifier', $data['payments'][$index]['attributes'])) {
+                    self::assertSame($data['payments'][$index]['attributes']['applicationIdentifier'], $payment->getApplicationIdentifier());
+                }
+                if (array_key_exists('applicationName', $data['payments'][$index]['attributes'])) {
+                    self::assertSame($data['payments'][$index]['attributes']['applicationName'], $payment->getApplicationName());
+                }
+            }
+        }
+
+        self::assertSame($data["receiptCopyAllowed"], $purchase->isReceiptCopyAllowed());
+        self::assertSame($data["published"], $purchase->getPublished());
+
+        foreach ($purchase->getPayments() as $index => $payment) {
+            self::assertInstanceOf(AbstractPayment::class, $payment);
+            self::assertSame($data["payments"][$index]['uuid'], (string) $payment->getUuid());
+            self::assertSame($data["payments"][$index]['amount'], (int) $payment->getAmount()->getAmount());
+        }
+
+        self::assertSame($data["refund"], $purchase->isRefund());
+        self::assertSame($data["refunded"], $purchase->isRefunded());
+    }
+
+    private function getGuzzleIzettleClient(int $status, string $body): IzettleClientInterface
+    {
+        $mock = new MockHandler([new Response($status, [], $body)]);
+        $handler = HandlerStack::create($mock);
+
+        $izettleClient = new GuzzleIzettleClient(new GuzzleClient(['handler' => $handler]), self::CLIENT_ID, self::CLIENT_SECRET);
+        $izettleClient->setAccessToken($this->getAccessToken());
+
+        return $izettleClient;
+    }
+
+    private function getAccessToken() : AccessToken
+    {
+        return new AccessToken('', new DateTime('+ 1 day'), '');
+    }
+}

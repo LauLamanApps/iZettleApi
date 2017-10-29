@@ -29,24 +29,35 @@ Get yourself an access token. you'll need an `clientId` and `clientSecret` for t
 for performance benefits, it might be wise to store the access token in a cache like [Redis](https://redis.io/).
 ```php
 use GuzzleHttp\Client;
+use LauLamanApps\IzettleApi\GuzzleIzettleClient;
+use LauLamanApps\IzettleApi\IzettleClientFactory;
 
-$accessTokenFactory = new AccesTokenFactory(new Client(), 'clientId', 'clientSecret');
+$izettleClient = new GuzzleIzettleClient(new Client(), 'clientId', 'clientSecret');
+$accessToken = $izettleClient->getAccessTokenFromUserLogin('john.doe@example.com', 'password');
 
-$accessToken = $accessTokenFactory->getFromUserLogin('john.doe@example.com', 'password');
+//-- store $accessToken in cache
 
+$purchaseClient = IzettleClientFactory::getProductClient($iZettleClient)
+$libary = $purchaseClient->getLibrary();
 ```
 
-### Make your first API call
+### Make call with existing AccessToken
 
 ```php
 
 use GuzzleHttp\Client;
 
-$purchaseClient = new PurchaseClient(new Client(), $accessToken);
-$purchaseHistory = $purchaseClient->getPurchaseHistory();
+use GuzzleHttp\Client;
+use LauLamanApps\IzettleApi\GuzzleIzettleClient;
+use LauLamanApps\IzettleApi\IzettleClientFactory;
 
-$productClient = new ProductClient(new Client(), $accessToken);
-$categories = $productClient->getCategories();
+$accessToken = ...; //-- Get from cache
+
+$izettleClient = new GuzzleIzettleClient(new Client(), 'clientId', 'clientId');
+$izettleClient->setAccessToken($accessToken);
+
+$purchaseClient = IzettleClientFactory::getProductClient($iZettleClient)
+$libary = $purchaseClient->getLibrary()
 ```
 
 

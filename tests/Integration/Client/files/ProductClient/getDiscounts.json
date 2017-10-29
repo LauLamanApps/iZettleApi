@@ -1,0 +1,30 @@
+[
+  {
+    "uuid": "e87c5582-bd3f-11e7-abc4-cec278b6b50a",
+    "name": "Stamps discount",
+    "description": "full card of stamps discount",
+    "imageLookupKeys": [
+      "stamps-discount.jpeg"
+    ],
+    "amount": null,
+    "percentage": "10",
+    "externalReference": "none",
+    "etag": "283F26E6BEF43C4C4AF86624B808179C",
+    "updated": "2017-10-19T19:24:32.832+0000",
+    "updatedBy": "e87c57ee-bd3f-11e7-abc4-cec278b6b50a",
+    "created": "2017-10-19T19:24:32.832+0000"
+  },
+  {
+    "uuid": "e87c58e8-bd3f-11e7-abc4-cec278b6b50a",
+    "name": "Employee discount",
+    "description": "",
+    "imageLookupKeys": [],
+    "amount": null,
+    "percentage": "5",
+    "externalReference": "none",
+    "etag": "7DC64B62F268EDB04E1FC1F7B3DB8414",
+    "updated": "2017-10-19T19:16:40.773+0000",
+    "updatedBy": "e87c5cbc-bd3f-11e7-abc4-cec278b6b50a",
+    "created": "2017-10-19T19:16:40.773+0000"
+  }
+]

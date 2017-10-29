@@ -12,5 +12,8 @@ coverage:
 unit-tests:
 	bin/phpunit --testsuite unit
 
+integration-tests:
+	bin/phpunit --testsuite integration
+
 cs-fix:
 	./bin/php-cs-fixer fix --verbose

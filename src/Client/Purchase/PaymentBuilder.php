@@ -50,9 +50,9 @@ final class PaymentBuilder implements PaymentBuilderInterface
                 return $this->parseSwichPayment($payment, $currency);
             case self::VIPPS:
                 return $this->parseVippsPayment($payment, $currency);
-            default:
-                throw new PaymentTypeNotConfiguredException('Payment type \'' . $payment['type'] . '\' not configured');
         }
+
+        throw new PaymentTypeNotConfiguredException('Payment type \'' . $payment['type'] . '\' not configured');
     }
 
     private function parseCardPayment($payment, Currency $currency): CardPayment
