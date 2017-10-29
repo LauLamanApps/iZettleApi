@@ -7,26 +7,66 @@ namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Product;
 use DateTime;
 use LauLamanApps\IzettleApi\API\ImageCollection;
 use LauLamanApps\IzettleApi\API\Product\Discount;
-use LauLamanApps\IzettleApi\Client\Product\DiscountParser;
+use LauLamanApps\IzettleApi\API\Product\DiscountCollection;
+use LauLamanApps\IzettleApi\Client\Product\DiscountBuilder;
+use LauLamanApps\IzettleApi\Client\Universal\ImageBuilderInterface;
 use Mockery;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use Ramsey\Uuid\Uuid;
 
 /**
  * @small
  */
-final class DiscountParserTest extends TestCase
+final class DiscountBuilderTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider getProductResponseData
      */
-    public function createFromResponse(ResponseInterface $response, $data)
+    public function buildFromJsonSingle()
     {
-        /** @var Discount[] $discounts */
-        $discounts = DiscountParser::createFromResponse($response);
+        $json = file_get_contents(dirname(__FILE__) . '/json-files/single-discount.json');
+        $data = json_decode($json, true)[0];
+
+        $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);
+        $imageBuilderMock->shouldReceive('buildFromArray')->with($data['imageLookupKeys'])->once()->andReturn(new ImageCollection());
+
+        $builder = new DiscountBuilder($imageBuilderMock);
+        $discount = $builder->buildFromJson($json)[0];
+
+        self::assertInstanceOf(Discount::class, $discount);
+        self::assertSame($data['uuid'], (string) $discount->getUuid());
+        self::assertSame($data['name'], $discount->getName());
+        self::assertSame($data['description'], $discount->getDescription());
+        self::assertInstanceOf(ImageCollection::class, $discount->getImageCollection());
+        self::assertSame($data['externalReference'], $discount->getExternalReference());
+        self::assertSame($data['etag'], $discount->getEtag());
+        self::assertEquals(new DateTime($data['updated']), $discount->getUpdatedAt());
+        self::assertSame($data['updatedBy'], (string) $discount->getUpdatedBy());
+        self::assertEquals(new DateTime($data['created']), $discount->getCreatedAt());
+
+        if ($data['amount']) {
+            self::assertInstanceOf(Money::class, $discount->getAmount());
+            self::assertSame((string) $data['amount']['amount'], $discount->getAmount()->getAmount());
+            self::assertSame($data['amount']['currencyId'], $discount->getAmount()->getCurrency()->getCode());
+        } else {
+            self::assertSame((float) $data['percentage'], $discount->getPercentage());
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function buildFromJsonMultiple()
+    {
+        $json = file_get_contents(dirname(__FILE__) . '/json-files/multiple-discount.json');
+        $data = json_decode($json, true);
+
+        $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);
+        $imageBuilderMock->shouldReceive('buildFromArray')->with($data[0]['imageLookupKeys'])->once()->andReturn(new ImageCollection());
+        $imageBuilderMock->shouldReceive('buildFromArray')->with($data[1]['imageLookupKeys'])->once()->andReturn(new ImageCollection());
+
+        $builder = new DiscountBuilder($imageBuilderMock);
+        $discounts = $builder->buildFromJson($json);
 
         foreach ($discounts as $index => $discount) {
             self::assertInstanceOf(Discount::class, $discount);
@@ -50,72 +90,25 @@ final class DiscountParserTest extends TestCase
         }
     }
 
-    public function getProductResponseData(): array
+    /**
+     * @test
+     */
+    public function buildFromArray()
     {
-        $data1 = [[
-            'uuid' => (string) Uuid::uuid1(),
-            'name' => 'Some Product',
-            'description' => 'description',
-            'imageLookupKeys' => [
-                'nice-image.jpeg',
-            ],
-            'amount' => ['amount' => 1000, 'currencyId' => 'EUR'],
-            'percentage' => null,
-            'externalReference' => 'externalReference',
-            'etag' => 'B1C54B44DB967F4240B59AFA30B1AC5E',
-            'updated' => '2017-12-06T13:21:59.722+0000',
-            'updatedBy' => (string) Uuid::uuid1(),
-            'created' => '2017-12-21T13:12:49.272+0000',
-        ]];
+        $json = file_get_contents(dirname(__FILE__) . '/json-files/multiple-discount.json');
+        $data = json_decode($json, true);
 
-        $mock1 = Mockery::mock(ResponseInterface::class);
-        $mock1->shouldReceive('getBody')->andReturnSelf();
-        $mock1->shouldReceive('getContents')->andReturn(json_encode(
-            $data1
-        ));
+        $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);
+        $imageBuilderMock->shouldReceive('buildFromArray')->with($data[0]['imageLookupKeys'])->once()->andReturn(new ImageCollection());
+        $imageBuilderMock->shouldReceive('buildFromArray')->with($data[1]['imageLookupKeys'])->once()->andReturn(new ImageCollection());
 
-        $data2 = [
-            [
-                'uuid' => (string) Uuid::uuid1(),
-                'name' => 'discount1',
-                'description' => 'descriptionq',
-                'imageLookupKeys' => [
-                    'image1.jpeg',
-                ],
-                'amount' => ['amount' => 100, 'currencyId' => 'EUR'],
-                'percentage' => null,
-                'externalReference' => 'externalReference',
-                'etag' => '93D4F5F748933923890C91056A6F0230',
-                'updated' => '2017-12-06T13:21:59.722+0000',
-                'updatedBy' => (string) Uuid::uuid1(),
-                'created' => '2017-12-21T13:12:49.272+0000',
-            ],
-            [
-                'uuid' => (string) Uuid::uuid1(),
-                'name' => 'discount2',
-                'description' => 'description2',
-                'imageLookupKeys' => [
-                    'image2.jpeg',
-                ],
-                'amount' => null,
-                'percentage' => '10',
-                'externalReference' => 'externalReference2',
-                'etag' => '35D7775289BC0A05E580BE3B466C927B',
-                'updated' => '2017-12-06T13:21:59.722+0000',
-                'updatedBy' => (string) Uuid::uuid1(),
-                'created' => '2017-12-21T13:12:49.272+0000',
-            ]
-        ];
+        $builder = new DiscountBuilder($imageBuilderMock);
+        $discounts = $builder->buildFromArray($data);
 
-        $mock2 = Mockery::mock(ResponseInterface::class);
-        $mock2->shouldReceive('getBody')->andReturnSelf();
-        $mock2->shouldReceive('getContents')->andReturn(json_encode(
-            $data2
-        ));
+        self::assertInstanceOf(DiscountCollection::class, $discounts);
 
-        return [
-            'single discount' => [ $mock1, $data1 ],
-            'multiple discount' => [ $mock2, $data2 ],
-        ];
+        foreach ($discounts->getAll() as $discount) {
+            self::assertInstanceOf(Discount::class, $discount);
+        }
     }
 }

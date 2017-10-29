@@ -6,13 +6,13 @@ namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Universal;
 
 use LauLamanApps\IzettleApi\API\Image;
 use LauLamanApps\IzettleApi\API\ImageCollection;
-use LauLamanApps\IzettleApi\Client\Universal\ImageParser;
+use LauLamanApps\IzettleApi\Client\Universal\ImageBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @small
  */
-final class ImageParserTest extends TestCase
+final class ImageBuilderTest extends TestCase
 {
     /**
      * @test
@@ -25,7 +25,8 @@ final class ImageParserTest extends TestCase
             "c.gif",
         ];
 
-        $imageCollection = ImageParser::parseArray($data);
+        $builder = new ImageBuilder();
+        $imageCollection = $builder->buildFromArray($data);
 
         self::assertInstanceOf(ImageCollection::class, $imageCollection);
         self::assertSame(count($data), count($imageCollection->getAll()));

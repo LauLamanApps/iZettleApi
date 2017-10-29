@@ -1,0 +1,42 @@
+[
+  {
+    "uuid":"0622557e-bb69-11e7-abc4-cec278b6b50a",
+    "categories":[
+      "categoriesArray"
+    ],
+    "name":"Some Product",
+    "description":"description",
+    "imageLookupKeys":[
+      "imageLookupKeysArray"
+    ],
+    "variants":[
+      "variantsArray"
+    ],
+    "externalReference":"",
+    "etag":"B1C54B44DB967F4240B59AFA30B1AC5E",
+    "updated":"2017-12-06T13:21:59.722+0000",
+    "updatedBy":"06225bbe-bb69-11e7-abc4-cec278b6b50a",
+    "created":"2017-12-21T13:12:49.272+0000",
+    "vatPercentage":"21.0"
+  },
+  {
+    "uuid":"0622557e-bb69-11e7-abc4-cec278b6b50a",
+    "categories":[
+      "categoriesArray"
+    ],
+    "name":"Some Product",
+    "description":"description",
+    "imageLookupKeys":[
+      "imageLookupKeysArray"
+    ],
+    "variants":[
+      "variantsArray"
+    ],
+    "externalReference":"",
+    "etag":"B1C54B44DB967F4240B59AFA30B1AC5E",
+    "updated":"2017-12-06T13:21:59.722+0000",
+    "updatedBy":"06225bbe-bb69-11e7-abc4-cec278b6b50a",
+    "created":"2017-12-21T13:12:49.272+0000",
+    "vatPercentage":"21.0"
+  }
+]

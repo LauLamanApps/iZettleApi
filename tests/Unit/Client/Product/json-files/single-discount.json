@@ -1,0 +1,20 @@
+[
+  {
+    "uuid":"cf840e78-bb5d-11e7-abc4-cec278b6b50a",
+    "name":"Some Product",
+    "description":"description",
+    "imageLookupKeys":[
+      "nice-image.jpeg"
+    ],
+    "amount":{
+      "amount":1000,
+      "currencyId":"EUR"
+    },
+    "percentage":null,
+    "externalReference":"externalReference",
+    "etag":"B1C54B44DB967F4240B59AFA30B1AC5E",
+    "updated":"2017-12-06T13:21:59.722+0000",
+    "updatedBy":"cf84121a-bb5d-11e7-abc4-cec278b6b50a",
+    "created":"2017-12-21T13:12:49.272+0000"
+  }
+]
