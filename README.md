@@ -44,9 +44,6 @@ $libary = $purchaseClient->getLibrary();
 ### Make call with existing AccessToken
 
 ```php
-
-use GuzzleHttp\Client;
-
 use GuzzleHttp\Client;
 use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use LauLamanApps\IzettleApi\IzettleClientFactory;
