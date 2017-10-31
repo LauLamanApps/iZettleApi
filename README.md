@@ -50,7 +50,7 @@ use LauLamanApps\IzettleApi\IzettleClientFactory;
 
 $accessToken = ...; //-- Get from cache
 
-$izettleClient = new GuzzleIzettleClient(new Client(), 'clientId', 'clientId');
+$izettleClient = new GuzzleIzettleClient(new Client(), 'clientId', 'clientSecret');
 $izettleClient->setAccessToken($accessToken);
 
 $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient)
