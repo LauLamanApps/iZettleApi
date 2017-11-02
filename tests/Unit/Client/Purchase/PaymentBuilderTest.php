@@ -7,6 +7,10 @@ namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Purchase;
 use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\CardPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\CashPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\InvoicePayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\MobilePayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\SwishPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\VippsPayment;
 use LauLamanApps\IzettleApi\Client\Purchase\PaymentBuilder;
 use Money\Currency;
 use PHPUnit\Framework\TestCase;
@@ -69,6 +73,9 @@ final class PaymentBuilderTest extends TestCase
         if ($payment instanceof CardPayment) {
             $this->cardPaymentTests($payment, $paymentData);
         }
+        if ($payment instanceof InvoicePayment) {
+            $this->invoicePaymentTests($payment, $paymentData);
+        }
     }
 
     private function cashPaymentTests(CashPayment $payment, $paymentData)
@@ -90,6 +97,13 @@ final class PaymentBuilderTest extends TestCase
         if (array_key_exists('applicationName', $paymentData['attributes'])) {
             self::assertSame($paymentData['attributes']['applicationName'], $payment->getApplicationName());
         }
+    }
+
+    private function invoicePaymentTests(InvoicePayment $payment, $paymentData)
+    {
+        self::assertSame($paymentData['attributes']['orderUUID'], (string) $payment->getOrderUuid());
+        self::assertSame($paymentData['attributes']['invoiceNr'], $payment->getInvoiceNr());
+        self::assertSame($paymentData['attributes']['dueDate'], $payment->getDueDate()->format('Y-m-d'));
     }
 
     public function getPaymentData(): array
@@ -140,6 +154,43 @@ final class PaymentBuilderTest extends TestCase
                 ],
                 CashPayment::class
             ],
+            PaymentBuilder::INVOICE => [
+                [
+                    "uuid" => (string) Uuid::uuid1(),
+                    "amount" => 300,
+                    "type" => PaymentBuilder::INVOICE,
+                    "attributes" => [
+                        "orderUUID" => "d5b126c4-979e-11e7-9af0-a3d2806c42a1",
+                        "invoiceNr" => "iz37",
+                        "dueDate" => "2017-10-12",
+                    ]
+                ],
+                InvoicePayment::class
+            ],
+            PaymentBuilder::MOBILE => [
+                [
+                    "uuid" => (string) Uuid::uuid1(),
+                    "amount" => 400,
+                    "type" => PaymentBuilder::MOBILE,
+                ],
+                MobilePayment::class
+            ],
+            PaymentBuilder::SWISH => [
+                [
+                    "uuid" => (string) Uuid::uuid1(),
+                    "amount" => 500,
+                    "type" => PaymentBuilder::SWISH,
+                ],
+                SwishPayment::class
+            ],
+            PaymentBuilder::VIPPS => [
+                [
+                    "uuid" => (string) Uuid::uuid1(),
+                    "amount" => 600,
+                    "type" => PaymentBuilder::VIPPS,
+                ],
+                VippsPayment::class
+            ],
         ];
     }
 
@@ -151,66 +202,5 @@ final class PaymentBuilderTest extends TestCase
     {
         $builder = new PaymentBuilder();
         $builder->build(['type' => 'IZETTLE_NON_EXISTENCE'], new Currency('EUR'));
-    }
-
-    /**
-     * @test
-     * @dataProvider getNonImplementedPaymentData
-     * @expectedException \Exception
-     * @expectedExceptionMessage('Payment type not implemented')
-     *
-     * We have a test for the non implemented payment types so when someone opens
-     * a PR to Add a payment type this test fails and we can write a correct test.
-     */
-    public function parseNonImplemented($paymentData): void
-    {
-        $builder = new PaymentBuilder();
-        $builder->build($paymentData, new Currency('EUR'));
-    }
-
-    public function getNonImplementedPaymentData(): array
-    {
-        return [
-            PaymentBuilder::INVOICE => [
-                [
-                    "uuid" => (string) Uuid::uuid1(),
-                    "amount" => 300,
-                    "type" => PaymentBuilder::INVOICE,
-                    "attributes" => [
-                        "unknownFields" => true
-                    ]
-                ]
-            ],
-            PaymentBuilder::MOBILE => [
-                [
-                    "uuid" => (string) Uuid::uuid1(),
-                    "amount" => 400,
-                    "type" => PaymentBuilder::MOBILE,
-                    "attributes" => [
-                        "unknownFields" => true
-                    ]
-                ]
-            ],
-            PaymentBuilder::SWISH => [
-                [
-                    "uuid" => (string) Uuid::uuid1(),
-                    "amount" => 500,
-                    "type" => PaymentBuilder::SWISH,
-                    "attributes" => [
-                        "unknownFields" => true
-                    ]
-                ],
-            ],
-            PaymentBuilder::VIPPS => [
-                [
-                    "uuid" => (string) Uuid::uuid1(),
-                    "amount" => 600,
-                    "type" => PaymentBuilder::VIPPS,
-                    "attributes" => [
-                        "unknownFields" => true
-                    ]
-                ],
-            ],
-        ];
     }
 }
