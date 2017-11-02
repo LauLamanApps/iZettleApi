@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\Client\Purchase;
 
+use DateTime;
 use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\CardPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\CashPayment;
@@ -84,7 +85,10 @@ final class PaymentBuilder implements PaymentBuilderInterface
     {
         return new InvoicePayment(
             Uuid::fromString($payment['uuid']),
-            new Money($payment['amount'], $currency)
+            new Money($payment['amount'], $currency),
+            Uuid::fromString($payment['attributes']['orderUUID']),
+            $payment['attributes']['invoiceNr'],
+            new DateTime($payment['attributes']['dueDate'])
         );
     }
 
