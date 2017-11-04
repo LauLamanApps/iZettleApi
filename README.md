@@ -12,6 +12,7 @@ The iZettle Api provides a simple integration of the [iZettle Api][izettleapi] f
 
 **TODO**
 - Finalize integration
+- Complete integration tests
 
 
 Installation
