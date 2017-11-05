@@ -38,8 +38,8 @@ $accessToken = $izettleClient->getAccessTokenFromUserLogin('john.doe@example.com
 
 //-- store $accessToken in cache
 
-$purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
-$library = $purchaseClient->getLibrary();
+$productClient = IzettleClientFactory::getProductClient($iZettleClient);
+$library = $productClient->getLibrary();
 ```
 
 ### Make call with existing AccessToken
@@ -54,8 +54,8 @@ $accessToken = ...; //-- Get from cache
 $izettleClient = new GuzzleIzettleClient(new Client(), 'clientId', 'clientSecret');
 $izettleClient->setAccessToken($accessToken);
 
-$purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
-$library = $purchaseClient->getLibrary();
+$purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
+$library = $purchaseClient->getPurchaseHistory();
 ```
 
 
