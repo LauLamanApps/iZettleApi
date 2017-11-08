@@ -7,6 +7,7 @@ namespace LauLamanApps\IzettleApi;
 use LauLamanApps\IzettleApi\Client\Finance\AccountTransactionBuilder;
 use LauLamanApps\IzettleApi\Client\Finance\PayoutInfoBuilder;
 use LauLamanApps\IzettleApi\Client\FinanceClient;
+use LauLamanApps\IzettleApi\Client\ImageClient;
 use LauLamanApps\IzettleApi\Client\Product\CategoryBuilder;
 use LauLamanApps\IzettleApi\Client\Product\DiscountBuilder;
 use LauLamanApps\IzettleApi\Client\Product\LibraryBuilder;
@@ -68,5 +69,10 @@ final class IzettleClientFactory
             new AccountTransactionBuilder(),
             new PayoutInfoBuilder()
         );
+    }
+
+    public static function getImageClient(IzettleClientInterface $client, ?UuidInterface $organizationUuid = null): ImageClient
+    {
+        return new ImageClient($client, $organizationUuid, new ImageBuilder());
     }
 }

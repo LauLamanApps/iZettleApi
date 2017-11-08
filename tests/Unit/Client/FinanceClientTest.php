@@ -19,7 +19,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @small
  */
-final class FinanceClientTest extends AbstractClientMock
+final class FinanceClientTest extends AbstractClientTest
 {
     /**
      * @test

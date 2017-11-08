@@ -22,7 +22,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @small
  */
-final class PurchaseClientTest extends AbstractClientMock
+final class PurchaseClientTest extends AbstractClientTest
 {
     /**
      * @test

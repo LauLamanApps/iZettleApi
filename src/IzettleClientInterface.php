@@ -20,7 +20,7 @@ interface IzettleClientInterface
 
     public function get(string $url, ?array $queryParameters = null): ResponseInterface;
 
-    public function post(string $url, string $jsonData): void;
+    public function post(string $url, string $jsonData): ResponseInterface;
 
     public function put(string $url, string $jsonData): void;
 

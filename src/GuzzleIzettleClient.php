@@ -95,7 +95,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return $response;
     }
 
-    public function post(string $url, string $jsonData): void
+    public function post(string $url, string $jsonData): ResponseInterface
     {
         $headers = array_merge(
             $this->getAuthorizationHeader(),
@@ -106,7 +106,8 @@ class GuzzleIzettleClient implements IzettleClientInterface
         );
 
         $options =  array_merge(['headers' => $headers], ['body' => $jsonData]);
-        $this->guzzleClient->post($url, $options);
+
+        return $this->guzzleClient->post($url, $options);
     }
 
     public function put(string $url, string $jsonData): void

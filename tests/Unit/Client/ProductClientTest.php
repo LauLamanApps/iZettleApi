@@ -30,7 +30,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @small
  */
-final class ProductClientTest extends AbstractClientMock
+final class ProductClientTest extends AbstractClientTest
 {
     /**
      * @test
