@@ -9,7 +9,14 @@ use LauLamanApps\IzettleApi\API\ImageCollection;
 
 final class ImageBuilder implements ImageBuilderInterface
 {
-    public function buildFromArray(array $images)
+    public function buildFromJson(string $json): Image
+    {
+        $data = json_decode($json, true);
+
+        return new Image($data['imageLookupKey']);
+    }
+
+    public function buildFromArray(array $images): ImageCollection
     {
         $collection = new ImageCollection();
 

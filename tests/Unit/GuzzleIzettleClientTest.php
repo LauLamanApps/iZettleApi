@@ -157,7 +157,7 @@ final class GuzzleIzettleClientTest extends TestCase
         ];
 
         $guzzleClientMock = Mockery::mock(GuzzleClientInterface::class);
-        $guzzleClientMock->shouldReceive('post')->with($url, $options)->once();
+        $guzzleClientMock->shouldReceive('post')->with($url, $options)->once()->andReturn(Mockery::mock(ResponseInterface::class));
 
         $izettleClient = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
         $izettleClient->setAccessToken($this->getAccessToken());
