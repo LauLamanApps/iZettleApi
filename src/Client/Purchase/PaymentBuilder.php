@@ -12,7 +12,7 @@ use LauLamanApps\IzettleApi\API\Purchase\Payment\InvoicePayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\MobilePayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\SwishPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\VippsPayment;
-use LauLamanApps\IzettleApi\Client\Exceptions\PaymentTypeNotConfiguredException;
+use LauLamanApps\IzettleApi\Client\Exception\PaymentTypeNotConfiguredException;
 use Money\Currency;
 use Money\Money;
 use Ramsey\Uuid\Uuid;

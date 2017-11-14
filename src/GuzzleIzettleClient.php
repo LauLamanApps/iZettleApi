@@ -5,18 +5,34 @@ declare(strict_types=1);
 namespace LauLamanApps\IzettleApi;
 
 use DateTime;
+use DateTimeImmutable;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use LauLamanApps\IzettleApi\Client\AccessToken;
-use LauLamanApps\IzettleApi\Client\Exceptions\AccessTokenExpiredException;
+use LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException;
 use LauLamanApps\IzettleApi\Exception\NotFoundException;
 use Psr\Http\Message\ResponseInterface;
 
 class GuzzleIzettleClient implements IzettleClientInterface
 {
+    /**
+     * @var ClientInterface
+     */
     private $guzzleClient;
+
+    /**
+     * @var string
+     */
     private $clientId;
+
+    /**
+     * @var string
+     */
     private $clientSecret;
+
+    /**
+     * @var AccessToken
+     */
     private $accessToken;
 
     public function __construct(ClientInterface $guzzleClient, string $clientId, string $clientSecret)
@@ -148,7 +164,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
 
         return new AccessToken(
             $data['access_token'],
-            new DateTime(sprintf('+%d second', $data['expires_in'])),
+            new DateTimeImmutable(sprintf('+%d second', $data['expires_in'])),
             $data['refresh_token']
         );
     }

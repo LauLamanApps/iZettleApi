@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\Client;
 
-use DateInterval;
 use DateTime;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\ClientInterface as GuzzleClientInterface;
+use DateTimeImmutable;
 
 final class AccessToken
 {
@@ -15,7 +13,7 @@ final class AccessToken
     private $expires;
     private $refreshToken;
 
-    public function __construct(string $accessToken, DateTime $expires, string $refreshToken)
+    public function __construct(string $accessToken, DateTimeImmutable $expires, string $refreshToken)
     {
         $this->accessToken = $accessToken;
         $this->expires = $expires;
@@ -27,7 +25,7 @@ final class AccessToken
         return $this->accessToken;
     }
 
-    public function getExpires(): DateTime
+    public function getExpires(): DateTimeImmutable
     {
         return $this->expires;
     }

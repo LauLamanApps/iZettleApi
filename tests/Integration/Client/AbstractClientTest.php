@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\Tests\Integration\Client;
 
-use DateTime;
+use DateTimeImmutable;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -31,6 +31,6 @@ abstract class AbstractClientTest extends TestCase
 
     private function getAccessToken() : AccessToken
     {
-        return new AccessToken('', new DateTime('+ 1 day'), '');
+        return new AccessToken('', new DateTimeImmutable('+ 1 day'), '');
     }
 }

@@ -57,7 +57,7 @@ final class PurchaseClientTest extends AbstractClientTest
 
     /**
      * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Exceptions\PurchaseNotFoundException
+     * @expectedException \LauLamanApps\IzettleApi\Client\Exception\PurchaseNotFoundException
      */
     public function getPurchase_404ShouldThrowException(): void
     {

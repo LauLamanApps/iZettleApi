@@ -48,7 +48,7 @@ final class ProductTest extends TestCase
 
     /**
      * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Exceptions\CantCreateProductException
+     * @expectedException \LauLamanApps\IzettleApi\Client\Exception\CantCreateProductException
      */
     public function cantCreateProductWithoutVariant(): void
     {

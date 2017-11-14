@@ -36,7 +36,7 @@ final class CoordinatesTest extends TestCase
 
     /**
      * @test
-     * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exceptions\InvalidLatitudeException
+     * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLatitudeException
      * @dataProvider getInvalidLatitude
      */
     public function invalidLatitude(float $latitude)
@@ -54,7 +54,7 @@ final class CoordinatesTest extends TestCase
 
     /**
      * @test
-     * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exceptions\InvalidLongitudeException
+     * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLongitudeException
      * @dataProvider getInvalidLongitude
      */
     public function invalidLongitude(float $longitude)
