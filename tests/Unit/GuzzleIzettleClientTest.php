@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LauLamanApps\IzettleApi\Tests\Unit;
 
 use DateTime;
+use DateTimeImmutable;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use LauLamanApps\IzettleApi\Client\AccessToken;
@@ -73,7 +74,7 @@ final class GuzzleIzettleClientTest extends TestCase
      */
     public function refreshAccessToken(): void
     {
-        $oldAccessToken = new AccessToken('accessToken', new DateTime(), 'refreshToken');
+        $oldAccessToken = new AccessToken('accessToken', new DateTimeImmutable(), 'refreshToken');
         $newAccessToken = 'accessToken2';
         $newRefreshToken = 'refreshToken2';
         $newExpiresIn = 7200;
@@ -99,8 +100,8 @@ final class GuzzleIzettleClientTest extends TestCase
             ]
         ));
 
-        $accessTokenFactory =  new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
-        $accessTokenObject =  $accessTokenFactory->refreshAccessToken($oldAccessToken);
+        $accessTokenFactory = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
+        $accessTokenObject = $accessTokenFactory->refreshAccessToken($oldAccessToken);
 
         self::assertSame($newAccessToken, $accessTokenObject->getToken());
         self::assertSame($newRefreshToken, $accessTokenObject->getRefreshToken());
@@ -114,7 +115,7 @@ final class GuzzleIzettleClientTest extends TestCase
      * @test
      * @dataProvider getGetData
      */
-    public function get($url, $queryParameters)
+    public function get($url, $queryParameters): void
     {
         $options = [
             'headers' => [
@@ -144,7 +145,7 @@ final class GuzzleIzettleClientTest extends TestCase
      * @test
      * @dataProvider getPostData
      */
-    public function post($url, $data)
+    public function post($url, $data): void
     {
         $options = [
             'headers' => [
@@ -175,7 +176,7 @@ final class GuzzleIzettleClientTest extends TestCase
      * @test
      * @dataProvider getPutData
      */
-    public function put($url, $data)
+    public function put($url, $data): void
     {
         $options = [
             'headers' => [
@@ -206,7 +207,7 @@ final class GuzzleIzettleClientTest extends TestCase
      * @test
      * @dataProvider getDeleteData
      */
-    public function delete($url)
+    public function delete($url): void
     {
         $options = [
             'headers' => [
@@ -232,7 +233,7 @@ final class GuzzleIzettleClientTest extends TestCase
     /**
      * @test
      */
-    public function getJson()
+    public function getJson(): void
     {
         $data = 'getJsonTest';
         $responseMock =  Mockery::mock(ResponseInterface::class);
@@ -248,18 +249,18 @@ final class GuzzleIzettleClientTest extends TestCase
 
     /**
      * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Exceptions\AccessTokenExpiredException
+     * @expectedException \LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException
      */
-    public function validateAccessToken()
+    public function validateAccessToken(): void
     {
-        $invalidAccessToken =  new AccessToken('', new DateTime('-1 day'), '');
+        $invalidAccessToken = new AccessToken('', new DateTimeImmutable('-1 day'), '');
 
         $izettleClient = new GuzzleIzettleClient(new GuzzleClient(), self::CLIENT_ID, self::CLIENT_SECRET);
         $izettleClient->setAccessToken($invalidAccessToken);
     }
 
-    protected function getAccessToken() : AccessToken
+    protected function getAccessToken(): AccessToken
     {
-        return new AccessToken(self::ACCESS_TOKEN, new DateTime('+ 1 day'), '');
+        return new AccessToken(self::ACCESS_TOKEN, new DateTimeImmutable('+ 1 day'), '');
     }
 }

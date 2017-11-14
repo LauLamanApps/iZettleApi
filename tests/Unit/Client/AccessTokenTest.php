@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\Tests\Unit\Client;
 
-use DateTime;
+use DateTimeImmutable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +18,7 @@ final class AccessTokenTest extends TestCase
      */
     public function isExpired(): void
     {
-        $accessToken = new AccessToken('', new DateTime(), '');
+        $accessToken = new AccessToken('', new DateTimeImmutable(), '');
 
         self::assertTrue($accessToken->isExpired());
     }

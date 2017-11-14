@@ -6,7 +6,7 @@ namespace LauLamanApps\IzettleApi\API\Product;
 
 use DateTime;
 use LauLamanApps\IzettleApi\API\ImageCollection;
-use LauLamanApps\IzettleApi\Client\Exceptions\CantCreateProductException;
+use LauLamanApps\IzettleApi\Client\Exception\CantCreateProductException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

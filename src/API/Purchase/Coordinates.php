@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\API\Purchase;
 
-use LauLamanApps\IzettleApi\API\Purchase\Exceptions\InvalidLatitudeException;
-use LauLamanApps\IzettleApi\API\Purchase\Exceptions\InvalidLongitudeException;
+use LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLatitudeException;
+use LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLongitudeException;
 
 final class Coordinates
 {

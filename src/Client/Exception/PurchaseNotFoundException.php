@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LauLamanApps\IzettleApi\Client\Exceptions;
+namespace LauLamanApps\IzettleApi\Client\Exception;
 
 use LauLamanApps\IzettleApi\Exception\NotFoundException;
 

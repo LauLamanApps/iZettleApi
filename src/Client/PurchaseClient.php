@@ -6,7 +6,7 @@ namespace LauLamanApps\IzettleApi\Client;
 
 use LauLamanApps\IzettleApi\API\Purchase\Purchase;
 use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
-use LauLamanApps\IzettleApi\Client\Exceptions\PurchaseNotFoundException;
+use LauLamanApps\IzettleApi\Client\Exception\PurchaseNotFoundException;
 use LauLamanApps\IzettleApi\Client\Purchase\PurchaseBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Purchase\PurchaseHistoryBuilderInterface;
 use LauLamanApps\IzettleApi\Exception\NotFoundException;
