@@ -85,7 +85,7 @@ final class ProductClient
     public function createCategory(Category $category): void
     {
         $url = sprintf(self::POST_CATEGORY, $this->organizationUuid);
-        $this->client->post($url, $category->getCreateData());
+        $this->client->post($url, $category);
     }
 
     /**
@@ -103,7 +103,7 @@ final class ProductClient
     {
         $url = sprintf(self::POST_DISCOUNT, $this->organizationUuid);
 
-        $this->client->post($url, $discount->getCreateData());
+        $this->client->post($url, $discount);
     }
 
     public function deleteDiscount(Discount $discount): void
@@ -136,7 +136,7 @@ final class ProductClient
     {
         $url = sprintf(self::POST_PRODUCT, $this->organizationUuid);
 
-        $this->client->post($url, $product->getCreateData());
+        $this->client->post($url, $product);
     }
 
     public function deleteProduct(Product $product): void

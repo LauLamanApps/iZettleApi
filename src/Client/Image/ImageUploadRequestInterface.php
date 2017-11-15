@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\Client\Image;
 
-interface ImageUploadRequestInterface
+use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
+
+interface ImageUploadRequestInterface extends IzettlePostable
 {
-    public function getUploadRequest(): array;
 }

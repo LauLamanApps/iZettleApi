@@ -27,10 +27,9 @@ final class ImageClientTest extends AbstractClientTest
         $imageUploadRequest =  new ImageUrlUpload('url');
 
         $url = sprintf(ImageClient::POST_IMAGE, $organizationUuid->toString());
-        $postData = json_encode($imageUploadRequest->getUploadRequest());
         $data = json_encode(['postImage']);
 
-        $izettleClientMock = $this->getIzettlePostMock($url, $postData);
+        $izettleClientMock = $this->getIzettlePostMock($url, $imageUploadRequest);
         $izettleClientMock->shouldReceive('getJson')->once()->andReturn($data);
 
         list($imageBuilderMock) = $this->getDependencyMocks();
@@ -50,10 +49,9 @@ final class ImageClientTest extends AbstractClientTest
         $imageUploadRequest =  new ImageFileUpload($file);
 
         $url = sprintf(ImageClient::POST_IMAGE, $organizationUuid->toString());
-        $postData = json_encode($imageUploadRequest->getUploadRequest());
         $data = json_encode(['postImage']);
 
-        $izettleClientMock = $this->getIzettlePostMock($url, $postData);
+        $izettleClientMock = $this->getIzettlePostMock($url, $imageUploadRequest);
         $izettleClientMock->shouldReceive('getJson')->once()->andReturn($data);
 
         list($imageBuilderMock) = $this->getDependencyMocks();

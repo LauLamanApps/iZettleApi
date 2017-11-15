@@ -17,7 +17,7 @@ final class CategoryTest extends TestCase
         $name = 'name';
         $discount = Category::new($name);
 
-        $createData = json_decode($discount->getCreateData(), true);
+        $createData = json_decode($discount->getPostBodyData(), true);
         self::assertTrue(Uuid::isValid($createData['uuid']));
         self::assertSame($name, $createData['name']);
     }

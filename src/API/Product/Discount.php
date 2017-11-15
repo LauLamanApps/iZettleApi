@@ -6,11 +6,12 @@ namespace LauLamanApps\IzettleApi\API\Product;
 
 use DateTime;
 use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class Discount
+final class Discount implements IzettlePostable
 {
     private $uuid;
     private $name;
@@ -153,7 +154,7 @@ final class Discount
         $this->createdAt = $createdAt;
     }
 
-    public function getCreateData(): string
+    public function getPostBodyData(): string
     {
         $data = [
             'uuid' => $this->uuid,

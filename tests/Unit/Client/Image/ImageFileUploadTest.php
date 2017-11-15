@@ -25,7 +25,7 @@ final class ImageFileUploadTest extends TestCase
         self::assertInstanceOf(ImageFileUpload::class, $productImageUpload);
         self::assertAttributeEquals($imageFormat, 'imageFormat', $productImageUpload);
         self::assertAttributeEquals($imageData, 'imageData', $productImageUpload);
-        self::assertSame(['imageFormat' => $imageFormat, 'imageData' => $imageData], $productImageUpload->getUploadRequest());
+        self::assertSame(['imageFormat' => $imageFormat, 'imageData' => $imageData], json_decode($productImageUpload->getPostBodyData(), true));
     }
 
     /**
