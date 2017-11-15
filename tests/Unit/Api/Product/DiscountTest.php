@@ -35,7 +35,7 @@ final class DiscountTest extends TestCase
             $externalReference
         );
 
-        $createData = json_decode($discount->getCreateData(), true);
+        $createData = json_decode($discount->getPostBodyData(), true);
         self::assertTrue(Uuid::isValid($createData['uuid']));
         self::assertSame($name, $createData['name']);
         self::assertSame($description, $createData['description']);

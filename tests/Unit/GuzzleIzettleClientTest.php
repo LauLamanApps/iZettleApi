@@ -8,6 +8,7 @@ use DateTime;
 use DateTimeImmutable;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
+use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
 use LauLamanApps\IzettleApi\GuzzleIzettleClient;
@@ -167,7 +168,7 @@ final class GuzzleIzettleClientTest extends TestCase
      * @test
      * @dataProvider getPostData
      */
-    public function post($url, $data): void
+    public function post($url, IzettlePostable $data): void
     {
         $options = [
             'headers' => [
@@ -175,7 +176,7 @@ final class GuzzleIzettleClientTest extends TestCase
                 'content-type' => 'application/json',
                 'Accept' => 'application/json',
             ],
-            'body' => $data,
+            'body' => $data->getPostBodyData(),
         ];
 
         $guzzleClientMock = Mockery::mock(GuzzleClientInterface::class);
@@ -188,9 +189,12 @@ final class GuzzleIzettleClientTest extends TestCase
 
     public function getPostData(): array
     {
+        $postable = Mockery::mock(IzettlePostable::class);
+        $postable->shouldReceive('getPostBodyData')->once();
+
         return [
-            ['example.com/account', json_encode(['name' => 'John Doe'])],
-            ['example.com/account/names', json_encode(['firstName' => 'john', 'lastName' => 'Doe'])],
+            ['example.com/account', $postable],
+            ['example.com/account/names', $postable],
         ];
     }
 

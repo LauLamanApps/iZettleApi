@@ -2,6 +2,7 @@
 
 namespace LauLamanApps\IzettleApi;
 
+use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
 use Psr\Http\Message\ResponseInterface;
@@ -26,7 +27,7 @@ interface IzettleClientInterface
 
     public function get(string $url, ?array $queryParameters = null): ResponseInterface;
 
-    public function post(string $url, string $jsonData): ResponseInterface;
+    public function post(string $url, IzettlePostable $object): ResponseInterface;
 
     public function put(string $url, string $jsonData): void;
 

@@ -67,7 +67,7 @@ final class ProductClientTest extends AbstractClientTest
         $category = Category::new('name');
         $url = sprintf(ProductClient::POST_CATEGORY, (string) $organizationUuid);
 
-        $izettleClientMock = $this->getIzettlePostMock($url, $category->getCreateData());
+        $izettleClientMock = $this->getIzettlePostMock($url, $category);
         list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $productClient = new ProductClient(
@@ -116,7 +116,7 @@ final class ProductClientTest extends AbstractClientTest
         $organizationUuid = Uuid::uuid1();
         $url = sprintf(ProductClient::POST_DISCOUNT, (string) $organizationUuid);
 
-        $izettleClientMock = $this->getIzettlePostMock($url, $discount->getCreateData());
+        $izettleClientMock = $this->getIzettlePostMock($url, $discount);
         list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $productClient = new ProductClient(
@@ -222,7 +222,7 @@ final class ProductClientTest extends AbstractClientTest
         $organizationUuid = Uuid::uuid1();
         $url = sprintf(ProductClient::POST_PRODUCT, (string) $organizationUuid);
 
-        $izettleClientMock = $this->getIzettlePostMock($url, $product->getCreateData());
+        $izettleClientMock = $this->getIzettlePostMock($url, $product);
         list($categoryBuilderMock, $discountBuilderMock, $libraryBuilderMock, $productBuilderMock) = $this->getDependencyMocks();
 
         $productClient = new ProductClient(

@@ -8,6 +8,7 @@ use DateTime;
 use DateTimeImmutable;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
+use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
 use LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException;
@@ -108,7 +109,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return $response;
     }
 
-    public function post(string $url, string $jsonData): ResponseInterface
+    public function post(string $url, IzettlePostable $postable): ResponseInterface
     {
         $headers = array_merge(
             $this->getAuthorizationHeader(),
@@ -118,7 +119,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
             ]
         );
 
-        $options =  array_merge(['headers' => $headers], ['body' => $jsonData]);
+        $options =  array_merge(['headers' => $headers], ['body' => $postable->getPostBodyData()]);
 
         return $this->guzzleClient->post($url, $options);
     }

@@ -34,12 +34,14 @@ final class ImageFileUpload implements ImageUploadRequestInterface
         $this->imageData = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode(file_get_contents($filename)));
     }
 
-    public function getUploadRequest(): array
+    public function getPostBodyData(): string
     {
-        return [
+        $data = [
             'imageFormat' => $this->imageFormat,
             'imageData' => $this->imageData,
         ];
+
+        return json_encode($data);
     }
 
     private function validateFile(string $file)

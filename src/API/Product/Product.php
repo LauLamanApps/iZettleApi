@@ -6,11 +6,12 @@ namespace LauLamanApps\IzettleApi\API\Product;
 
 use DateTime;
 use LauLamanApps\IzettleApi\API\ImageCollection;
+use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\Exception\CantCreateProductException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class Product
+final class Product implements IzettlePostable
 {
     private $uuid;
     private $categories;
@@ -134,11 +135,9 @@ final class Product
         return $this->vatPercentage;
     }
 
-    public function getCreateData(): string
+    public function getPostBodyData(): string
     {
-        if (count($this->variants->getAll()) == 0) {
-            throw new CantCreateProductException('A product should have at least one variant');
-        }
+        $this->validateMinimumVariants();
 
         $data = [
             'uuid' => $this->uuid,
@@ -179,5 +178,12 @@ final class Product
         $this->updatedBy = $updatedBy;
         $this->createdAt = $createdAt;
         $this->vatPercentage = $vatPercentage;
+    }
+
+    private function validateMinimumVariants(): void
+    {
+        if (count($this->variants->getAll()) == 0) {
+            throw new CantCreateProductException('A product should have at least one variant');
+        }
     }
 }

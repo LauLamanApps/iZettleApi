@@ -32,9 +32,7 @@ final class ImageClient
     public function postImage(ImageUploadRequestInterface $imageUploadRequest): Image
     {
         $url = sprintf(self::POST_IMAGE, $this->organizationUuid);
-        $data = json_encode($imageUploadRequest->getUploadRequest());
-
-        $response = $this->client->post($url, $data);
+        $response = $this->client->post($url, $imageUploadRequest);
 
         return $this->imageBuilder->buildFromJson($this->client->getJson($response));
     }

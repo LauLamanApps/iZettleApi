@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace LauLamanApps\IzettleApi\API\Product;
 
 use DateTime;
+use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class Category
+final class Category implements IzettlePostable
 {
     private $uuid;
     private $name;
@@ -73,7 +74,8 @@ final class Category
         return $this->createdAt;
     }
 
-    public function getCreateData(): string
+
+    public function getPostBodyData(): string
     {
         $data = [
             'uuid' => $this->uuid,
