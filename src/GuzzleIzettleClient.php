@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use LauLamanApps\IzettleApi\Client\AccessToken;
+use LauLamanApps\IzettleApi\Client\ApiScope;
 use LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException;
 use LauLamanApps\IzettleApi\Exception\NotFoundException;
 use Psr\Http\Message\ResponseInterface;
@@ -46,6 +47,18 @@ class GuzzleIzettleClient implements IzettleClientInterface
     {
         $this->accessToken = $accessToken;
         $this->validateAccessToken();
+    }
+
+    public function authoriseUserLogin(string $redirectUrl, ApiScope $apiScope): string
+    {
+        $url = self::API_AUTHORIZE_USER_LOGIN_URL;
+        $url .= '?response_type=code';
+        $url .= '&redirect_uri=' . $redirectUrl;
+        $url .= '&client_id=' . $this->clientId;
+        $url .= '&scope=' . $apiScope->getUrlParameters();
+        $url .= '&state=oauth2';
+
+        return $url;
     }
 
     public function getAccessTokenFromUserLogin(string $username, string $password): AccessToken

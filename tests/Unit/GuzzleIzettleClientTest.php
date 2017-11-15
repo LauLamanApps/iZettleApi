@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use LauLamanApps\IzettleApi\Client\AccessToken;
+use LauLamanApps\IzettleApi\Client\ApiScope;
 use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +25,27 @@ final class GuzzleIzettleClientTest extends TestCase
     const ACCESS_TOKEN = 'access-token';
     const CLIENT_ID = 'clientId';
     const CLIENT_SECRET = 'clientSecret';
+
+    /**
+     * @test
+     */
+    public function authoriseUserLogin()
+    {
+        $redirectUrl = 'example.com';
+        $apiScope = new ApiScope();
+        $expectedUrl = GuzzleIzettleClient::API_AUTHORIZE_USER_LOGIN_URL . sprintf(
+            '?response_type=code&redirect_uri=%s&client_id=%s&scope=%s&state=oauth2',
+                $redirectUrl,
+                self::CLIENT_ID,
+                $apiScope->getUrlParameters()
+            );
+
+        $accessTokenFactory = new GuzzleIzettleClient(Mockery::mock(GuzzleClient::class), self::CLIENT_ID, self::CLIENT_SECRET);
+        $authoriseUserLoginUrl =  $accessTokenFactory->authoriseUserLogin($redirectUrl, $apiScope);
+
+        self::assertSame($expectedUrl, $authoriseUserLoginUrl);
+
+    }
 
     /**
      * @test
@@ -58,7 +80,7 @@ final class GuzzleIzettleClientTest extends TestCase
         ));
 
 
-        $accessTokenFactory =  new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
+        $accessTokenFactory = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
         $accessTokenObject =  $accessTokenFactory->getAccessTokenFromUserLogin($username, $password);
 
         self::assertSame($accessToken, $accessTokenObject->getToken());
