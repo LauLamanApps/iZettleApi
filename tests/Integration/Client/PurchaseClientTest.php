@@ -57,21 +57,18 @@ final class PurchaseClientTest extends AbstractClientTest
 
     /**
      * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Exception\PurchaseNotFoundException
+     * @expectedException \LauLamanApps\IzettleApi\Client\Purchase\Exception\PurchaseNotFoundException
      */
     public function getPurchase_404ShouldThrowException(): void
     {
-        $iZettleClient = $this->getGuzzleIzettleClient(404, '');
+        $iZettleClient = $this->getGuzzleIzettleClient(404, '{"developerMessage":"XXX not found","errorType":null,"violations":[]}');
         $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
 
-        $purchaseHistory = $purchaseClient->getPurchase(Uuid::uuid1());
-
-        self::assertInstanceOf(Purchase::class, $purchaseHistory);
+        $purchaseClient->getPurchase(Uuid::uuid1());
     }
 
-    private function assertPurchase($purchase, $data): void
+    private function assertPurchase(Purchase $purchase, $data): void
     {
-        self::assertInstanceOf(Purchase::class, $purchase);
         self::assertSame($data['purchaseUUID'], $purchase->getUuid());
         self::assertSame($data['purchaseUUID1'], (string) $purchase->getUuid1());
         self::assertSame($data["amount"], (int) $purchase->getAmount()->getAmount());
