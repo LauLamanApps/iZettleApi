@@ -7,11 +7,13 @@ namespace LauLamanApps\IzettleApi;
 use DateTime;
 use DateTimeImmutable;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
 use LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException;
+use LauLamanApps\IzettleApi\Client\Exception\GuzzleClientExceptionHandler;
 use LauLamanApps\IzettleApi\Exception\NotFoundException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -74,7 +76,11 @@ class GuzzleIzettleClient implements IzettleClientInterface
             ],
         ];
 
-        $this->setAccessToken($this->requestAccessToken(self::API_ACCESS_TOKEN_REQUEST_URL, $options));
+        try {
+            $this->setAccessToken($this->requestAccessToken(self::API_ACCESS_TOKEN_REQUEST_URL, $options));
+        } catch (ClientException $exception){
+            GuzzleClientExceptionHandler::handleClientException($exception);
+        }
 
         return $this->accessToken;
     }
@@ -102,8 +108,8 @@ class GuzzleIzettleClient implements IzettleClientInterface
 
         try {
             $response = $this->guzzleClient->get($url, $options);
-        } catch (RequestException $e) {
-            throw new NotFoundException($e->getMessage());
+        } catch (RequestException $exception) {
+            GuzzleClientExceptionHandler::handleRequestException($exception);
         }
 
         return $response;

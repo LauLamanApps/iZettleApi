@@ -196,7 +196,7 @@ final class PaymentBuilderTest extends TestCase
 
     /**
      * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Exception\PaymentTypeNotConfiguredException
+     * @expectedException \LauLamanApps\IzettleApi\Client\Purchase\Exception\PaymentTypeNotConfiguredException
      */
     public function parseNonConfiguredPaymentType(): void
     {
