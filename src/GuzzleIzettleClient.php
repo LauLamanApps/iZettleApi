@@ -78,7 +78,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
 
         try {
             $this->setAccessToken($this->requestAccessToken(self::API_ACCESS_TOKEN_REQUEST_URL, $options));
-        } catch (ClientException $exception){
+        } catch (ClientException $exception) {
             GuzzleClientExceptionHandler::handleClientException($exception);
         }
 

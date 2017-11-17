@@ -14,8 +14,10 @@ use Ramsey\Uuid\Uuid;
  */
 final class CategoryCollectionTest extends TestCase
 {
-    /** @test */
-    public function categoryCollection()
+    /**
+     * @test
+     */
+    public function categoryCollection(): void
     {
         $category1 = $this->getCategoryWithUuid((string) Uuid::uuid1());
         $category2 = $this->getCategoryWithUuid((string) Uuid::uuid1());

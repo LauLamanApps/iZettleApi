@@ -8,8 +8,8 @@ use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 use LauLamanApps\IzettleApi\Client\Exception\ClientException;
 use LauLamanApps\IzettleApi\Client\Exception\GuzzleClientExceptionHandler;
-use LauLamanApps\IzettleApi\Client\Exception\InvalidClientException;
 use LauLamanApps\IzettleApi\Client\Exception\InvalidClient\InvalidClientIdException;
+use LauLamanApps\IzettleApi\Client\Exception\InvalidClientException;
 use LauLamanApps\IzettleApi\Client\Exception\InvalidGrant\InvalidUsernameOrPasswordException;
 use LauLamanApps\IzettleApi\Client\Exception\InvalidGrant\TooManyFailedAttemptsException;
 use LauLamanApps\IzettleApi\Client\Exception\InvalidGrantException;
@@ -78,7 +78,7 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
         ];
     }
 
-    private function getClientException(int $code ,string $error, string $errorDescription): GuzzleClientException
+    private function getClientException(int $code, string $error, string $errorDescription): GuzzleClientException
     {
         /** @var RequestInterface|MockInterface $request */
         $request = Mockery::mock(RequestInterface::class);
@@ -106,5 +106,4 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
 
         return $response;
     }
-
 }

@@ -44,14 +44,14 @@ final class ImageFileUpload implements ImageUploadRequestInterface
         return json_encode($data);
     }
 
-    private function validateFile(string $file)
+    private function validateFile(string $file): void
     {
         self::validateFileSize($file);
         self::validatedImageType($file);
         self::validateImageSize($file);
     }
 
-    private static function validateFileSize($file)
+    private static function validateFileSize($file): void
     {
         $maxFileSizeBytes = (self::MAX_FILE_SIZE_MB * 1024 * 1024);
         if (filesize($file) > $maxFileSizeBytes) {
@@ -59,7 +59,7 @@ final class ImageFileUpload implements ImageUploadRequestInterface
         }
     }
 
-    private static function validatedImageType(string $file)
+    private static function validatedImageType(string $file): void
     {
         $type = false;
 
@@ -80,7 +80,7 @@ final class ImageFileUpload implements ImageUploadRequestInterface
         }
     }
 
-    private static function validateImageSize(string $file)
+    private static function validateImageSize(string $file): void
     {
         list($width, $height) = getimagesize($file);
 

@@ -35,7 +35,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function getCategories()
+    public function getCategories(): void
     {
         $organizationUuid = Uuid::uuid1();
         $url = sprintf(ProductClient::GET_CATEGORIES, (string) $organizationUuid);
@@ -61,7 +61,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function createCategory()
+    public function createCategory(): void
     {
         $organizationUuid = Uuid::uuid1();
         $category = Category::new('name');
@@ -85,7 +85,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function getDiscounts()
+    public function getDiscounts(): void
     {
         $organizationUuid = Uuid::uuid1();
         $data = ['getDiscountsTest'];
@@ -110,7 +110,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function createDiscount()
+    public function createDiscount(): void
     {
         $discount = $this->getDiscount();
         $organizationUuid = Uuid::uuid1();
@@ -134,7 +134,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function deleteDiscount()
+    public function deleteDiscount(): void
     {
         $discount = $this->getDiscount();
         $organizationUuid = Uuid::uuid1();
@@ -158,7 +158,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function getLibrary()
+    public function getLibrary(): void
     {
         $organizationUuid = Uuid::uuid1();
         $data = ['getLibraryTest'];
@@ -191,7 +191,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function getProducts()
+    public function getProducts(): void
     {
         $organizationUuid = Uuid::uuid1();
         $data = ['getProductsTest'];
@@ -216,7 +216,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function createProduct()
+    public function createProduct(): void
     {
         $product = $this->getProduct();
         $organizationUuid = Uuid::uuid1();
@@ -240,7 +240,7 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function deleteProduct()
+    public function deleteProduct(): void
     {
         $product = $this->getProduct();
         $organizationUuid = Uuid::uuid1();

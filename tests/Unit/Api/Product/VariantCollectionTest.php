@@ -11,11 +11,15 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/** * @small */
+/**
+ * @small
+ */
 final class VariantCollectionTest extends TestCase
 {
-    /** @test */
-    public function variantCollection()
+    /**
+     * @test
+     */
+    public function variantCollection(): void
     {
         $variant1 = $this->getVariantWithUuid();
         $variant2 = $this->getVariantWithUuid();

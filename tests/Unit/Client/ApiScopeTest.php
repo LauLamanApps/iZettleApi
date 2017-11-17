@@ -81,9 +81,10 @@ final class ApiScopeTest extends TestCase
     public function getRights(): array
     {
         $rights = [];
-        foreach (Rights::getValidOptions() as $right){
+        foreach (Rights::getValidOptions() as $right) {
             $rights[$right] = [Rights::get($right)];
         }
+
         return $rights;
     }
 }

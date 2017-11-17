@@ -20,7 +20,7 @@ final class VariantsBuilderTest extends TestCase
      * @test
      * @dataProvider getVariantArrayData
      */
-    public function buildFromArray(array $data)
+    public function buildFromArray(array $data): void
     {
         $builder = new VariantBuilder();
         $variantCollection = $builder->buildFromArray($data);

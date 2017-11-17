@@ -30,7 +30,7 @@ final class GuzzleIzettleClientTest extends TestCase
     /**
      * @test
      */
-    public function authoriseUserLogin()
+    public function authoriseUserLogin(): void
     {
         $redirectUrl = 'example.com';
         $apiScope = new ApiScope();
@@ -45,7 +45,6 @@ final class GuzzleIzettleClientTest extends TestCase
         $authoriseUserLoginUrl =  $accessTokenFactory->authoriseUserLogin($redirectUrl, $apiScope);
 
         self::assertSame($expectedUrl, $authoriseUserLoginUrl);
-
     }
 
     /**

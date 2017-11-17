@@ -25,7 +25,7 @@ final class ProductBuilderTest extends TestCase
      * @test
      * @dataProvider getProductJsonData
      */
-    public function buildFromJson($json, $data)
+    public function buildFromJson($json, $data): void
     {
         $categoryBuilderMock =  Mockery::mock(CategoryBuilderInterface::class);
         $imageBuilderMock =  Mockery::mock(ImageBuilderInterface::class);
@@ -64,7 +64,7 @@ final class ProductBuilderTest extends TestCase
      * @test
      * @dataProvider getProductArrayData
      */
-    public function buildFromArray($data)
+    public function buildFromArray($data): void
     {
         $categoryBuilderMock =  Mockery::mock(CategoryBuilderInterface::class);
         $imageBuilderMock =  Mockery::mock(ImageBuilderInterface::class);

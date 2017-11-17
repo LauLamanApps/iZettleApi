@@ -11,10 +11,15 @@ use LauLamanApps\IzettleApi\API\Product\ProductCollection;
 use LauLamanApps\IzettleApi\API\Product\VariantCollection;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @small
+ */
 final class ProductCollectionTest extends TestCase
 {
-    /** @test */
-    public function productCollection()
+    /**
+     * @test
+     */
+    public function productCollection(): void
     {
         $product1 = $this->getProductWithUuid();
         $product2 = $this->getProductWithUuid();
