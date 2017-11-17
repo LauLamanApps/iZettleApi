@@ -15,7 +15,7 @@ final class ImageTest extends TestCase
     /**
      * @test
      */
-    public function image()
+    public function image(): void
     {
         $filename = 'image.jpg';
 

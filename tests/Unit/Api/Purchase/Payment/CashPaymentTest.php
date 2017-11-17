@@ -18,7 +18,7 @@ final class CashPaymentTest extends TestCase
      * @test
      * @dataProvider getAmounts
      */
-    public function changedAmount($shouldPay, $payed)
+    public function changedAmount($shouldPay, $payed): void
     {
         $shouldReceiveChange = ($payed - $shouldPay);
 

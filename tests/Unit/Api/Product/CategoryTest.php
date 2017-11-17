@@ -8,10 +8,14 @@ use LauLamanApps\IzettleApi\API\Product\Category;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/** * @small */
+/**
+ * @small
+ */
 final class CategoryTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function new(): void
     {
         $name = 'name';

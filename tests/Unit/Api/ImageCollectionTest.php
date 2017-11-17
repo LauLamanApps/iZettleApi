@@ -7,11 +7,15 @@ namespace LauLamanApps\IzettleApi\Tests\Unit\Api;
 use LauLamanApps\IzettleApi\API\Image;
 use LauLamanApps\IzettleApi\API\ImageCollection;
 use PHPUnit\Framework\TestCase;
-
+/**
+ * @small
+ */
 final class ImageCollectionTest extends TestCase
 {
-    /** @test */
-    public function imageCollection()
+    /**
+     * @test
+     */
+    public function imageCollection(): void
     {
         $image1 = $this->getImageWithUuid('a.jpg');
         $image2 = $this->getImageWithUuid('b.png');
@@ -37,8 +41,10 @@ final class ImageCollectionTest extends TestCase
         self::assertFalse(array_key_exists($image2->getFilename(), $collection));
     }
 
-    /** @test */
-    public function get()
+    /**
+     * @test
+     */
+    public function get(): void
     {
         $filename = 'test.jpg';
         $imageCollection = new ImageCollection([$this->getImageWithUuid($filename)]);

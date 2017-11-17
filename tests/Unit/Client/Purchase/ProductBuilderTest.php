@@ -18,7 +18,7 @@ final class ProductBuilderTest extends TestCase
     /**
      * @test
      */
-    public function parseArray()
+    public function parseArray(): void
     {
         $data = $this->getProductData();
 

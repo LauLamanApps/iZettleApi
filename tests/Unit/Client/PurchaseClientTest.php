@@ -27,7 +27,7 @@ final class PurchaseClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function getPurchaseHistory()
+    public function getPurchaseHistory(): void
     {
         $data = ['getPurchaseHistoryTest'];
         $izettleClientMock = $this->getIzettleGetMock(PurchaseClient::GET_PURCHASES, $data);
@@ -42,7 +42,7 @@ final class PurchaseClientTest extends AbstractClientTest
     /**
      * @test
      */
-    public function getPurchase()
+    public function getPurchase(): void
     {
         $purchaseUuid = Uuid::uuid1();
         $data = ['getPurchaseTest'];

@@ -40,8 +40,10 @@ final class GuzzleClientExceptionHandler
         switch ($responseData['error']) {
             case 'invalid_grant':
                 self::handleInvalidGrantException($responseData);
+                // no break
             case 'invalid_client':
                 self::handleInvalidClientException($responseData);
+                // no break
             case 'unauthorized_client':
                 throw new InvalidClientException($responseData['error_description']);
             default:

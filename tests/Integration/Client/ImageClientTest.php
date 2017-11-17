@@ -26,7 +26,5 @@ final class ImageClientTest extends AbstractClientTest
         $image = $imageClient->postImage(new ImageUrlUpload(''));
 
         self::assertInstanceOf(Image::class, $image);
-
-
     }
 }

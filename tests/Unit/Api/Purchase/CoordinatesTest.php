@@ -16,7 +16,7 @@ final class CoordinatesTest extends TestCase
      * @test
      * @dataProvider getCoordinates
      */
-    public function coordinate(float $latitude, float $longitude, float $accuracyMeters)
+    public function coordinate(float $latitude, float $longitude, float $accuracyMeters): void
     {
         $coordinate = new Coordinates($latitude, $longitude, $accuracyMeters);
 
@@ -39,7 +39,7 @@ final class CoordinatesTest extends TestCase
      * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLatitudeException
      * @dataProvider getInvalidLatitude
      */
-    public function invalidLatitude(float $latitude)
+    public function invalidLatitude(float $latitude): void
     {
         new Coordinates($latitude, 5.1511458, 10.0);
     }
@@ -57,7 +57,7 @@ final class CoordinatesTest extends TestCase
      * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLongitudeException
      * @dataProvider getInvalidLongitude
      */
-    public function invalidLongitude(float $longitude)
+    public function invalidLongitude(float $longitude): void
     {
         new Coordinates(52.3504547, $longitude, 10.0);
     }

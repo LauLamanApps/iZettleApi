@@ -67,19 +67,19 @@ final class ApiScope
     public function getUrlParameters(): string
     {
         $scope = [];
-        if (!is_null($this->finance)) {
+        if ($this->finance !== null) {
             $scope[] = self::FINANCE . ':' . $this->finance->getValue();
         }
-        if (!is_null($this->purchase)) {
+        if ($this->purchase !== null) {
             $scope[] = self::PURCHASE . ':' . $this->purchase->getValue();
         }
-        if (!is_null($this->product)) {
+        if ($this->product !== null) {
             $scope[] = self::PRODUCT . ':' . $this->product->getValue();
         }
-        if (!is_null($this->inventory)) {
+        if ($this->inventory !== null) {
             $scope[] = self::INVENTORY . ':' . $this->inventory->getValue();
         }
-        if (!is_null($this->image)) {
+        if ($this->image !== null) {
             $scope[] = self::IMAGE . ':' . $this->image->getValue();
         }
 

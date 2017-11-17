@@ -19,7 +19,7 @@ final class PurchaseTest extends TestCase
     /**
      * @test
      */
-    public function purchase()
+    public function purchase(): void
     {
         $products = ['products'];
         $payments = ['payments'];

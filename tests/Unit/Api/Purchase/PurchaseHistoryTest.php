@@ -22,7 +22,7 @@ final class PurchaseHistoryTest extends TestCase
     /**
      * @test
      */
-    public function purchaseHistory()
+    public function purchaseHistory(): void
     {
         $initialPurchases = 2;
         $purchaseHistory =  new PurchaseHistory(

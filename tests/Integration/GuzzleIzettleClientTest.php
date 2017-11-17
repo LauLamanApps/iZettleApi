@@ -13,7 +13,6 @@ use GuzzleHttp\Psr7\Response;
 use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * @medium
  */
@@ -39,6 +38,6 @@ final class GuzzleIzettleClientTest extends TestCase
         $handler = HandlerStack::create($mock);
 
         $izettleClient = new GuzzleIzettleClient(new GuzzleClient(['handler' => $handler]), '', '');
-        $izettleClient->getAccessTokenFromUserLogin('','');
+        $izettleClient->getAccessTokenFromUserLogin('', '');
     }
 }

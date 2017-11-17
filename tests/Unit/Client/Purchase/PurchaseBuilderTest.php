@@ -62,7 +62,7 @@ final class PurchaseBuilderTest extends TestCase
     /**
      * @test
      */
-    public function buildFromJsonArray()
+    public function buildFromJsonArray(): void
     {
         $data[] = $this->getDataSet1();
         $data[] = $this->getDataSet2();

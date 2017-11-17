@@ -9,11 +9,15 @@ use LauLamanApps\IzettleApi\API\Product\Discount;
 use LauLamanApps\IzettleApi\API\Product\DiscountCollection;
 use PHPUnit\Framework\TestCase;
 
-/** * @small */
+/**
+ * @small
+ */
 final class DiscountCollectionTest extends TestCase
 {
-    /** @test */
-    public function discountCollection()
+    /**
+     * @test
+     */
+    public function discountCollection(): void
     {
         $discount1 = $this->getDiscountWithUuid();
         $discount2 = $this->getDiscountWithUuid();

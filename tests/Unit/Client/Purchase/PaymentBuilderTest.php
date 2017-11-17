@@ -78,12 +78,12 @@ final class PaymentBuilderTest extends TestCase
         }
     }
 
-    private function cashPaymentTests(CashPayment $payment, $paymentData)
+    private function cashPaymentTests(CashPayment $payment, $paymentData): void
     {
         self::assertSame($paymentData['attributes']['handedAmount'], (int) $payment->getHandedAmount()->getAmount());
     }
 
-    private function cardPaymentTests(CardPayment $payment, $paymentData)
+    private function cardPaymentTests(CardPayment $payment, $paymentData): void
     {
         self::assertSame($paymentData['attributes']['cardPaymentEntryMode'], $payment->getCardPaymentEntryMode());
         self::assertSame($paymentData['attributes']['maskedPan'], $payment->getMaskedPan());
@@ -99,7 +99,7 @@ final class PaymentBuilderTest extends TestCase
         }
     }
 
-    private function invoicePaymentTests(InvoicePayment $payment, $paymentData)
+    private function invoicePaymentTests(InvoicePayment $payment, $paymentData): void
     {
         self::assertSame($paymentData['attributes']['orderUUID'], (string) $payment->getOrderUuid());
         self::assertSame($paymentData['attributes']['invoiceNr'], $payment->getInvoiceNr());

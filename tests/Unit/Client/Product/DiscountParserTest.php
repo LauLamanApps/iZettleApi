@@ -22,7 +22,7 @@ final class DiscountBuilderTest extends TestCase
     /**
      * @test
      */
-    public function buildFromJsonSingle()
+    public function buildFromJsonSingle(): void
     {
         $json = file_get_contents(dirname(__FILE__) . '/json-files/single-discount.json');
         $data = json_decode($json, true)[0];
@@ -56,7 +56,7 @@ final class DiscountBuilderTest extends TestCase
     /**
      * @test
      */
-    public function buildFromJsonMultiple()
+    public function buildFromJsonMultiple(): void
     {
         $json = file_get_contents(dirname(__FILE__) . '/json-files/multiple-discount.json');
         $data = json_decode($json, true);
@@ -93,7 +93,7 @@ final class DiscountBuilderTest extends TestCase
     /**
      * @test
      */
-    public function buildFromArray()
+    public function buildFromArray(): void
     {
         $json = file_get_contents(dirname(__FILE__) . '/json-files/multiple-discount.json');
         $data = json_decode($json, true);
