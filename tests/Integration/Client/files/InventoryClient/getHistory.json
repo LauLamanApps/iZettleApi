@@ -1,0 +1,16 @@
+{
+  "variants": [
+    {
+      "productUuid": "ecbcf604-c16f-11e7-abc4-cec278b6b50a",
+      "variantUuid": "ecbcf938-c16f-11e7-abc4-cec278b6b50a",
+      "change": "9.0",
+      "changed": "2017-11-03T17:32:47.082+0000"
+    },
+    {
+      "productUuid": "ecbcfa64-c16f-11e7-abc4-cec278b6b50a",
+      "variantUuid": "ecbcfb4a-c16f-11e7-abc4-cec278b6b50a",
+      "change": "14.0",
+      "changed": "2017-11-03T10:38:16.384+0000"
+    }
+  ]
+}
