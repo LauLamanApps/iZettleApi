@@ -8,14 +8,6 @@ The iZettle Api provides a simple integration of the [iZettle Api][izettleapi] f
 [![Latest Stable Version](https://poser.pugx.org/laulamanapps/Izettle-api/v/stable)](https://packagist.org/packages/laulamanapps/izettle-api)
 [![License](https://poser.pugx.org/laulamanapps/Izettle-api/license)](https://packagist.org/packages/laulamanapps/izettle-api)
 
-**Warning: Currently in development**
-
-**TODO**
-- Finalize integration
-- Complete integration tests
-- Write documentation
-
-
 Installation
 ------------
 With [composer](http://packagist.org), add:
