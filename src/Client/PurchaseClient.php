@@ -34,9 +34,9 @@ final class PurchaseClient
         $this->purchaseBuilder = $purchaseBuilder;
     }
 
-    public function getPurchaseHistory(): PurchaseHistory
+    public function getPurchaseHistory(array $parameters = []): PurchaseHistory
     {
-        $json = $this->client->getJson($this->client->get(self::GET_PURCHASES));
+        $json = $this->client->getJson($this->client->get(self::GET_PURCHASES, $parameters));
 
         return $this->purchaseHistoryBuilder->buildFromJson($json);
     }
