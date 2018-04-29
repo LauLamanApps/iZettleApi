@@ -63,7 +63,7 @@ final class FinanceClientTest extends AbstractClientTest
         $queryParams = ['at' => null];
         $data = [
             'data' => [
-                'currencyId' => $expectedBalance->getCurrency()->getCode(),
+                'currencyId' => $expectedBalance->getCurrency()->getName(),
                 'totalBalance' => (int) $expectedBalance->getAmount()
             ]
         ];

@@ -46,8 +46,8 @@ final class DiscountBuilderTest extends TestCase
 
         if ($data['amount']) {
             self::assertInstanceOf(Money::class, $discount->getAmount());
-            self::assertSame((string) $data['amount']['amount'], $discount->getAmount()->getAmount());
-            self::assertSame($data['amount']['currencyId'], $discount->getAmount()->getCurrency()->getCode());
+            self::assertSame($data['amount']['amount'], $discount->getAmount()->getAmount());
+            self::assertSame($data['amount']['currencyId'], $discount->getAmount()->getCurrency()->getName());
         } else {
             self::assertSame((float) $data['percentage'], $discount->getPercentage());
         }
@@ -82,8 +82,8 @@ final class DiscountBuilderTest extends TestCase
 
             if ($data[$index]['amount']) {
                 self::assertInstanceOf(Money::class, $discount->getAmount());
-                self::assertSame((string) $data[$index]['amount']['amount'], $discount->getAmount()->getAmount());
-                self::assertSame($data[$index]['amount']['currencyId'], $discount->getAmount()->getCurrency()->getCode());
+                self::assertSame($data[$index]['amount']['amount'], $discount->getAmount()->getAmount());
+                self::assertSame($data[$index]['amount']['currencyId'], $discount->getAmount()->getCurrency()->getName());
             } else {
                 self::assertSame((float) $data[$index]['percentage'], $discount->getPercentage());
             }

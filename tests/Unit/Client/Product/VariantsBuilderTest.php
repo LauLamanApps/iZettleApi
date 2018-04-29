@@ -38,16 +38,16 @@ final class VariantsBuilderTest extends TestCase
             self::assertSame($data[$i]['barcode'], $variant->getBarcode());
             self::assertSame((int) $data[$i]['defaultQuantity'], $variant->getDefaultQuantity());
             self::assertSame($data[$i]['unitName'], $variant->getUnitName());
-            self::assertSame((string) $data[$i]['price']['amount'], $variant->getPrice()->getAmount());
-            self::assertSame($data[$i]['price']['currencyId'], $variant->getPrice()->getCurrency()->getCode());
+            self::assertSame($data[$i]['price']['amount'], $variant->getPrice()->getAmount());
+            self::assertSame($data[$i]['price']['currencyId'], $variant->getPrice()->getCurrency()->getName());
             self::assertSame((float) $data[$i]['vatPercentage'], $variant->getVatPercentage());
 
             if (is_null($data[$i]['costPrice'])) {
                 self::assertSame($data[$i]['costPrice'], $variant->getCostPrice());
             } else {
                 self::assertInstanceOf(Money::class, $variant->getCostPrice());
-                self::assertSame((string) $data[$i]['costPrice']['amount'], $variant->getCostPrice()->getAmount());
-                self::assertSame($data[$i]['costPrice']['currencyId'], $variant->getCostPrice()->getCurrency()->getCode());
+                self::assertSame($data[$i]['costPrice']['amount'], $variant->getCostPrice()->getAmount());
+                self::assertSame($data[$i]['costPrice']['currencyId'], $variant->getCostPrice()->getCurrency()->getName());
             }
 
             $i++;

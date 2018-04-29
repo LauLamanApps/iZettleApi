@@ -44,7 +44,7 @@ final class PurchaseBuilderTest extends TestCase
         self::assertSame($data['purchaseUUID'], $purchase->getUuid());
         self::assertSame($data['purchaseUUID1'], (string) $purchase->getUuid1());
         self::assertSame($data['amount'], (int) $purchase->getAmount()->getAmount());
-        self::assertSame($data['currency'], $purchase->getAmount()->getCurrency()->getCode());
+        self::assertSame($data['currency'], $purchase->getAmount()->getCurrency()->getName());
         self::assertSame($data['vatAmount'], (int) $purchase->getVatAmount()->getAmount());
         self::assertSame($data['country'], $purchase->getCountry());
         self::assertEquals(new DateTime($data['timestamp']), $purchase->getTimestamp());

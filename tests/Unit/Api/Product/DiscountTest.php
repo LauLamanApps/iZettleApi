@@ -42,7 +42,7 @@ final class DiscountTest extends TestCase
         self::assertSame($imageCollection->getCreateDataArray(), $createData['imageLookupKeys']);
         if ($amount) {
             self::assertSame($amount->getAmount(), $createData['amount']['amount']);
-            self::assertSame($amount->getCurrency()->getCode(), $createData['amount']['currencyId']);
+            self::assertSame($amount->getCurrency()->getName(), $createData['amount']['currencyId']);
         } else {
             self::assertSame((string) $percentage, $createData['percentage']);
         }

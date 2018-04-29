@@ -74,7 +74,7 @@ final class PurchaseClientTest extends AbstractClientTest
         self::assertSame($data["amount"], (int) $purchase->getAmount()->getAmount());
         self::assertSame($data["vatAmount"], (int) $purchase->getVatAmount()->getAmount());
         self::assertSame($data["country"], $purchase->getCountry());
-        self::assertSame($data["currency"], $purchase->getAmount()->getCurrency()->getCode());
+        self::assertSame($data["currency"], $purchase->getAmount()->getCurrency()->getName());
         self::assertEquals(new DateTime($data["timestamp"]), $purchase->getTimestamp());
         self::assertSame($data["gpsCoordinates"]['latitude'], $purchase->getCoordinates()->getLatitude());
         self::assertSame($data["gpsCoordinates"]['longitude'], $purchase->getCoordinates()->getLongitude());
