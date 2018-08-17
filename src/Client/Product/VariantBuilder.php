@@ -31,8 +31,8 @@ final class VariantBuilder implements VariantBuilderInterface
             $data['description'],
             $data['sku'],
             $data['barcode'],
-            (int) $data['defaultQuantity'],
-            $data['unitName'],
+            (int) ($data['defaultQuantity'] ?? 0),
+            $data['unitName'] ?? '',
             new Money($data['price']['amount'], new Currency($data['price']['currencyId'])),
             $data['costPrice'] ? new Money($data['costPrice']['amount'], new Currency($data['costPrice']['currencyId'])) : null,
             (float) $data['vatPercentage']
