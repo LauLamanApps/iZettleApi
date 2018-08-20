@@ -24,9 +24,10 @@ final class LibraryBuilder implements LibraryBuilderInterface
     public function buildFromJson(string $json): Library
     {
         $data = json_decode($json, true);
+        $fromEventLogUuid = $data['fromEventLogUuid'] ? Uuid::fromString($data['fromEventLogUuid']) : null;
 
         return new Library(
-            Uuid::fromString($data['fromEventLogUuid']),
+            $fromEventLogUuid,
             Uuid::fromString($data['untilEventLogUuid']),
             $this->productBuilder->buildFromArray($data['products']),
             $this->discountBuilder->buildFromArray($data['discounts']),

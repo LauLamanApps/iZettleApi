@@ -16,7 +16,7 @@ final class Library
     private $deletedDiscounts;
 
     public function __construct(
-        UuidInterface $fromEventLogUuid,
+        ?UuidInterface $fromEventLogUuid = null,
         UuidInterface $untilEventLogUuid,
         ProductCollection $products,
         DiscountCollection $discounts,
@@ -31,7 +31,7 @@ final class Library
         $this->deletedDiscounts = $deletedDiscounts;
     }
 
-    public function getFromEventLogUuid(): UuidInterface
+    public function getFromEventLogUuid(): ?UuidInterface
     {
         return $this->fromEventLogUuid;
     }
