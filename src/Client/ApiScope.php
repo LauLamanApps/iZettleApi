@@ -68,21 +68,30 @@ final class ApiScope
     {
         $scope = [];
         if ($this->finance !== null) {
-            $scope[] = self::FINANCE . ':' . $this->finance->getValue();
+		$scope[] = $this->finance->getValue().':'.self::FINANCE;
+		if($this->finance->getValue() == Rights::WRITE)
+			$scope[] = Rights::READ.':'.self::FINANCE;
         }
         if ($this->purchase !== null) {
-            $scope[] = self::PURCHASE . ':' . $this->purchase->getValue();
+		$scope[] = $this->purchase->getValue().':'.self::PURCHASE;
+		if($this->purchase->getValue() == Rights::WRITE)
+			$scope[] = Rights::READ.':'.self::PURCHASE;
         }
         if ($this->product !== null) {
-            $scope[] = self::PRODUCT . ':' . $this->product->getValue();
+        	$scope[] = $this->product->getValue().':'.self::PRODUCT;
+		if($this->product->getValue() == Rights::WRITE)
+			$scope[] = Rights::READ.':'.self::PRODUCT;
         }
         if ($this->inventory !== null) {
-            $scope[] = self::INVENTORY . ':' . $this->inventory->getValue();
+		$scope[] = $this->inventory->getValue().':'.self::INVENTORY;
+		if($this->inventory->getValue() == Rights::WRITE)
+			$scope[] = Rights::READ.':'.self::INVENTORY;
         }
         if ($this->image !== null) {
-            $scope[] = self::IMAGE . ':' . $this->image->getValue();
+		$scope[] = $this->image->getValue().':'.self::IMAGE;
+		if($this->image->getValue() == Rights::WRITE)
+			$scope[] = Rights::READ.':'.self::IMAGE;
         }
-
         return implode(' ', $scope);
     }
 }
