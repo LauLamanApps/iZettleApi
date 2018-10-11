@@ -14,7 +14,7 @@ interface IzettleClientInterface
 
     const API_ACCESS_TOKEN_REQUEST_URL = self::API_BASE_URL . '/token';
     const API_ACCESS_TOKEN_PASSWORD_GRANT = 'password';
-	const API_ACCESS_TOKEN_CODE_GRANT = 'authorization_code';
+    const API_ACCESS_TOKEN_CODE_GRANT = 'authorization_code';
     const API_ACCESS_TOKEN_REFRESH_TOKEN_URL = self::API_BASE_URL . '/token';
     const API_ACCESS_TOKEN_REFRESH_TOKEN_GRANT = 'refresh_token';
 

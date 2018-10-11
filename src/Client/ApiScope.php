@@ -68,30 +68,40 @@ final class ApiScope
     {
         $scope = [];
         if ($this->finance !== null) {
-		$scope[] = $this->finance->getValue().':'.self::FINANCE;
-		if($this->finance->getValue() == Rights::WRITE)
-			$scope[] = Rights::READ.':'.self::FINANCE;
+            $scope[] = $this->finance->getValue() . ':' . self::FINANCE;
+            if ($this->finance->getValue() == Rights::WRITE) {
+                $scope[] = Rights::READ . ':' . self::FINANCE;
+            }
         }
+
         if ($this->purchase !== null) {
-		$scope[] = $this->purchase->getValue().':'.self::PURCHASE;
-		if($this->purchase->getValue() == Rights::WRITE)
-			$scope[] = Rights::READ.':'.self::PURCHASE;
+            $scope[] = $this->purchase->getValue() . ':' . self::PURCHASE;
+            if ($this->purchase->getValue() == Rights::WRITE) {
+                $scope[] = Rights::READ . ':' . self::PURCHASE;
+            }
         }
+
         if ($this->product !== null) {
-        	$scope[] = $this->product->getValue().':'.self::PRODUCT;
-		if($this->product->getValue() == Rights::WRITE)
-			$scope[] = Rights::READ.':'.self::PRODUCT;
+            $scope[] = $this->product->getValue() . ':' . self::PRODUCT;
+            if ($this->product->getValue() == Rights::WRITE) {
+                $scope[] = Rights::READ . ':' . self::PRODUCT;
+            }
         }
+
         if ($this->inventory !== null) {
-		$scope[] = $this->inventory->getValue().':'.self::INVENTORY;
-		if($this->inventory->getValue() == Rights::WRITE)
-			$scope[] = Rights::READ.':'.self::INVENTORY;
+            $scope[] = $this->inventory->getValue() . ':' . self::INVENTORY;
+            if ($this->inventory->getValue() == Rights::WRITE) {
+                $scope[] = Rights::READ . ':' . self::INVENTORY;
+            }
         }
+
         if ($this->image !== null) {
-		$scope[] = $this->image->getValue().':'.self::IMAGE;
-		if($this->image->getValue() == Rights::WRITE)
-			$scope[] = Rights::READ.':'.self::IMAGE;
+            $scope[] = $this->image->getValue() . ':' . self::IMAGE;
+            if ($this->image->getValue() == Rights::WRITE) {
+                $scope[] = Rights::READ . ':' . self::IMAGE;
+            }
         }
+
         return implode(' ', $scope);
     }
 }

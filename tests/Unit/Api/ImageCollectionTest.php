@@ -7,6 +7,7 @@ namespace LauLamanApps\IzettleApi\Tests\Unit\Api;
 use LauLamanApps\IzettleApi\API\Image;
 use LauLamanApps\IzettleApi\API\ImageCollection;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @small
  */

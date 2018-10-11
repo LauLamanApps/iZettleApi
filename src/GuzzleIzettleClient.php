@@ -65,26 +65,26 @@ class GuzzleIzettleClient implements IzettleClientInterface
     }
 
     
-	public function getAccessTokenFromAuthorizedCode(string $redirectUrl, string $code ): AccessToken
-	{
-		$options = [
-		   'form_params' => [
-			  'grant_type' => self::API_ACCESS_TOKEN_CODE_GRANT,
-			  'client_id' => $this->clientId,
-			  'client_secret' => $this->clientSecret,
-			  'redirect_uri' => $redirectUrl,
-			  'code' => $code
-		   ],
-		];
+    public function getAccessTokenFromAuthorizedCode(string $redirectUrl, string $code): AccessToken
+    {
+        $options = [
+           'form_params' => [
+              'grant_type' => self::API_ACCESS_TOKEN_CODE_GRANT,
+              'client_id' => $this->clientId,
+              'client_secret' => $this->clientSecret,
+              'redirect_uri' => $redirectUrl,
+              'code' => $code
+           ],
+        ];
 
-		try {
-			$this->setAccessToken($this->requestAccessToken(self::API_ACCESS_TOKEN_REQUEST_URL, $options));
-		} catch (ClientException $exception) {
-			GuzzleClientExceptionHandler::handleClientException($exception);
-		}
+        try {
+            $this->setAccessToken($this->requestAccessToken(self::API_ACCESS_TOKEN_REQUEST_URL, $options));
+        } catch (ClientException $exception) {
+            GuzzleClientExceptionHandler::handleClientException($exception);
+        }
 
-		return $this->accessToken;
-	}
+        return $this->accessToken;
+    }
     
     public function getAccessTokenFromUserLogin(string $username, string $password): AccessToken
     {
