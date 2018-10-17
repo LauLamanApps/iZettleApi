@@ -6,6 +6,7 @@ namespace LauLamanApps\IzettleApi;
 
 use DateTime;
 use DateTimeImmutable;
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
@@ -14,13 +15,13 @@ use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
 use LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException;
 use LauLamanApps\IzettleApi\Client\Exception\GuzzleClientExceptionHandler;
-use LauLamanApps\IzettleApi\Exception\NotFoundException;
+use LauLamanApps\IzettleApi\Exception\UnprocessableEntityException;
 use Psr\Http\Message\ResponseInterface;
 
 class GuzzleIzettleClient implements IzettleClientInterface
 {
     /**
-     * @var ClientInterface
+     * @var ClientInterface|Client
      */
     private $guzzleClient;
 
@@ -137,6 +138,9 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return $response;
     }
 
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function post(string $url, IzettlePostable $postable): ResponseInterface
     {
         $headers = array_merge(
@@ -148,10 +152,16 @@ class GuzzleIzettleClient implements IzettleClientInterface
         );
 
         $options =  array_merge(['headers' => $headers], ['body' => $postable->getPostBodyData()]);
-
-        return $this->guzzleClient->post($url, $options);
+        try {
+            return $this->guzzleClient->post($url, $options);
+        } catch (ClientException $exception) {
+            throw new UnprocessableEntityException($exception->getResponse()->getBody()->getContents());
+        }
     }
 
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function put(string $url, string $jsonData): void
     {
         $headers = array_merge(
@@ -164,12 +174,23 @@ class GuzzleIzettleClient implements IzettleClientInterface
 
         $options =  array_merge(['headers' => $headers], ['body' => $jsonData]);
 
-        $this->guzzleClient->put($url, $options);
+        try {
+            $this->guzzleClient->put($url, $options);
+        } catch (ClientException $exception) {
+            throw new UnprocessableEntityException($exception->getResponse()->getBody()->getContents());
+        }
     }
 
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function delete(string $url): void
     {
-        $this->guzzleClient->delete($url, ['headers' => $this->getAuthorizationHeader()]);
+        try {
+            $this->guzzleClient->delete($url, ['headers' => $this->getAuthorizationHeader()]);
+        } catch (ClientException $exception) {
+            throw new UnprocessableEntityException($exception->getResponse()->getBody()->getContents());
+        }
     }
 
     public function getJson(ResponseInterface $response): string

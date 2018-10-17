@@ -16,6 +16,7 @@ use LauLamanApps\IzettleApi\Client\Product\LibraryBuilder;
 use LauLamanApps\IzettleApi\Client\Product\LibraryBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Product\ProductBuilder;
 use LauLamanApps\IzettleApi\Client\Product\ProductBuilderInterface;
+use LauLamanApps\IzettleApi\Exception\UnprocessableEntityException;
 use LauLamanApps\IzettleApi\IzettleClientInterface;
 use Ramsey\Uuid\UuidInterface;
 
@@ -82,6 +83,9 @@ final class ProductClient
         return $this->categoryBuilder->buildFromJson($json);
     }
 
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function createCategory(Category $category): void
     {
         $url = sprintf(self::POST_CATEGORY, $this->organizationUuid);
@@ -99,6 +103,9 @@ final class ProductClient
         return $this->discountBuilder->buildFromJson($json);
     }
 
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function createDiscount(Discount $discount): void
     {
         $url = sprintf(self::POST_DISCOUNT, $this->organizationUuid);
@@ -106,6 +113,9 @@ final class ProductClient
         $this->client->post($url, $discount);
     }
 
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function deleteDiscount(Discount $discount): void
     {
         $url = sprintf(self::DELETE_DISCOUNT, $this->organizationUuid, (string) $discount->getUuid());
@@ -132,6 +142,9 @@ final class ProductClient
         return $this->productBuilder->buildFromJson($json);
     }
 
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function createProduct(Product $product): void
     {
         $url = sprintf(self::POST_PRODUCT, $this->organizationUuid);
@@ -139,6 +152,9 @@ final class ProductClient
         $this->client->post($url, $product);
     }
 
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function deleteProduct(Product $product): void
     {
         $url = sprintf(self::DELETE_PRODUCT, $this->organizationUuid, (string) $product->getUuid());
