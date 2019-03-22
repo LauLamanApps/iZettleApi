@@ -31,7 +31,22 @@ final class ImageFileUpload implements ImageUploadRequestInterface
     {
         $this->validateFile($filename);
         $this->imageFormat = self::ALLOWED_FILE_TYPES[exif_imagetype($filename)];
-        $this->imageData = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode(file_get_contents($filename)));
+        $this->imageData = $this->byteArray($filename);
+    }
+
+    /**
+     *  Generate byte array similar to the one in C# and Java
+     */
+    public function byteArray(string $filename): array
+    {
+        $data   = file_get_contents($filename);
+        $array  = array();
+        foreach(str_split($data) as $char)
+        {
+            array_push($array, ord($char));
+        }
+
+        return $array;
     }
 
     public function getPostBodyData(): string

@@ -12,7 +12,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ImageClient
 {
-    const BASE_URL = 'https://image.izettle.com/organizations/%s';
+    const BASE_URL = 'https://image.izettle.com/v2/images/organizations/%s';
     const POST_IMAGE = self::BASE_URL . '/products';
 
     private $client;
@@ -25,7 +25,7 @@ final class ImageClient
         ImageBuilderInterface $imageBuilder
     ) {
         $this->client = $client;
-        $this->organizationUuid = (string) $organizationUuid;
+        $this->organizationUuid = $organizationUuid ? (string) $organizationUuid : 'self';
         $this->imageBuilder = $imageBuilder;
     }
 
