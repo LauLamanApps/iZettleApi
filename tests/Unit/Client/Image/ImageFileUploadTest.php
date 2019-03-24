@@ -12,6 +12,19 @@ use PHPUnit\Framework\TestCase;
  */
 final class ImageFileUploadTest extends TestCase
 {
+
+    public function byteArray(string $filename): array
+    {
+        $data   = file_get_contents($filename);
+        $array  = array();
+        foreach(str_split($data) as $char)
+        {
+            array_push($array, ord($char));
+        }
+
+        return $array;
+    }
+
     /**
      * @test
      */
@@ -19,7 +32,7 @@ final class ImageFileUploadTest extends TestCase
     {
         $file = dirname(__FILE__) . '/files/50x50-good.png';
         $imageFormat = 'PNG';
-        $imageData = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode(file_get_contents($file)));
+        $imageData = $this->byteArray($file);
         $productImageUpload = new ImageFileUpload($file);
 
         self::assertInstanceOf(ImageFileUpload::class, $productImageUpload);
