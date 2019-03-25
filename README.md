@@ -16,6 +16,15 @@ With [composer](http://packagist.org), add:
 $ composer require laulamanapps/izettle-api
 ```
 
+Run Tests
+------------
+To make sure everyting works you can run tests:
+
+```bash
+$ make unit-tests 
+$ make integration-tests 
+```
+
 Usage
 -----
 
