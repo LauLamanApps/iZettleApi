@@ -7,6 +7,7 @@ namespace LauLamanApps\IzettleApi\Client\Product;
 use DateTime;
 use LauLamanApps\IzettleApi\API\Product\Product;
 use LauLamanApps\IzettleApi\API\Product\ProductCollection;
+use LauLamanApps\IzettleApi\API\Universal\Vat;
 use LauLamanApps\IzettleApi\Client\Universal\ImageBuilderInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -64,7 +65,7 @@ final class ProductBuilder implements ProductBuilderInterface
             new DateTime($data['updated']),
             Uuid::fromString($data['updatedBy']),
             new DateTime($data['created']),
-            (float) $data['vatPercentage']
+            $data['vatPercentage'] != '0' ? new Vat($data['vatPercentage']) : null
         );
     }
 }

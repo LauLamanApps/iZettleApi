@@ -4,22 +4,64 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\API\Product;
 
+use LauLamanApps\IzettleApi\API\Universal\Vat;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 final class Variant
 {
+
+    /**
+     * @var UuidInterface
+     */
     private $uuid;
+
+    /**
+     * @var string|null
+     */
     private $name;
+
+    /**
+     * @var string|null
+     */
     private $description;
+
+    /**
+     * @var string|null
+     */
     private $sku;
+
+    /**
+     * @var string|null
+     */
     private $barcode;
+
+    /**
+     * @var int
+     */
     private $defaultQuantity;
+
+    /**
+     * @var string|null
+     */
     private $unitName;
+
+    /**
+     * @var Money
+     */
     private $price;
+
+    /**
+     * @var Money|null
+     */
     private $costPrice;
-    private $vatPercentage;
+
+    /**
+     * @var Vat|null
+     */
+    private $vat;
+
 
     public static function create(
         UuidInterface $uuid,
@@ -31,7 +73,7 @@ final class Variant
         ?string $unitName = null,
         Money $price,
         ?Money $costPrice = null,
-        float $vatPercentage
+        ?Vat $vat = null
     ): self {
         return new self(
             $uuid,
@@ -43,7 +85,7 @@ final class Variant
             $unitName,
             $price,
             $costPrice,
-            $vatPercentage
+            $vat
         );
     }
 
@@ -56,7 +98,7 @@ final class Variant
         ?string $unitName = null,
         Money $price,
         ?Money $costPrice = null,
-        float $vatPercentage
+        ?Vat $vat = null
     ): self {
         return new self(
             Uuid::uuid1(),
@@ -68,7 +110,7 @@ final class Variant
             $unitName,
             $price,
             $costPrice,
-            $vatPercentage
+            $vat
         );
     }
 
@@ -117,9 +159,9 @@ final class Variant
         return $this->costPrice;
     }
 
-    public function getVatPercentage(): float
+    public function getVat(): ?Vat
     {
-        return $this->vatPercentage;
+        return $this->vat;
     }
 
     public function getCreateDataArray(): array
@@ -136,7 +178,7 @@ final class Variant
                 'amount' => $this->price->getAmount(),
                 'currencyId' => (string) $this->price->getCurrency(),
             ],
-            'vatPercentage' => $this->getVatPercentage()
+            'vatPercentage' => $this->getVat() ? $this->getVat()->getPercentage() : '0'
         ];
 
         if ($this->costPrice) {
@@ -159,7 +201,7 @@ final class Variant
         ?string $unitName,
         Money $price,
         ?Money $costPrice,
-        float $vatPercentage
+        ?Vat $vat = null
     ) {
         $this->uuid = $uuid;
         $this->name = $name;
@@ -170,6 +212,6 @@ final class Variant
         $this->unitName = $unitName;
         $this->price = $price;
         $this->costPrice = $costPrice;
-        $this->vatPercentage = $vatPercentage;
+        $this->vat = $vat;
     }
 }

@@ -40,7 +40,7 @@ final class VariantsBuilderTest extends TestCase
             self::assertSame($data[$i]['unitName'], $variant->getUnitName());
             self::assertSame((string) $data[$i]['price']['amount'], $variant->getPrice()->getAmount());
             self::assertSame($data[$i]['price']['currencyId'], $variant->getPrice()->getCurrency()->getCode());
-            self::assertSame((float) $data[$i]['vatPercentage'], $variant->getVatPercentage());
+            self::assertSame($data[$i]['vatPercentage'], $variant->getVat()->getPercentage());
 
             if (is_null($data[$i]['costPrice'])) {
                 self::assertSame($data[$i]['costPrice'], $variant->getCostPrice());

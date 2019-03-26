@@ -7,24 +7,73 @@ namespace LauLamanApps\IzettleApi\API\Product;
 use DateTime;
 use LauLamanApps\IzettleApi\API\ImageCollection;
 use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
+use LauLamanApps\IzettleApi\API\Universal\Vat;
 use LauLamanApps\IzettleApi\Client\Exception\CantCreateProductException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 final class Product implements IzettlePostable
 {
+    /**
+     * @var UuidInterface
+     */
     private $uuid;
+
+    /**
+     * @var CategoryCollection
+     */
     private $categories;
+
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var string|null
+     */
     private $description;
+
+    /**
+     * @var ImageCollection
+     */
     private $imageCollection;
+
+    /**
+     * @var VariantCollection
+     */
     private $variants;
+
+    /**
+     * @var string|null
+     */
     private $externalReference;
+
+    /**
+     * @var string|null
+     */
     private $etag;
+
+    /**
+     * @var DateTime|null
+     */
     private $updatedAt;
+
+    /**
+     * @var UuidInterface|null
+     */
     private $updatedBy;
+
+    /**
+     * @var DateTime|null
+     */
     private $createdAt;
-    private $vatPercentage;
+
+    /**
+     * @var Vat|null
+     */
+    private $vat;
+
 
     public static function create(
         UuidInterface $uuid,
@@ -33,12 +82,12 @@ final class Product implements IzettlePostable
         ?string $description = null,
         ImageCollection $imageCollection,
         VariantCollection $variants,
-        ?string $externalReference =  null,
+        ?string $externalReference = null,
         string $etag,
         DateTime $updatedAt,
         UuidInterface $updatedBy,
         DateTime $createdAt,
-        float $vatPercentage
+        ?Vat $vat = null
     ): self {
         return new self(
             $uuid,
@@ -52,7 +101,7 @@ final class Product implements IzettlePostable
             $updatedAt,
             $updatedBy,
             $createdAt,
-            $vatPercentage
+            $vat
         );
     }
 
@@ -130,9 +179,9 @@ final class Product implements IzettlePostable
         return $this->createdAt;
     }
 
-    public function getVatPercentage(): float
+    public function getVat(): ?Vat
     {
-        return $this->vatPercentage;
+        return $this->vat;
     }
 
     public function getPostBodyData(): string
@@ -164,7 +213,7 @@ final class Product implements IzettlePostable
         ?DateTime $updatedAt  = null,
         ?UuidInterface $updatedBy = null,
         ?DateTime $createdAt = null,
-        ?float $vatPercentage = null
+        ?Vat $vatPercentage = null
     ) {
         $this->uuid = $uuid;
         $this->categories = $categories;
@@ -177,7 +226,7 @@ final class Product implements IzettlePostable
         $this->updatedAt = $updatedAt;
         $this->updatedBy = $updatedBy;
         $this->createdAt = $createdAt;
-        $this->vatPercentage = $vatPercentage;
+        $this->vat = $vatPercentage;
     }
 
     private function validateMinimumVariants(): void

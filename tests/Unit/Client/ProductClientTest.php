@@ -14,6 +14,7 @@ use LauLamanApps\IzettleApi\API\Product\Product;
 use LauLamanApps\IzettleApi\API\Product\ProductCollection;
 use LauLamanApps\IzettleApi\API\Product\Variant;
 use LauLamanApps\IzettleApi\API\Product\VariantCollection;
+use LauLamanApps\IzettleApi\API\Universal\Vat;
 use LauLamanApps\IzettleApi\Client\Product\CategoryBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Product\DiscountBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Product\LibraryBuilderInterface;
@@ -282,7 +283,7 @@ final class ProductClientTest extends AbstractClientTest
                 null,
                 Money::EUR(0),
                 null,
-                21
+                new Vat('21')
             )])
         );
     }
