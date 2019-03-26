@@ -10,11 +10,14 @@ use LauLamanApps\IzettleApi\API\Product\CategoryCollection;
 use LauLamanApps\IzettleApi\API\Product\Product;
 use LauLamanApps\IzettleApi\API\Product\Variant;
 use LauLamanApps\IzettleApi\API\Product\VariantCollection;
+use LauLamanApps\IzettleApi\API\Universal\Vat;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/** * @small */
+/**
+ * @small
+ */
 final class ProductTest extends TestCase
 {
     /**
@@ -82,7 +85,7 @@ final class ProductTest extends TestCase
                         null,
                         Money::EUR(500),
                         null,
-                        12
+                        new Vat('12')
                     )
                 ]),
                 'externalReference1'
@@ -102,7 +105,7 @@ final class ProductTest extends TestCase
                         null,
                         Money::EUR(500),
                         Money::EUR(100),
-                        12
+                        new Vat('12')
                     )
                 ]),
                 'externalReference2'

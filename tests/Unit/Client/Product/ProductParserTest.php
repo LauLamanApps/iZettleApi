@@ -56,7 +56,7 @@ final class ProductBuilderTest extends TestCase
             self::assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
             self::assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
             self::assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
-            self::assertSame((float)$data[$index]['vatPercentage'], $product->getVatPercentage());
+            self::assertSame($data[$index]['vatPercentage'], $product->getVat()->getPercentage());
         }
     }
 
@@ -96,7 +96,7 @@ final class ProductBuilderTest extends TestCase
             self::assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
             self::assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
             self::assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
-            self::assertSame((float)$data[$index]['vatPercentage'], $product->getVatPercentage());
+            self::assertSame($data[$index]['vatPercentage'], $product->getVat()->getPercentage());
             $index++;
         }
     }

@@ -57,7 +57,7 @@ final class VariantCollectionTest extends TestCase
             null,
             Money::EUR(0),
             null,
-            0.0
+            null
         );
     }
 }
