@@ -1,0 +1,76 @@
+{
+  "uuid": "465fc4ec-bd93-11e7-abc4-cec278b6b50a",
+  "categories": [],
+  "name": "Frisdrank",
+  "description": null,
+  "imageLookupKeys": [],
+  "variants": [
+    {
+      "uuid": "465fc820-bd93-11e7-abc4-cec278b6b50a",
+      "name": "DR Pepper",
+      "description": null,
+      "sku": null,
+      "barcode": null,
+      "defaultQuantity": "1",
+      "unitName": null,
+      "price": {
+        "amount": 100,
+        "currencyId": "EUR"
+      },
+      "costPrice": null,
+      "vatPercentage": "6.0"
+    },
+    {
+      "uuid": "465fc942-bd93-11e7-abc4-cec278b6b50a",
+      "name": "Cola",
+      "description": null,
+      "sku": null,
+      "barcode": null,
+      "defaultQuantity": "1",
+      "unitName": null,
+      "price": {
+        "amount": 100,
+        "currencyId": "EUR"
+      },
+      "costPrice": null,
+      "vatPercentage": "6.0"
+    },
+    {
+      "uuid": "465fca5a-bd93-11e7-abc4-cec278b6b50a",
+      "name": "Fanta",
+      "description": null,
+      "sku": null,
+      "barcode": null,
+      "defaultQuantity": "1",
+      "unitName": null,
+      "price": {
+        "amount": 100,
+        "currencyId": "EUR"
+      },
+      "costPrice": null,
+      "vatPercentage": "6.0"
+    },
+    {
+      "uuid": "465fcb4a-bd93-11e7-abc4-cec278b6b50a",
+      "name": "Sprite",
+      "description": null,
+      "sku": null,
+      "barcode": null,
+      "defaultQuantity": "1",
+      "unitName": null,
+      "price": {
+        "amount": 100,
+        "currencyId": "EUR"
+      },
+      "costPrice": null,
+      "vatPercentage": "6.0"
+    }
+  ],
+  "externalReference": null,
+  "etag": "AB8856456AA0A5D91513ED668709059B",
+  "updated": "2017-10-30T16:40:28.579+0000",
+  "updatedBy": "465fcff0-bd93-11e7-abc4-cec278b6b50a",
+  "created": "2017-10-30T15:26:06.374+0000",
+  "unitName": null,
+  "vatPercentage": "6.0"
+}

@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace LauLamanApps\IzettleApi\Tests\Integration;
 
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use LauLamanApps\IzettleApi\GuzzleIzettleClient;
+use LauLamanApps\IzettleApi\IzettleClientFactory;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @medium
