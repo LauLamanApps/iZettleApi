@@ -33,11 +33,16 @@ final class ProductBuilder implements ProductBuilderInterface
     public function buildFromJson(string $json): array
     {
         $products = [];
-        foreach (json_decode($json, true) as $purchase) {
-            $products[] = $this->build($purchase);
+        foreach (json_decode($json, true) as $productData) {
+            $products[] = $this->build($productData);
         }
 
         return $products;
+    }
+
+    public function buildSingleFromJson(string $json): Product
+    {
+        return $this->build(json_decode($json, true));
     }
 
     public function buildFromArray(array $data): ProductCollection

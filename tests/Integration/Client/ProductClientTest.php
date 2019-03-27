@@ -9,6 +9,7 @@ use LauLamanApps\IzettleApi\API\ImageCollection;
 use LauLamanApps\IzettleApi\API\Product\Category;
 use LauLamanApps\IzettleApi\API\Product\Discount;
 use LauLamanApps\IzettleApi\IzettleClientFactory;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @medium
@@ -20,7 +21,7 @@ final class ProductClientTest extends AbstractClientTest
      */
     public function getCategories(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ProductClient/getCategories.json');
+        $json = $this->loadJsonFromFile('getCategories.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
@@ -43,7 +44,7 @@ final class ProductClientTest extends AbstractClientTest
      */
     public function getDiscounts(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ProductClient/getDiscounts.json');
+        $json = $this->loadJsonFromFile('getDiscounts.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
@@ -74,7 +75,7 @@ final class ProductClientTest extends AbstractClientTest
      */
     public function getLibrary(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ProductClient/getLibrary.json');
+        $json = $this->loadJsonFromFile('getLibrary.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
@@ -93,9 +94,35 @@ final class ProductClientTest extends AbstractClientTest
     /**
      * @test
      */
+    public function getProduct(): void
+    {
+        $json = $this->loadJsonFromFile('getProduct.json');
+        $data = json_decode($json, true);
+        $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
+        $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
+
+        $product = $purchaseClient->getProduct(Uuid::uuid1());
+
+        self::assertSame($data['uuid'], (string) $product->getUuid());
+//        self::assertSame($data['categories'], $product->getCategories());
+        self::assertSame($data['name'], $product->getName());
+        self::assertSame($data['description'], $product->getDescription());
+//        self::assertSame($data['imageLookupKeys'], $product->getImageLookupKeys());
+        self::assertSame($data['externalReference'], $product->getExternalReference());
+        self::assertSame($data['etag'], $product->getEtag());
+        self::assertEquals(new DateTime($data['updated']), $product->getUpdatedAt());
+        self::assertSame($data['updatedBy'], (string) $product->getUpdatedBy());
+        self::assertEquals(new DateTime($data['created']), $product->getCreatedAt());
+//        self::assertSame($data['unitName'], $product->getUnitName());
+        self::assertSame((float) $data['vatPercentage'], $product->getVatPercentage());
+    }
+
+    /**
+     * @test
+     */
     public function getProducts(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ProductClient/getProducts.json');
+        $json = $this->loadJsonFromFile('getProducts.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
@@ -116,5 +143,10 @@ final class ProductClientTest extends AbstractClientTest
 //            self::assertSame($data[$index]['unitName'], $product->getUnitName());
             self::assertSame($data[$index]['vatPercentage'], $product->getVat()->getPercentage());
         }
+    }
+
+    private function loadJsonFromFile(string $filename): string
+    {
+        return file_get_contents(dirname(__FILE__) . '/files/ProductClient/' . $filename);
     }
 }

@@ -131,6 +131,15 @@ final class ProductClient
         return $this->libraryBuilder->buildFromJson($json);
     }
 
+    public function getProduct(UuidInterface $uuid): Product
+    {
+        $url = sprintf(self::GET_PRODUCT, $this->organizationUuid, (string) $uuid->toString());
+
+        $json = $this->client->getJson($this->client->get($url));
+
+        return $this->productBuilder->buildSingleFromJson($json);
+    }
+
     /**
      * @return Product[]
      */

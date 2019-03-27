@@ -27,9 +27,9 @@ final class ProductBuilderTest extends TestCase
      */
     public function buildFromJson($json, $data): void
     {
-        $categoryBuilderMock =  Mockery::mock(CategoryBuilderInterface::class);
-        $imageBuilderMock =  Mockery::mock(ImageBuilderInterface::class);
-        $variantBuilderMock =  Mockery::mock(VariantBuilderInterface::class);
+        $categoryBuilderMock = Mockery::mock(CategoryBuilderInterface::class);
+        $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);
+        $variantBuilderMock = Mockery::mock(VariantBuilderInterface::class);
 
         foreach ($data as $product) {
             $categoryBuilderMock->shouldReceive('buildFromArray')
@@ -40,7 +40,7 @@ final class ProductBuilderTest extends TestCase
                 ->with(($product['variants']))->once()->andReturn(new VariantCollection());
         }
 
-        $builder =  new ProductBuilder($categoryBuilderMock, $imageBuilderMock, $variantBuilderMock);
+        $builder = new ProductBuilder($categoryBuilderMock, $imageBuilderMock, $variantBuilderMock);
         $products = $builder->buildFromJson($json);
 
         foreach ($products as $index => $product) {
@@ -62,13 +62,51 @@ final class ProductBuilderTest extends TestCase
 
     /**
      * @test
+     */
+    public function buildSingleFromJson(): void
+    {
+        $data = $this->loadJsonFromFile('single-product.json');
+        $productArray = json_decode($data, true)[0];
+        $json = json_encode($productArray);
+
+        $categoryBuilderMock = Mockery::mock(CategoryBuilderInterface::class);
+        $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);
+        $variantBuilderMock = Mockery::mock(VariantBuilderInterface::class);
+
+        $categoryBuilderMock->shouldReceive('buildFromArray')
+            ->with(($productArray['categories']))->once()->andReturn(new CategoryCollection());
+        $imageBuilderMock->shouldReceive('buildFromArray')
+            ->with(($productArray['imageLookupKeys']))->once()->andReturn(new ImageCollection());
+        $variantBuilderMock->shouldReceive('buildFromArray')
+            ->with(($productArray['variants']))->once()->andReturn(new VariantCollection());
+
+        $builder = new ProductBuilder($categoryBuilderMock, $imageBuilderMock, $variantBuilderMock);
+        $product = $builder->buildSingleFromJson($json);
+
+            self::assertInstanceOf(Product::class, $product);
+            self::assertSame($productArray['uuid'], (string) $product->getUuid());
+            self::assertInstanceOf(CategoryCollection::class, $product->getCategories());
+            self::assertSame($productArray['name'], $product->getName());
+            self::assertSame($productArray['description'], $product->getDescription());
+            self::assertInstanceOf(ImageCollection::class, $product->getImageLookupKeys());
+            self::assertInstanceOf(VariantCollection::class, $product->getVariants());
+            self::assertSame($productArray['externalReference'], $product->getExternalReference());
+            self::assertSame($productArray['etag'], $product->getEtag());
+            self::assertEquals(new DateTime($productArray['updated']), $product->getUpdatedAt());
+            self::assertSame($productArray['updatedBy'], (string) $product->getUpdatedBy());
+            self::assertEquals(new DateTime($productArray['created']), $product->getCreatedAt());
+            self::assertSame((float)$productArray['vatPercentage'], $product->getVatPercentage());
+    }
+
+    /**
+     * @test
      * @dataProvider getProductArrayData
      */
     public function buildFromArray($data): void
     {
-        $categoryBuilderMock =  Mockery::mock(CategoryBuilderInterface::class);
-        $imageBuilderMock =  Mockery::mock(ImageBuilderInterface::class);
-        $variantBuilderMock =  Mockery::mock(VariantBuilderInterface::class);
+        $categoryBuilderMock = Mockery::mock(CategoryBuilderInterface::class);
+        $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);
+        $variantBuilderMock = Mockery::mock(VariantBuilderInterface::class);
 
         foreach ($data as $product) {
             $categoryBuilderMock->shouldReceive('buildFromArray')
@@ -79,7 +117,7 @@ final class ProductBuilderTest extends TestCase
                 ->with(($product['variants']))->once()->andReturn(new VariantCollection());
         }
 
-        $builder =  new ProductBuilder($categoryBuilderMock, $imageBuilderMock, $variantBuilderMock);
+        $builder = new ProductBuilder($categoryBuilderMock, $imageBuilderMock, $variantBuilderMock);
         $products = $builder->buildFromArray($data);
 
         $index = 0;
@@ -117,11 +155,16 @@ final class ProductBuilderTest extends TestCase
         ];
     }
 
-    private function getDataFromFile($filename): array
+    private function getDataFromFile(string $filename): array
     {
-        $singleProductJson = file_get_contents(dirname(__FILE__) . '/json-files/' . $filename);
+        $singleProductJson = $this->loadJsonFromFile($filename);
         $singleProductArray = json_decode($singleProductJson, true);
 
         return [$singleProductJson, $singleProductArray];
+    }
+
+    private function loadJsonFromFile(string $filename): string
+    {
+        return file_get_contents(dirname(__FILE__) . '/json-files/' . $filename);
     }
 }
