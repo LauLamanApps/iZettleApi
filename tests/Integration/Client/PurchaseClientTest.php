@@ -11,6 +11,7 @@ use LauLamanApps\IzettleApi\API\Purchase\Payment\CashPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Product;
 use LauLamanApps\IzettleApi\API\Purchase\Purchase;
 use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
+use LauLamanApps\IzettleApi\Client\Filter\Purchase\PurchaseHistoryFilter;
 use LauLamanApps\IzettleApi\IzettleClientFactory;
 use Ramsey\Uuid\Uuid;
 
@@ -29,7 +30,7 @@ final class PurchaseClientTest extends AbstractClientTest
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
 
-        $purchaseHistory = $purchaseClient->getPurchaseHistory();
+        $purchaseHistory = $purchaseClient->getPurchaseHistory(new PurchaseHistoryFilter());
 
         self::assertInstanceOf(PurchaseHistory::class, $purchaseHistory);
 

@@ -8,6 +8,7 @@ use DateTime;
 use LauLamanApps\IzettleApi\API\Purchase\Purchase;
 use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
 use LauLamanApps\IzettleApi\API\Purchase\User;
+use LauLamanApps\IzettleApi\Client\Filter\Purchase\PurchaseHistoryFilter;
 use LauLamanApps\IzettleApi\Client\Purchase\PurchaseBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Purchase\PurchaseHistoryBuilderInterface;
 use LauLamanApps\IzettleApi\Client\PurchaseClient;
@@ -29,14 +30,16 @@ final class PurchaseClientTest extends AbstractClientTest
      */
     public function getPurchaseHistory(): void
     {
+        $filter =  PurchaseHistoryFilter::fromPurchaseHash('abc');
+
         $data = ['getPurchaseHistoryTest'];
-        $izettleClientMock = $this->getIzettleGetMock(PurchaseClient::GET_PURCHASES, $data);
+        $izettleClientMock = $this->getIzettleGetMock(PurchaseClient::GET_PURCHASES, $data, $filter);
 
         list($purchaseHistoryBuilder, $purchaseBuilder) = $this->getDependencyMocks();
         $purchaseHistoryBuilder->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn($this->getPurchaseHistoryObject());
 
         $purchaseClient = new PurchaseClient($izettleClientMock, $purchaseHistoryBuilder, $purchaseBuilder);
-        $purchaseClient->getPurchaseHistory();
+        $purchaseClient->getPurchaseHistory($filter);
     }
 
     /**

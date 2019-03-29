@@ -8,6 +8,8 @@ use DateTime;
 use LauLamanApps\IzettleApi\API\Finance\Enum\AccountTypeGroup;
 use LauLamanApps\IzettleApi\API\Finance\Enum\Periodicity;
 use LauLamanApps\IzettleApi\API\Finance\PayoutInfo;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\AccountTransactionsFilter;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\BalanceInfoFilter;
 use LauLamanApps\IzettleApi\Client\Finance\AccountTransactionBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Finance\PayoutInfoBuilderInterface;
 use LauLamanApps\IzettleApi\Client\FinanceClient;
@@ -26,27 +28,22 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getAccountTransactions(): void
     {
-        $accountTypeGroup =  AccountTypeGroup::get(AccountTypeGroup::LIQUID);
+        $accountTypeGroup =  AccountTypeGroup::liquid();
         $organizationUuid = Uuid::uuid1();
         $start = new DateTime('now');
         $end = new DateTime("+10 seconds");
 
         $url = sprintf(FinanceClient::GET_ACCOUNT_TRANSACTIONS, (string) $organizationUuid, $accountTypeGroup->getValue());
-        $queryParams = [
-            'start' => $start->format('Y-m-d'),
-            'end' => $end->format('Y-m-d'),
-            'limit' => null,
-            'offset' => null,
-        ];
+        $filter = new AccountTransactionsFilter($start, $end);
         $data = ['getAccountTransactionsTest'];
 
-        $izettleClientMock = $this->getIzettleGetMock($url, $data, $queryParams);
+        $izettleClientMock = $this->getIzettleGetMock($url, $data, $filter);
 
         list($accountTransactionBuilderMock, $payoutInfoBuilderMock) = $this->getDependencyMocks();
         $accountTransactionBuilderMock->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn([]);
 
         $financeClient = new FinanceClient($izettleClientMock, $organizationUuid, $accountTransactionBuilderMock, $payoutInfoBuilderMock);
-        $financeClient->getAccountTransactions($accountTypeGroup, $start, $end);
+        $financeClient->getAccountTransactions($accountTypeGroup, $filter);
     }
 
     /**
@@ -54,13 +51,13 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getBalanceInfo(): void
     {
-        $accountTypeGroup =  AccountTypeGroup::get(AccountTypeGroup::LIQUID);
+        $accountTypeGroup = AccountTypeGroup::liquid();
+        $filter = new BalanceInfoFilter($accountTypeGroup);
         $organizationUuid = Uuid::uuid1();
 
         $expectedBalance = Money::EUR(100);
 
         $url = sprintf(FinanceClient::GET_ACCOUNT_BALANCE, (string) $organizationUuid, $accountTypeGroup->getValue());
-        $queryParams = ['at' => null];
         $data = [
             'data' => [
                 'currencyId' => $expectedBalance->getCurrency()->getCode(),
@@ -68,12 +65,12 @@ final class FinanceClientTest extends AbstractClientTest
             ]
         ];
 
-        $izettleClientMock = $this->getIzettleGetMock($url, $data, $queryParams);
+        $izettleClientMock = $this->getIzettleGetMock($url, $data, $filter);
 
         list($accountTransactionBuilderMock, $payoutInfoBuilderMock) = $this->getDependencyMocks();
 
         $financeClient = new FinanceClient($izettleClientMock, $organizationUuid, $accountTransactionBuilderMock, $payoutInfoBuilderMock);
-        $balance = $financeClient->getBalanceInfo($accountTypeGroup);
+        $balance = $financeClient->getBalanceInfo($filter);
 
         self::assertEquals($expectedBalance, $balance);
     }
@@ -85,11 +82,10 @@ final class FinanceClientTest extends AbstractClientTest
     {
         $organizationUuid = Uuid::uuid1();
 
-        $url = sprintf(FinanceClient::GET_PAYOUT_INFO, (string) $organizationUuid);
-        $queryParams = ['at' => null];
+        $url = sprintf(FinanceClient::GET_PAYOUT_INFO, $organizationUuid->toString());
         $data = ['getPayoutInfoTest'];
 
-        $izettleClientMock = $this->getIzettleGetMock($url, $data, $queryParams);
+        $izettleClientMock = $this->getIzettleGetMock($url, $data);
 
         list($accountTransactionBuilderMock, $payoutInfoBuilderMock) = $this->getDependencyMocks();
         $payoutInfoBuilderMock->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn($this->getPayoutInfoObject());

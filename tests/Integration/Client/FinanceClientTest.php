@@ -6,6 +6,9 @@ namespace LauLamanApps\IzettleApi\Tests\Integration\Client;
 
 use DateTime;
 use LauLamanApps\IzettleApi\API\Finance\Enum\AccountTypeGroup;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\AccountTransactionsFilter;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\BalanceInfoFilter;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\PayoutInfoFilter;
 use LauLamanApps\IzettleApi\IzettleClientFactory;
 
 /**
@@ -26,8 +29,7 @@ final class FinanceClientTest extends AbstractClientTest
 
         $accountTransactions = $purchaseClient->getAccountTransactions(
             AccountTypeGroup::get(AccountTypeGroup::LIQUID),
-            new DateTime(),
-            new DateTime()
+            new AccountTransactionsFilter(new DateTime(), new DateTime())
         );
 
         foreach ($accountTransactions as $index => $accountTransaction) {
@@ -49,7 +51,7 @@ final class FinanceClientTest extends AbstractClientTest
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getFinanceClient($iZettleClient);
 
-        $balance = $purchaseClient->getBalanceInfo(AccountTypeGroup::get(AccountTypeGroup::LIQUID), new DateTime());
+        $balance = $purchaseClient->getBalanceInfo(new BalanceInfoFilter(AccountTypeGroup::liquid(), new DateTime()));
 
         self::assertSame($data['currencyId'], $balance->getCurrency()->getCode());
         self::assertSame($data['totalBalance'], (int) $balance->getAmount());
@@ -66,7 +68,7 @@ final class FinanceClientTest extends AbstractClientTest
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getFinanceClient($iZettleClient);
 
-        $payoutInfo = $purchaseClient->getPayoutInfo(new DateTime());
+        $payoutInfo = $purchaseClient->getPayoutInfo(new PayoutInfoFilter(new DateTime()));
 
         self::assertSame($data['totalBalance'], (int) $payoutInfo->getTotalBalance()->getAmount());
         self::assertSame($data['currencyId'], $payoutInfo->getTotalBalance()->getCurrency()->getCode());

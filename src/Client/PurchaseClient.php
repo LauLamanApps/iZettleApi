@@ -7,6 +7,7 @@ namespace LauLamanApps\IzettleApi\Client;
 use LauLamanApps\IzettleApi\API\Purchase\Purchase;
 use LauLamanApps\IzettleApi\API\Purchase\PurchaseHistory;
 use LauLamanApps\IzettleApi\Client\Exception\NotFoundException;
+use LauLamanApps\IzettleApi\Client\Filter\Purchase\PurchaseHistoryFilter;
 use LauLamanApps\IzettleApi\Client\Purchase\Exception\PurchaseNotFoundException;
 use LauLamanApps\IzettleApi\Client\Purchase\PurchaseBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Purchase\PurchaseHistoryBuilderInterface;
@@ -34,9 +35,9 @@ final class PurchaseClient
         $this->purchaseBuilder = $purchaseBuilder;
     }
 
-    public function getPurchaseHistory(): PurchaseHistory
+    public function getPurchaseHistory(PurchaseHistoryFilter $filter): PurchaseHistory
     {
-        $json = $this->client->getJson($this->client->get(self::GET_PURCHASES));
+        $json = $this->client->getJson($this->client->get(self::GET_PURCHASES, $filter));
 
         return $this->purchaseHistoryBuilder->buildFromJson($json);
     }
@@ -44,7 +45,7 @@ final class PurchaseClient
     public function getPurchase(UuidInterface $uuid): Purchase
     {
         try {
-            $response = $this->client->get(sprintf(self::GET_PURCHASE, (string) $uuid));
+            $response = $this->client->get(sprintf(self::GET_PURCHASE, $uuid->toString()), null);
         } catch (NotFoundException $e) {
             throw new PurchaseNotFoundException($e->getMessage());
         }
