@@ -5,6 +5,7 @@ namespace LauLamanApps\IzettleApi;
 use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
+use LauLamanApps\IzettleApi\Client\Filter\FilterInterface;
 use LauLamanApps\IzettleApi\Exception\UnprocessableEntityException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -27,7 +28,7 @@ interface IzettleClientInterface
 
     public function refreshAccessToken(?AccessToken $accessToken =  null): AccessToken;
 
-    public function get(string $url, ?array $queryParameters = null): ResponseInterface;
+    public function get(string $url, ?FilterInterface $filter): ResponseInterface;
 
     /**
      * @throws UnprocessableEntityException

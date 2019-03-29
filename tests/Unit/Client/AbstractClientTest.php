@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\Tests\Unit\Client;
 
+use LauLamanApps\IzettleApi\Client\Filter\FilterInterface;
 use LauLamanApps\IzettleApi\IzettleClientInterface;
 use LauLamanApps\IzettleApi\Tests\Unit\MockeryAssertionTrait;
 use Mockery;
@@ -15,16 +16,15 @@ abstract class AbstractClientTest extends TestCase
 {
     use MockeryAssertionTrait;
 
-    protected function getIzettleGetMock($url, $data, ?array $queryParams = null): IzettleClientInterface
+    protected function getIzettleGetMock($url, $data, ?FilterInterface $filter = null): IzettleClientInterface
     {
         $responseMock = Mockery::mock(ResponseInterface::class);
 
         $izettleClientMock = Mockery::mock(IzettleClientInterface::class);
-        if (!is_null($queryParams)) {
-            $izettleClientMock->shouldReceive('get')->once()->with($url, $queryParams)->andReturn($responseMock);
-        }
-        if (is_null($queryParams)) {
-            $izettleClientMock->shouldReceive('get')->once()->with($url)->andReturn($responseMock);
+        if ($filter) {
+            $izettleClientMock->shouldReceive('get')->once()->with($url, $filter)->andReturn($responseMock);
+        } else {
+            $izettleClientMock->shouldReceive('get')->once()->with($url, null)->andReturn($responseMock);
         }
         $izettleClientMock->shouldReceive('getJson')->once()->andReturn(json_encode($data));
 

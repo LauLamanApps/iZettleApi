@@ -34,6 +34,7 @@ final class PurchaseHistory
     {
         return $this->lastPurchaseHash;
     }
+
     public function addPurchase(Purchase $purchase): void
     {
         $this->purchases[(string) $purchase->getUuid()] = $purchase;
@@ -44,6 +45,9 @@ final class PurchaseHistory
         unset($this->purchases[(string)$purchase->getUuid()]);
     }
 
+    /**
+     * @return Purchase[]
+     */
     public function getPurchases(): array
     {
         return $this->purchases;

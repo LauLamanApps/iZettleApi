@@ -8,6 +8,9 @@ use DateTime;
 use LauLamanApps\IzettleApi\API\Finance\AccountTransaction;
 use LauLamanApps\IzettleApi\API\Finance\Enum\AccountTypeGroup;
 use LauLamanApps\IzettleApi\API\Finance\PayoutInfo;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\AccountTransactionsFilter;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\BalanceInfoFilter;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\PayoutInfoFilter;
 use LauLamanApps\IzettleApi\Client\Finance\AccountTransactionBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Finance\AccountTransactionParser;
 use LauLamanApps\IzettleApi\Client\Finance\PayoutInfoBuilderInterface;
@@ -63,46 +66,38 @@ final class FinanceClient
      */
     public function getAccountTransactions(
         AccountTypeGroup $accountTypeGroup,
-        DateTime $start,
-        DateTime $end,
-        ?int $limit = null,
-        ?int $offset = null
+        AccountTransactionsFilter $filter
     ): array {
         $url = sprintf(self::GET_ACCOUNT_TRANSACTIONS, $this->organizationUuid, $accountTypeGroup->getValue());
-        $queryParams = [
-            'start' => $start->format('Y-m-d'),
-            'end' => $end->format('Y-m-d'),
-            'limit' => $limit,
-            'offset' => $offset,
-        ];
+
 
         $json = $this->client->getJson(
             $this->client->get(
                 $url,
-                $queryParams
+                $filter
             )
         );
 
         return $this->accountTransactionBuilder->buildFromJson($json);
     }
 
-    public function getBalanceInfo(AccountTypeGroup $accountTypeGroup, ?DateTime $at = null): Money
+    public function getBalanceInfo(BalanceInfoFilter $filter): Money
     {
-        $url = sprintf(self::GET_ACCOUNT_BALANCE, $this->organizationUuid, $accountTypeGroup->getValue());
-        $response = $this->client->get($url, ['at' => $at ? $at->format('Y-m-d') : null]);
+        $url = sprintf(self::GET_ACCOUNT_BALANCE, $this->organizationUuid, $filter->getAccountTypeGroup()->getValue());
+        $response = $this->client->get($url, $filter);
         $data = json_decode($this->client->getJson($response), true)['data'];
         $currency = new Currency($data['currencyId']);
 
         return new Money($data['totalBalance'], $currency);
     }
 
-    public function getPayoutInfo(?DateTime $at = null): PayoutInfo
+    public function getPayoutInfo(?PayoutInfoFilter $filter = null): PayoutInfo
     {
         $url = sprintf(self::GET_PAYOUT_INFO, $this->organizationUuid);
         $json = $this->client->getJson(
             $this->client->get(
                 $url,
-                ['at' => $at ? $at->format('Y-m-d') : null]
+                $filter
             )
         );
 

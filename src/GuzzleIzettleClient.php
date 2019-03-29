@@ -15,6 +15,7 @@ use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
 use LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException;
 use LauLamanApps\IzettleApi\Client\Exception\GuzzleClientExceptionHandler;
+use LauLamanApps\IzettleApi\Client\Filter\FilterInterface;
 use LauLamanApps\IzettleApi\Exception\UnprocessableEntityException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -125,8 +126,10 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return $this->accessToken;
     }
 
-    public function get(string $url, ?array $queryParameters = null): ResponseInterface
+    public function get(string $url, ?FilterInterface $filter): ResponseInterface
     {
+        $queryParameters = $filter ? $filter->getParameters(): null;
+
         $options =  array_merge(['headers' => $this->getAuthorizationHeader()], ['query' => $queryParameters]);
 
         try {

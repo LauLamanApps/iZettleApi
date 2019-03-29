@@ -11,6 +11,9 @@ use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
+use LauLamanApps\IzettleApi\Client\Filter\FilterInterface;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\BalanceInfoFilter;
+use LauLamanApps\IzettleApi\Client\Filter\Finance\PayoutInfoFilter;
 use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -137,13 +140,13 @@ final class GuzzleIzettleClientTest extends TestCase
      * @test
      * @dataProvider getGetData
      */
-    public function get($url, $queryParameters): void
+    public function get(string $url, ?FilterInterface $filter): void
     {
         $options = [
             'headers' => [
                 'Authorization' => 'Bearer ' . self::ACCESS_TOKEN
             ],
-            'query' => $queryParameters
+            'query' => $filter ? $filter->getParameters() : null
         ];
 
         $guzzleClientMock = Mockery::mock(GuzzleClientInterface::class);
@@ -151,15 +154,18 @@ final class GuzzleIzettleClientTest extends TestCase
 
         $izettleClient = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
         $izettleClient->setAccessToken($this->getAccessToken());
-        $izettleClient->get($url, $queryParameters);
+        $izettleClient->get($url, $filter);
     }
 
+    /**
+     * @return [[string, ?FilterInterface]]
+     */
     public function getGetData(): array
     {
         return [
             ['example.com', null],
-            ['example.com/link', ['query1' => 'this-is-one']],
-            ['example.com/another-link', ['query1' => 'this-is-one', 'query2' => 'this-is-two']],
+            ['example.com/link', new PayoutInfoFilter(new DateTime('now'))],
+            ['example.com/another-link', null],
         ];
     }
 

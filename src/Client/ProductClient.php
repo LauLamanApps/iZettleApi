@@ -8,6 +8,7 @@ use LauLamanApps\IzettleApi\API\Product\Category;
 use LauLamanApps\IzettleApi\API\Product\Discount;
 use LauLamanApps\IzettleApi\API\Product\Library;
 use LauLamanApps\IzettleApi\API\Product\Product;
+use LauLamanApps\IzettleApi\Client\Filter\Product\LibraryFilter;
 use LauLamanApps\IzettleApi\Client\Product\CategoryBuilder;
 use LauLamanApps\IzettleApi\Client\Product\CategoryBuilderInterface;
 use LauLamanApps\IzettleApi\Client\Product\DiscountBuilder;
@@ -78,7 +79,7 @@ final class ProductClient
     public function getCategories(): array
     {
         $url = sprintf(self::GET_CATEGORIES, $this->organizationUuid);
-        $json = $this->client->getJson($this->client->get($url));
+        $json = $this->client->getJson($this->client->get($url, null));
 
         return $this->categoryBuilder->buildFromJson($json);
     }
@@ -98,7 +99,7 @@ final class ProductClient
     public function getDiscounts(): array
     {
         $url = sprintf(self::GET_DISCOUNTS, $this->organizationUuid);
-        $json = $this->client->getJson($this->client->get($url));
+        $json = $this->client->getJson($this->client->get($url, null));
 
         return $this->discountBuilder->buildFromJson($json);
     }
@@ -123,10 +124,10 @@ final class ProductClient
         $this->client->delete($url);
     }
 
-    public function getLibrary(): Library
+    public function getLibrary(?LibraryFilter $filter = null): Library
     {
         $url = sprintf(self::GET_LIBRARY, $this->organizationUuid);
-        $json = $this->client->getJson($this->client->get($url));
+        $json = $this->client->getJson($this->client->get($url, $filter));
 
         return $this->libraryBuilder->buildFromJson($json);
     }
@@ -146,7 +147,7 @@ final class ProductClient
     public function getProducts(): array
     {
         $url = sprintf(self::GET_PRODUCTS, $this->organizationUuid);
-        $json = $this->client->getJson($this->client->get($url));
+        $json = $this->client->getJson($this->client->get($url, null));
 
         return $this->productBuilder->buildFromJson($json);
     }
