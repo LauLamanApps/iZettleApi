@@ -114,7 +114,7 @@ final class ProductClientTest extends AbstractClientTest
         self::assertSame($data['updatedBy'], (string) $product->getUpdatedBy());
         self::assertEquals(new DateTime($data['created']), $product->getCreatedAt());
 //        self::assertSame($data['unitName'], $product->getUnitName());
-        self::assertSame((float) $data['vatPercentage'], $product->getVatPercentage());
+        self::assertSame((float) $data['vatPercentage'], (float)$product->getVat()->getPercentage());
     }
 
     /**

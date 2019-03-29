@@ -95,7 +95,7 @@ final class ProductBuilderTest extends TestCase
             self::assertEquals(new DateTime($productArray['updated']), $product->getUpdatedAt());
             self::assertSame($productArray['updatedBy'], (string) $product->getUpdatedBy());
             self::assertEquals(new DateTime($productArray['created']), $product->getCreatedAt());
-            self::assertSame((float)$productArray['vatPercentage'], $product->getVatPercentage());
+            self::assertSame((float)$productArray['vatPercentage'], (float)$product->getVat()->getPercentage());
     }
 
     /**
