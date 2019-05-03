@@ -85,7 +85,7 @@ final class PaymentBuilder implements PaymentBuilderInterface
             $payment['attributes']['maskedPan'],
             $payment['attributes']['cardType'],
             $payment['attributes']['cardPaymentEntryMode'],
-            Uuid::fromString($payment['attributes']['paymentlinkOrderUuid']),
+            Uuid::fromString($payment['attributes']['paymentlinkOrderUuid'])
         );
     }
 
