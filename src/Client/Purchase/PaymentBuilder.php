@@ -7,6 +7,7 @@ namespace LauLamanApps\IzettleApi\Client\Purchase;
 use DateTime;
 use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\CardPayment;
+use LauLamanApps\IzettleApi\API\Purchase\Payment\CardOnlinePayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\CashPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\InvoicePayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\MobilePayment;
@@ -20,6 +21,7 @@ use Ramsey\Uuid\Uuid;
 final class PaymentBuilder implements PaymentBuilderInterface
 {
     const CARD = 'IZETTLE_CARD';
+    const CARD_ONLINE = 'IZETTLE_CARD_ONLINE';
     const CASH = 'IZETTLE_CASH';
     const INVOICE = 'IZETTLE_INVOICE';
     const MOBILE = 'MOBILE_PAY';
@@ -41,6 +43,8 @@ final class PaymentBuilder implements PaymentBuilderInterface
         switch ($payment['type']) {
             case self::CARD:
                 return $this->parseCardPayment($payment, $currency);
+            case self::CARD_ONLINE:
+                return $this->parseCardOnlinePayment($payment, $currency);
             case self::CASH:
                 return $this->parseCashPayment($payment, $currency);
             case self::INVOICE:
@@ -69,6 +73,19 @@ final class PaymentBuilder implements PaymentBuilderInterface
             $this->getFromKey('applicationIdentifier', $payment['attributes']),
             $this->getFromKey('terminalVerificationResults', $payment['attributes']),
             (int) $this->getFromKey('nrOfInstallments', $payment['attributes'])
+        );
+    }
+
+    private function parseCardOnlinePayment($payment, Currency $currency): CardOnlinePayment
+    {
+        return new CardOnlinePayment(
+            Uuid::fromString($payment['uuid']),
+            new Money($payment['amount'], $currency),
+            $payment['attributes']['referenceNumber'],
+            $payment['attributes']['maskedPan'],
+            $payment['attributes']['cardType'],
+            $payment['attributes']['cardPaymentEntryMode'],
+            Uuid::fromString($payment['attributes']['paymentlinkOrderUuid']),
         );
     }
 

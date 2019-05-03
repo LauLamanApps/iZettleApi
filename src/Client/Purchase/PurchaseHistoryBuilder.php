@@ -20,6 +20,8 @@ final class PurchaseHistoryBuilder implements PurchaseHistoryBuilderInterface
     {
         $data =  json_decode($jsonData, true);
 
+        dump($data);
+
         return new PurchaseHistory(
             $data['firstPurchaseHash'],
             $data['lastPurchaseHash'],
