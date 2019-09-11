@@ -1,0 +1,19 @@
+{
+  "locationUuid": "ecbd16de-c16f-11e7-abc4-cec278b6b50a",
+  "variants": [
+    {
+      "locationUuid": "ecbd18f0-c16f-11e7-abc4-cec278b6b50a",
+      "locationType": "STORE",
+      "productUuid": "ecbd1a80-c16f-11e7-abc4-cec278b6b50a",
+      "variantUuid": "ecbd1c2e-c16f-11e7-abc4-cec278b6b50a",
+      "balance": "19"
+    },
+    {
+      "locationUuid": "ecbd1e18-c16f-11e7-abc4-cec278b6b50a",
+      "locationType": "STORE",
+      "productUuid": "ecbd2016-c16f-11e7-abc4-cec278b6b50a",
+      "variantUuid": "ecbd219c-c16f-11e7-abc4-cec278b6b50a",
+      "balance": "80"
+    }
+  ]
+}

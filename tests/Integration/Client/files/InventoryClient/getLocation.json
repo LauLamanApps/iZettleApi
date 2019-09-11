@@ -1,0 +1,23 @@
+{
+  "locationUuid": "ecbcfc26-c16f-11e7-abc4-cec278b6b50a",
+  "trackedProducts": [
+    "ecbd00c2-c16f-11e7-abc4-cec278b6b50a",
+    "ecbd019e-c16f-11e7-abc4-cec278b6b50a"
+  ],
+  "variants": [
+    {
+      "locationUuid": "ecbd025c-c16f-11e7-abc4-cec278b6b50a",
+      "locationType": "STORE",
+      "productUuid": "ecbd032e-c16f-11e7-abc4-cec278b6b50a",
+      "variantUuid": "ecbd03ec-c16f-11e7-abc4-cec278b6b50a",
+      "balance": "34"
+    },
+    {
+      "locationUuid": "ecbd04b4-c16f-11e7-abc4-cec278b6b50a",
+      "locationType": "STORE",
+      "productUuid": "ecbd08c4-c16f-11e7-abc4-cec278b6b50a",
+      "variantUuid": "ecbd0a68-c16f-11e7-abc4-cec278b6b50a",
+      "balance": "8"
+    }
+  ]
+}

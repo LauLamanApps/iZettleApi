@@ -1,0 +1,30 @@
+[
+  {
+    "uuid": "ecbd0c16-c16f-11e7-abc4-cec278b6b50a",
+    "type": "BIN",
+    "name": "BIN",
+    "description": "System generated",
+    "default": false
+  },
+  {
+    "uuid": "ecbd0de2-c16f-11e7-abc4-cec278b6b50a",
+    "type": "SOLD",
+    "name": "SOLD",
+    "description": "System generated",
+    "default": false
+  },
+  {
+    "uuid": "ecbd0f72-c16f-11e7-abc4-cec278b6b50a",
+    "type": "SUPPLIER",
+    "name": "SUPPLIER",
+    "description": "System generated",
+    "default": false
+  },
+  {
+    "uuid": "ecbd10da-c16f-11e7-abc4-cec278b6b50a",
+    "type": "STORE",
+    "name": "STORE",
+    "description": "System generated",
+    "default": true
+  }
+]
