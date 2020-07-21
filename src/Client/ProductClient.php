@@ -155,6 +155,16 @@ final class ProductClient
     /**
      * @throws UnprocessableEntityException
      */
+    public function updateProduct($uuid, array $array): void
+    {
+        $url = sprintf(self::PUT_PRODUCT, $this->organizationUuid, $uuid);
+
+        $this->client->put($url, json_encode($array));
+    }
+
+    /**
+     * @throws UnprocessableEntityException
+     */
     public function deleteProduct(Product $product): void
     {
         $url = sprintf(self::DELETE_PRODUCT, $this->organizationUuid, (string) $product->getUuid());

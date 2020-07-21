@@ -65,17 +65,16 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return $url;
     }
 
-    
     public function getAccessTokenFromAuthorizedCode(string $redirectUrl, string $code): AccessToken
     {
         $options = [
-           'form_params' => [
-              'grant_type' => self::API_ACCESS_TOKEN_CODE_GRANT,
-              'client_id' => $this->clientId,
-              'client_secret' => $this->clientSecret,
-              'redirect_uri' => $redirectUrl,
-              'code' => $code
-           ],
+            'form_params' => [
+                'grant_type' => self::API_ACCESS_TOKEN_CODE_GRANT,
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
+                'redirect_uri' => $redirectUrl,
+                'code' => $code
+            ],
         ];
 
         try {
@@ -86,7 +85,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
 
         return $this->accessToken;
     }
-    
+
     public function getAccessTokenFromUserLogin(string $username, string $password): AccessToken
     {
         $options = [
@@ -169,6 +168,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
             [
                 'content-type' => 'application/json',
                 'Accept' => 'application/json',
+                'If-Match' => '*'
             ]
         );
 
