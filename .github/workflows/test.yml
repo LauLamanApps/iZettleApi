@@ -1,0 +1,85 @@
+name: "Run unit tests"
+
+on:
+  pull_request:
+  push:
+    branches:
+        - master
+
+env:
+  COMPOSER_MEMORY_LIMIT: -1
+
+jobs:
+  test:
+    name: "Test PHP ${{ matrix.php }} (${{ matrix.package-release }})"
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 12
+      matrix:
+        php:
+          - '7.3'
+          - '7.4'
+          - '8.0'
+
+        package-release:
+          - source
+          - dist
+
+        include:
+          - php: '7.4'
+            package-release: 'dist'
+            coverage: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json
+          coverage: xdebug
+
+      - name: Get user-level Composer cache
+        id: composer-cache
+        run: echo "::set-output name=dir::$( composer config cache-files-dir )"
+
+      - name: Setup Composer cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ runner.os }}-${{ matrix.php }}-${{ matrix.package-release }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            composer-${{ runner.os }}-${{ matrix.php }}-${{ matrix.package-release }}-
+            composer-${{ runner.os }}-${{ matrix.php }}-
+            composer-${{ runner.os }}-
+
+      - name: Install composer dependencies
+        run: |
+          composer update \
+            --no-progress \
+            --no-interaction \
+            --ignore-platform-req=php \
+            --prefer-${{ matrix.package-release }}
+
+      - name: Lint files
+        if: matrix.php != '8.0'
+        run: bin/php-cs-fixer fix --dry-run
+
+      - name: Run tests
+        run: |
+          make unit-tests
+          make integration-tests
+
+      - name: Re-run tests to determine coverage
+        run: bin/phpunit --coverage-clover=coverage-clover.xml
+        if: matrix.coverage
+
+      - name: Determine coverage
+        uses: slavcodev/coverage-monitor-action@1.1.0
+        if: matrix.coverage
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: coverage-clover.xml
+          threshold_alert: 75
+          threshold_warning: 95
