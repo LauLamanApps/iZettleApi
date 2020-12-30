@@ -36,10 +36,10 @@ final class GuzzleIzettleClientTest extends TestCase
         $apiScope = new ApiScope();
         $expectedUrl = GuzzleIzettleClient::API_AUTHORIZE_USER_LOGIN_URL . sprintf(
             '?response_type=code&redirect_uri=%s&client_id=%s&scope=%s&state=oauth2',
-                $redirectUrl,
-                self::CLIENT_ID,
-                $apiScope->getUrlParameters()
-            );
+            $redirectUrl,
+            self::CLIENT_ID,
+            $apiScope->getUrlParameters()
+        );
 
         $accessTokenFactory = new GuzzleIzettleClient(Mockery::mock(GuzzleClient::class), self::CLIENT_ID, self::CLIENT_SECRET);
         $authoriseUserLoginUrl =  $accessTokenFactory->authoriseUserLogin($redirectUrl, $apiScope);

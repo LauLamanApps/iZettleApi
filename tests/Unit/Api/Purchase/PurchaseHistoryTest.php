@@ -47,22 +47,22 @@ final class PurchaseHistoryTest extends TestCase
     {
         return new Purchase(
             (string) Uuid::uuid1(),
-        Uuid::uuid1(),
-        new DateTime(),
-        null,
-        '',
-        new User(0, ''),
-        0,
-        0,
-        Money::EUR(0),
-        Money::EUR(0),
-        [],
-        [],
-        [],
-        false,
-        null,
-        false,
-        false
+            Uuid::uuid1(),
+            new DateTime(),
+            null,
+            '',
+            new User(0, ''),
+            0,
+            0,
+            Money::EUR(0),
+            Money::EUR(0),
+            [],
+            [],
+            [],
+            false,
+            null,
+            false,
+            false
         );
     }
 }
