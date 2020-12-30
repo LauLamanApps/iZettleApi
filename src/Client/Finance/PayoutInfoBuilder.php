@@ -22,7 +22,7 @@ final class PayoutInfoBuilder implements PayoutInfoBuilderInterface
             new Money($data['totalBalance'], $currency),
             new Money($data['nextPayoutAmount'], $currency),
             new Money($data['discountRemaining'], $currency),
-            Periodicity::get($data['periodicity'])
+            new Periodicity($data['periodicity'])
         );
     }
 }

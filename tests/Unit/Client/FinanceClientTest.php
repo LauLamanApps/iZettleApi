@@ -26,12 +26,12 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getAccountTransactions(): void
     {
-        $accountTypeGroup =  AccountTypeGroup::get(AccountTypeGroup::LIQUID);
+        $accountTypeGroup =  AccountTypeGroup::LIQUID();
         $organizationUuid = Uuid::uuid1();
         $start = new DateTime('now');
         $end = new DateTime("+10 seconds");
 
-        $url = sprintf(FinanceClient::GET_ACCOUNT_TRANSACTIONS, (string) $organizationUuid, $accountTypeGroup->getValue());
+        $url = sprintf(FinanceClient::GET_ACCOUNT_TRANSACTIONS, (string) $organizationUuid, $accountTypeGroup);
         $queryParams = [
             'start' => $start->format('Y-m-d'),
             'end' => $end->format('Y-m-d'),
@@ -54,12 +54,12 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getBalanceInfo(): void
     {
-        $accountTypeGroup =  AccountTypeGroup::get(AccountTypeGroup::LIQUID);
+        $accountTypeGroup =  AccountTypeGroup::LIQUID();
         $organizationUuid = Uuid::uuid1();
 
         $expectedBalance = Money::EUR(100);
 
-        $url = sprintf(FinanceClient::GET_ACCOUNT_BALANCE, (string) $organizationUuid, $accountTypeGroup->getValue());
+        $url = sprintf(FinanceClient::GET_ACCOUNT_BALANCE, (string) $organizationUuid, $accountTypeGroup);
         $queryParams = ['at' => null];
         $data = [
             'data' => [
@@ -115,7 +115,7 @@ final class FinanceClientTest extends AbstractClientTest
             Money::EUR(0),
             Money::EUR(1),
             Money::EUR(2),
-            Periodicity::get(Periodicity::DAILY)
+            Periodicity::DAILY()
         );
     }
 }

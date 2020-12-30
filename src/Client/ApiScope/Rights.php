@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\Client\ApiScope;
 
-use Werkspot\Enum\AbstractEnum;
+use MyCLabs\Enum\Enum;
 
 /**
- * @method static Rights read()
- * @method bool isRead()
- * @method static Rights write()
- * @method bool isWrite()
+ * @method static Rights READ()
+ * @method static Rights WRITE()
  */
-final class Rights extends AbstractEnum
+final class Rights extends Enum
 {
     public const READ = 'READ';
     public const WRITE = 'WRITE';

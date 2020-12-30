@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\API\Finance\Enum;
 
-use Werkspot\Enum\AbstractEnum;
+use MyCLabs\Enum\Enum;
 
 /**
- * @method static AccountTypeGroup liquid()
- * @method bool isLiquid()
- * @method static AccountTypeGroup preliminary()
- * @method bool isPreliminary()
+ * @method static AccountTypeGroup LIQUID()
+ * @method static AccountTypeGroup PRELIMINARY()
  */
-final class AccountTypeGroup extends AbstractEnum
+final class AccountTypeGroup extends Enum
 {
     public const LIQUID = 'LIQUID';
     public const PRELIMINARY = 'PRELIMINARY';

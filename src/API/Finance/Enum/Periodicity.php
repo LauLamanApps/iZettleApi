@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace LauLamanApps\IzettleApi\API\Finance\Enum;
 
-use Werkspot\Enum\AbstractEnum;
+use MyCLabs\Enum\Enum;
 
 /**
- * @method static Periodicity daily()
- * @method bool isDaily()
- * @method static Periodicity weekly()
- * @method bool isWeekly()
- * @method static Periodicity monthly()
- * @method bool isMonthly()
+ * @method static Periodicity DAILY()
+ * @method static Periodicity WEEKLY()
+ * @method static Periodicity MONTHLY()
  */
-final class Periodicity extends AbstractEnum
+final class Periodicity extends Enum
 {
     public const DAILY = 'DAILY';
     public const WEEKLY = 'WEEKLY';

@@ -25,7 +25,7 @@ final class FinanceClientTest extends AbstractClientTest
         $purchaseClient = IzettleClientFactory::getFinanceClient($iZettleClient);
 
         $accountTransactions = $purchaseClient->getAccountTransactions(
-            AccountTypeGroup::get(AccountTypeGroup::LIQUID),
+            AccountTypeGroup::LIQUID(),
             new DateTime(),
             new DateTime()
         );
@@ -49,7 +49,7 @@ final class FinanceClientTest extends AbstractClientTest
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getFinanceClient($iZettleClient);
 
-        $balance = $purchaseClient->getBalanceInfo(AccountTypeGroup::get(AccountTypeGroup::LIQUID), new DateTime());
+        $balance = $purchaseClient->getBalanceInfo(AccountTypeGroup::LIQUID(), new DateTime());
 
         self::assertSame($data['currencyId'], $balance->getCurrency()->getCode());
         self::assertSame($data['totalBalance'], (int) $balance->getAmount());
