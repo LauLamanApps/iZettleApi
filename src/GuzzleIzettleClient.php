@@ -152,6 +152,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
         );
 
         $options =  array_merge(['headers' => $headers], ['body' => $postable->getPostBodyData()]);
+
         try {
             return $this->guzzleClient->post($url, $options);
         } catch (ClientException $exception) {

@@ -20,7 +20,6 @@ final class UnprocessableEntityException extends Exception implements IzettleApi
 
     public function __construct(string $json)
     {
-
         $error = json_decode($json, true);
 
         parent::__construct($error['developerMessage'], 422);
