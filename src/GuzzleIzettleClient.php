@@ -108,6 +108,25 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return $this->accessToken;
     }
 
+    public function getAccessTokenFromApiTokenAssertion(string $assertion): AccessToken
+    {
+        $options = [
+            'form_params' => [
+                'grant_type' => self::API_ACCESS_ASSERTION_GRANT,
+                'client_id' => $this->clientId,
+                'assertion' => $assertion
+            ],
+        ];
+
+        try {
+            $this->setAccessToken($this->requestAccessToken(self::API_ACCESS_TOKEN_REQUEST_URL, $options));
+        } catch (ClientException $exception) {
+            GuzzleClientExceptionHandler::handleClientException($exception);
+        }
+
+        return $this->accessToken;
+    }
+
     public function refreshAccessToken(?AccessToken $accessToken =  null): AccessToken
     {
         $accessToken = $accessToken ?? $this->accessToken;
@@ -230,7 +249,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return new AccessToken(
             $data['access_token'],
             new DateTimeImmutable(sprintf('+%d second', $data['expires_in'])),
-            $data['refresh_token']
+            $data['refresh_token'] ?? null
         );
     }
 }

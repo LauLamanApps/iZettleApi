@@ -13,7 +13,7 @@ final class AccessToken
     private $expires;
     private $refreshToken;
 
-    public function __construct(string $accessToken, DateTimeImmutable $expires, string $refreshToken)
+    public function __construct(string $accessToken, DateTimeImmutable $expires, ?string $refreshToken)
     {
         $this->accessToken = $accessToken;
         $this->expires = $expires;
@@ -35,7 +35,7 @@ final class AccessToken
         return (new DateTime()) > $this->expires;
     }
 
-    public function getRefreshToken(): string
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
