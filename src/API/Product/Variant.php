@@ -29,7 +29,7 @@ final class Variant
         ?string $barcode = null,
         int $defaultQuantity,
         ?string $unitName = null,
-        Money $price,
+        ?Money $price = null,
         ?Money $costPrice = null,
         float $vatPercentage
     ): self {
@@ -54,7 +54,7 @@ final class Variant
         ?string $barcode = null,
         int $defaultQuantity,
         ?string $unitName = null,
-        Money $price,
+        ?Money $price = null,
         ?Money $costPrice = null,
         float $vatPercentage
     ): self {
@@ -157,7 +157,7 @@ final class Variant
         ?string $barcode,
         int $defaultQuantity,
         ?string $unitName,
-        Money $price,
+        ?Money $price,
         ?Money $costPrice,
         float $vatPercentage
     ) {
