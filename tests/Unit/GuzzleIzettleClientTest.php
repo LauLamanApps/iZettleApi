@@ -11,6 +11,7 @@ use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
+use LauLamanApps\IzettleApi\Client\Exception\AccessTokenNotRefreshableException;
 use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -170,6 +171,11 @@ final class GuzzleIzettleClientTest extends TestCase
             (new DateTime($newExpiresIn . ' second'))->format('Y-m-d H:i:s'),
             $accessTokenObject->getExpires()->format('Y-m-d H:i:s')
         );
+
+        $fixedToken = new AccessToken('test', new DateTimeImmutable(), null);
+
+        $this->expectException(AccessTokenNotRefreshableException::class);
+        $accessTokenFactory->refreshAccessToken($fixedToken);
     }
 
     /**
