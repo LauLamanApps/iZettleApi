@@ -169,6 +169,49 @@
       "created": "2017-10-30T15:20:13.684+0000",
       "unitName": null,
       "vatPercentage": "6.0"
+    },
+    {
+      "uuid": "39c4e262-76f6-42fc-9331-10891db4ed76",
+      "categories": [],
+      "name": "Bags",
+      "description": null,
+      "imageLookupKeys": [],
+      "variants": [
+        {
+          "uuid": "6eedbad6-5d90-4f55-8ef8-d5902df2d484",
+          "name": "Small bag",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": null,
+          "costPrice": null,
+          "vatPercentage": "0.0"
+        },
+        {
+          "uuid": "780020c7-c3d9-4277-8712-6fe28b6fe1bd",
+          "name": "Large bag",
+          "description": null,
+          "sku": null,
+          "barcode": null,
+          "defaultQuantity": "1",
+          "unitName": null,
+          "price": {
+            "amount": 25,
+            "currencyId": "EUR"
+          },
+          "costPrice": null,
+          "vatPercentage": "21.0"
+        }
+      ],
+      "externalReference": null,
+      "etag": "4A7A3549307A5553614A45376A795847",
+      "updated": "2017-11-08T22:21:06.885+0200",
+      "updatedBy": "3daeb1ca-95c4-4db3-b967-97d89b28db54",
+      "created": "2017-11-07T22:16:08.234+0100",
+      "unitName": null,
+      "vatPercentage": "21.0"
     }
   ],
   "discounts": [
