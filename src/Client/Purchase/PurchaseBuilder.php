@@ -67,7 +67,7 @@ final class PurchaseBuilder implements PurchaseBuilderInterface
             $data['organizationId'],
             $data['purchaseNumber'],
             new Money($data['amount'], $currency),
-            new Money($data['vatAmount'], $currency),
+            new Money(($data['vatAmount'] ?? 0), $currency),
             $this->productBuilder->buildFromArray($data['products'], $currency),
             $this->paymentBuilder->buildFromArray($data['payments'], $currency),
             $this->vatBuilder->buildFromArray($data['groupedVatAmounts'], $currency),
