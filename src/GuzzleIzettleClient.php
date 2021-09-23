@@ -151,9 +151,13 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return $this->accessToken;
     }
 
-    public function get(string $url, ?array $queryParameters = null): ResponseInterface
+    public function get(string $url, ?array $queryParameters = null, ?array $customHeaders = []): ResponseInterface
     {
-        $options =  array_merge(['headers' => $this->getAuthorizationHeader()], ['query' => $queryParameters]);
+        $headers = array_merge(
+            $this->getAuthorizationHeader(),
+            $customHeaders
+        );
+        $options =  array_merge(['headers' => $headers], ['query' => $queryParameters]);
 
         try {
             $response = $this->guzzleClient->get($url, $options);
@@ -167,14 +171,15 @@ class GuzzleIzettleClient implements IzettleClientInterface
     /**
      * @throws UnprocessableEntityException
      */
-    public function post(string $url, IzettlePostable $postable): ResponseInterface
+    public function post(string $url, IzettlePostable $postable, ?array $customHeaders = []): ResponseInterface
     {
         $headers = array_merge(
             $this->getAuthorizationHeader(),
             [
                 'content-type' => 'application/json',
                 'Accept' => 'application/json',
-            ]
+            ],
+            $customHeaders
         );
 
         $options =  array_merge(['headers' => $headers], ['body' => $postable->getPostBodyData()]);
@@ -189,14 +194,15 @@ class GuzzleIzettleClient implements IzettleClientInterface
     /**
      * @throws UnprocessableEntityException
      */
-    public function put(string $url, string $jsonData): void
+    public function put(string $url, string $jsonData, ?array $customHeaders = []): void
     {
         $headers = array_merge(
             $this->getAuthorizationHeader(),
             [
                 'content-type' => 'application/json',
                 'Accept' => 'application/json',
-            ]
+            ],
+            $customHeaders
         );
 
         $options =  array_merge(['headers' => $headers], ['body' => $jsonData]);
@@ -211,10 +217,14 @@ class GuzzleIzettleClient implements IzettleClientInterface
     /**
      * @throws UnprocessableEntityException
      */
-    public function delete(string $url): void
+    public function delete(string $url, ?array $customHeaders = []): void
     {
+        $headers = array_merge(
+            $this->getAuthorizationHeader(),
+            $customHeaders
+        );
         try {
-            $this->guzzleClient->delete($url, ['headers' => $this->getAuthorizationHeader()]);
+            $this->guzzleClient->delete($url, ['headers' => $headers]);
         } catch (ClientException $exception) {
             throw new UnprocessableEntityException($exception->getResponse()->getBody()->getContents());
         }
