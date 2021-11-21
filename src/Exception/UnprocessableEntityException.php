@@ -25,7 +25,7 @@ final class UnprocessableEntityException extends Exception implements IzettleApi
         parent::__construct($error['developerMessage'], 422);
 
         $this->errorType = $error['errorType'];
-        $this->violations = $error['violations'];
+        $this->violations = $error['violations'] ?? [];
     }
 
     public function getErrorType(): ?string
