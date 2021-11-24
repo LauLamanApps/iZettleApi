@@ -44,8 +44,11 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
      */
     public function getClientExceptions(): array
     {
+        $responseMock = Mockery::mock(ResponseInterface::class);
+        $responseMock->shouldReceive('getStatusCode')->once()->andReturn(0);
+
         return [
-            'undefined' => [new GuzzleClientException(0, Mockery::mock(RequestInterface::class)), ClientException::class],
+            'undefined' => [new GuzzleClientException('undefined', Mockery::mock(RequestInterface::class), $responseMock), ClientException::class],
             'INCORRECT_PASSWORD_OR_USERNAME' => [$this->getClientException(400, 'invalid_grant', 'INCORRECT_PASSWORD_OR_USERNAME'), InvalidUsernameOrPasswordException::class],
             'TOO_MANY_FAILED_ATTEMPTS' => [$this->getClientException(400, 'invalid_grant', 'TOO_MANY_FAILED_ATTEMPTS'), TooManyFailedAttemptsException::class],
             'InvalidGrantException' => [$this->getClientException(400, 'invalid_grant', '[fallback]'), InvalidGrantException::class],

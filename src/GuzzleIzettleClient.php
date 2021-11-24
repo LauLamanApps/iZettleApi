@@ -223,6 +223,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
             $this->getAuthorizationHeader(),
             $customHeaders
         );
+
         try {
             $this->guzzleClient->delete($url, ['headers' => $headers]);
         } catch (ClientException $exception) {
