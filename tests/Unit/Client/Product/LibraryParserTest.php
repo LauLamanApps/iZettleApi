@@ -12,6 +12,7 @@ use LauLamanApps\IzettleApi\Client\Product\ProductBuilderInterface;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @small
@@ -42,8 +43,8 @@ final class LibraryBuilderTest extends TestCase
 
         $library = $builder->buildFromJson($json);
 
-        self::assertInstanceOf(Uuid::class, $library->getFromEventLogUuid());
-        self::assertInstanceOf(Uuid::class, $library->getUntilEventLogUuid());
+        self::assertInstanceOf(UuidInterface::class, $library->getFromEventLogUuid());
+        self::assertInstanceOf(UuidInterface::class, $library->getUntilEventLogUuid());
 
         self::assertInstanceOf(ProductCollection::class, $library->getProducts());
         self::assertInstanceOf(DiscountCollection::class, $library->getDiscounts());
@@ -76,7 +77,7 @@ final class LibraryBuilderTest extends TestCase
         $library = $builder->buildFromJson($json);
 
         self::assertNull($library->getFromEventLogUuid());
-        self::assertInstanceOf(Uuid::class, $library->getUntilEventLogUuid());
+        self::assertInstanceOf(UuidInterface::class, $library->getUntilEventLogUuid());
 
         self::assertInstanceOf(ProductCollection::class, $library->getProducts());
         self::assertInstanceOf(DiscountCollection::class, $library->getDiscounts());
