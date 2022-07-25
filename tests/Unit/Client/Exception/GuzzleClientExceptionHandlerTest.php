@@ -6,6 +6,8 @@ namespace LauLamanApps\IzettleApi\Tests\Unit\Client\Exception;
 
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use LauLamanApps\IzettleApi\Client\Exception\ClientException;
 use LauLamanApps\IzettleApi\Client\Exception\GuzzleClientExceptionHandler;
 use LauLamanApps\IzettleApi\Client\Exception\InvalidClient\InvalidClientIdException;
@@ -44,8 +46,10 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
      */
     public function getClientExceptions(): array
     {
+        $guzzleException = new GuzzleClientException('', new Request('GET', 'https://example.com/'), new Response(503));
+
         return [
-            'undefined' => [new GuzzleClientException(0, Mockery::mock(RequestInterface::class)), ClientException::class],
+            'undefined' => [$guzzleException, ClientException::class],
             'INCORRECT_PASSWORD_OR_USERNAME' => [$this->getClientException(400, 'invalid_grant', 'INCORRECT_PASSWORD_OR_USERNAME'), InvalidUsernameOrPasswordException::class],
             'TOO_MANY_FAILED_ATTEMPTS' => [$this->getClientException(400, 'invalid_grant', 'TOO_MANY_FAILED_ATTEMPTS'), TooManyFailedAttemptsException::class],
             'InvalidGrantException' => [$this->getClientException(400, 'invalid_grant', '[fallback]'), InvalidGrantException::class],
@@ -73,7 +77,7 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
     public function getRequestExceptions(): array
     {
         return [
-            'undefined' => [$this->getRequestException(0, '[fallback]'), ClientException::class],
+            'undefined' => [$this->getRequestException(503, '[fallback]'), ClientException::class],
             'not found' => [$this->getRequestException(404, 'not found'), NotFoundException::class],
         ];
     }
@@ -81,8 +85,11 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
     private function getClientException(int $code, string $error, string $errorDescription): GuzzleClientException
     {
         /** @var RequestInterface|MockInterface $request */
-        $request = Mockery::mock(RequestInterface::class);
-        $response = $this->getResponse($code, ['error'=> $error, 'error_description' => $errorDescription]);
+        $request = new Request('GET', 'https://example.com/');
+        $response = new Response($code, [], json_encode([
+            'error' => $error,
+            'error_description' => $errorDescription,
+        ]));
 
         return new GuzzleClientException('', $request, $response);
     }
@@ -98,12 +105,6 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
 
     private function getResponse(int $code, array $returnData): ResponseInterface
     {
-        /** @var ResponseInterface|MockInterface $response */
-        $response = Mockery::mock(ResponseInterface::class);
-        $response->shouldReceive('getStatusCode')->once()->andReturn($code);
-        $response->shouldReceive('getBody')->once()->andReturnSelf();
-        $response->shouldReceive('getContents')->once()->andReturn(json_encode($returnData));
-
-        return $response;
+        return new Response($code, [], json_encode($returnData));
     }
 }
