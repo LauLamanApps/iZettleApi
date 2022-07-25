@@ -33,7 +33,7 @@ final class PaymentBuilderTest extends TestCase
                 "type" => PaymentBuilder::CASH,
                 "attributes" => [
                     "handedAmount" => 500,
-                ]
+                ],
             ],
             [
                 "uuid" => (string) Uuid::uuid1(),
@@ -41,7 +41,7 @@ final class PaymentBuilderTest extends TestCase
                 "type" => PaymentBuilder::CASH,
                 "attributes" => [
                     "handedAmount" => 500,
-                ]
+                ],
             ],
         ];
 
@@ -123,9 +123,9 @@ final class PaymentBuilderTest extends TestCase
                         "terminalVerificationResults" => "0000001234",
                         "applicationIdentifier" => "A0000000012345",
                         "applicationName" => "MAESTRO",
-                    ]
+                    ],
                 ],
-                CardPayment::class
+                CardPayment::class,
             ],
             PaymentBuilder::CARD . 2 => [
                 [
@@ -139,9 +139,9 @@ final class PaymentBuilderTest extends TestCase
                         "nrOfInstallments" => 0,
                         "cardType" => "MAESTRO",
                         "terminalVerificationResults" => "0000001234",
-                    ]
+                    ],
                 ],
-                CardPayment::class
+                CardPayment::class,
             ],
             PaymentBuilder::CASH => [
                 [
@@ -150,9 +150,9 @@ final class PaymentBuilderTest extends TestCase
                     "type" => PaymentBuilder::CASH,
                     "attributes" => [
                         "handedAmount" => 500,
-                    ]
+                    ],
                 ],
-                CashPayment::class
+                CashPayment::class,
             ],
             PaymentBuilder::INVOICE => [
                 [
@@ -163,9 +163,9 @@ final class PaymentBuilderTest extends TestCase
                         "orderUUID" => "d5b126c4-979e-11e7-9af0-a3d2806c42a1",
                         "invoiceNr" => "iz37",
                         "dueDate" => "2017-10-12",
-                    ]
+                    ],
                 ],
-                InvoicePayment::class
+                InvoicePayment::class,
             ],
             PaymentBuilder::MOBILE => [
                 [
@@ -173,7 +173,7 @@ final class PaymentBuilderTest extends TestCase
                     "amount" => 400,
                     "type" => PaymentBuilder::MOBILE,
                 ],
-                MobilePayment::class
+                MobilePayment::class,
             ],
             PaymentBuilder::SWISH => [
                 [
@@ -181,7 +181,7 @@ final class PaymentBuilderTest extends TestCase
                     "amount" => 500,
                     "type" => PaymentBuilder::SWISH,
                 ],
-                SwishPayment::class
+                SwishPayment::class,
             ],
             PaymentBuilder::VIPPS => [
                 [
@@ -189,7 +189,7 @@ final class PaymentBuilderTest extends TestCase
                     "amount" => 600,
                     "type" => PaymentBuilder::VIPPS,
                 ],
-                VippsPayment::class
+                VippsPayment::class,
             ],
         ];
     }

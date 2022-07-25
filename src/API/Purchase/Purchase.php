@@ -32,7 +32,7 @@ final class Purchase
         string $Uuid,
         UuidInterface $Uuid1,
         DateTime $timestamp,
-        ?Coordinates $coordinates = null,
+        ?Coordinates $coordinates,
         string $country,
         User $user,
         int $organizationId,
@@ -43,7 +43,7 @@ final class Purchase
         array $payments,
         array $vatAmounts,
         bool $receiptCopyAllowed,
-        ?bool $published = null,
+        ?bool $published,
         bool $refund,
         bool $refunded
     ) {

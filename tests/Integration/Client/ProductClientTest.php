@@ -20,7 +20,7 @@ final class ProductClientTest extends AbstractClientTest
      */
     public function getCategories(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ProductClient/getCategories.json');
+        $json = file_get_contents(__DIR__ . '/files/ProductClient/getCategories.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
@@ -43,7 +43,7 @@ final class ProductClientTest extends AbstractClientTest
      */
     public function getDiscounts(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ProductClient/getDiscounts.json');
+        $json = file_get_contents(__DIR__ . '/files/ProductClient/getDiscounts.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
@@ -74,7 +74,7 @@ final class ProductClientTest extends AbstractClientTest
      */
     public function getLibrary(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ProductClient/getLibrary.json');
+        $json = file_get_contents(__DIR__ . '/files/ProductClient/getLibrary.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);
@@ -95,7 +95,7 @@ final class ProductClientTest extends AbstractClientTest
      */
     public function getProducts(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ProductClient/getProducts.json');
+        $json = file_get_contents(__DIR__ . '/files/ProductClient/getProducts.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getProductClient($iZettleClient);

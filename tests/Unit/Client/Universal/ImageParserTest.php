@@ -19,7 +19,7 @@ final class ImageBuilderTest extends TestCase
      */
     public function buildFromJson(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/json-files/buildFromJson.json');
+        $json = file_get_contents(__DIR__ . '/json-files/buildFromJson.json');
         $data = json_decode($json, true);
 
         $builder = new ImageBuilder();

@@ -119,7 +119,7 @@ final class ProductBuilderTest extends TestCase
 
     private function getDataFromFile($filename): array
     {
-        $singleProductJson = file_get_contents(dirname(__FILE__) . '/json-files/' . $filename);
+        $singleProductJson = file_get_contents(__DIR__ . '/json-files/' . $filename);
         $singleProductArray = json_decode($singleProductJson, true);
 
         return [$singleProductJson, $singleProductArray];

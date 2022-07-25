@@ -17,7 +17,7 @@ final class PayoutInfoBuilderTest extends TestCase
      */
     public function buildFromJson(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/json-files/payout-info.json');
+        $json = file_get_contents(__DIR__ . '/json-files/payout-info.json');
         $data = json_decode($json, true)['data'];
 
         $payoutInfoBuilder = new PayoutInfoBuilder();

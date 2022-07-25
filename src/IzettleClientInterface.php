@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LauLamanApps\IzettleApi;
 
 use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
@@ -10,15 +12,15 @@ use Psr\Http\Message\ResponseInterface;
 
 interface IzettleClientInterface
 {
-    const API_BASE_URL = 'https://oauth.izettle.net';
-    const API_AUTHORIZE_USER_LOGIN_URL = self::API_BASE_URL . '/authorize';
+    public const API_BASE_URL = 'https://oauth.izettle.net';
+    public const API_AUTHORIZE_USER_LOGIN_URL = self::API_BASE_URL . '/authorize';
 
-    const API_ACCESS_TOKEN_REQUEST_URL = self::API_BASE_URL . '/token';
-    const API_ACCESS_TOKEN_PASSWORD_GRANT = 'password';
-    const API_ACCESS_TOKEN_CODE_GRANT = 'authorization_code';
-    const API_ACCESS_ASSERTION_GRANT = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
-    const API_ACCESS_TOKEN_REFRESH_TOKEN_URL = self::API_BASE_URL . '/token';
-    const API_ACCESS_TOKEN_REFRESH_TOKEN_GRANT = 'refresh_token';
+    public const API_ACCESS_TOKEN_REQUEST_URL = self::API_BASE_URL . '/token';
+    public const API_ACCESS_TOKEN_PASSWORD_GRANT = 'password';
+    public const API_ACCESS_TOKEN_CODE_GRANT = 'authorization_code';
+    public const API_ACCESS_ASSERTION_GRANT = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
+    public const API_ACCESS_TOKEN_REFRESH_TOKEN_URL = self::API_BASE_URL . '/token';
+    public const API_ACCESS_TOKEN_REFRESH_TOKEN_GRANT = 'refresh_token';
 
     public function setAccessToken(AccessToken $accessToken): void;
 

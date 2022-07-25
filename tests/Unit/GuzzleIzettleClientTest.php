@@ -24,9 +24,9 @@ final class GuzzleIzettleClientTest extends TestCase
 {
     use MockeryAssertionTrait;
 
-    const ACCESS_TOKEN = 'access-token';
-    const CLIENT_ID = 'clientId';
-    const CLIENT_SECRET = 'clientSecret';
+    public const ACCESS_TOKEN = 'access-token';
+    public const CLIENT_ID = 'clientId';
+    public const CLIENT_SECRET = 'clientSecret';
 
     /**
      * @test
@@ -65,7 +65,7 @@ final class GuzzleIzettleClientTest extends TestCase
                 'client_id' => self::CLIENT_ID,
                 'client_secret' => self::CLIENT_SECRET,
                 'username' => $username,
-                'password' => $password
+                'password' => $password,
             ],
         ];
 
@@ -76,7 +76,7 @@ final class GuzzleIzettleClientTest extends TestCase
             [
                 'access_token' => $accessToken,
                 'expires_in' => $expiresIn,
-                'refresh_token' => $refreshToken
+                'refresh_token' => $refreshToken,
             ]
         ));
 
@@ -115,7 +115,7 @@ final class GuzzleIzettleClientTest extends TestCase
         $guzzleClientMock->shouldReceive('getContents')->once()->andReturn(json_encode(
             [
                 'access_token' => $accessToken,
-                'expires_in' => $expiresIn
+                'expires_in' => $expiresIn,
             ]
         ));
 
@@ -158,7 +158,7 @@ final class GuzzleIzettleClientTest extends TestCase
             [
                 'access_token' => $newAccessToken,
                 'expires_in' => $newExpiresIn,
-                'refresh_token' => $newRefreshToken
+                'refresh_token' => $newRefreshToken,
             ]
         ));
 
@@ -186,9 +186,9 @@ final class GuzzleIzettleClientTest extends TestCase
     {
         $options = [
             'headers' => [
-                'Authorization' => 'Bearer ' . self::ACCESS_TOKEN
+                'Authorization' => 'Bearer ' . self::ACCESS_TOKEN,
             ],
-            'query' => $queryParameters
+            'query' => $queryParameters,
         ];
 
         $guzzleClientMock = Mockery::mock(GuzzleClientInterface::class);

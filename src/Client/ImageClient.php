@@ -12,8 +12,8 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ImageClient
 {
-    const BASE_URL = 'https://image.izettle.com/organizations/%s';
-    const POST_IMAGE = self::BASE_URL . '/products';
+    public const BASE_URL = 'https://image.izettle.com/organizations/%s';
+    public const POST_IMAGE = self::BASE_URL . '/products';
 
     private $client;
     private $organizationUuid = 'self';
@@ -21,7 +21,7 @@ final class ImageClient
 
     public function __construct(
         IzettleClientInterface $client,
-        ?UuidInterface $organizationUuid = null,
+        ?UuidInterface $organizationUuid,
         ImageBuilderInterface $imageBuilder
     ) {
         $this->client = $client;

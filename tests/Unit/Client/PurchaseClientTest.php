@@ -32,7 +32,7 @@ final class PurchaseClientTest extends AbstractClientTest
         $data = ['getPurchaseHistoryTest'];
         $izettleClientMock = $this->getIzettleGetMock(PurchaseClient::GET_PURCHASES, $data);
 
-        list($purchaseHistoryBuilder, $purchaseBuilder) = $this->getDependencyMocks();
+        [$purchaseHistoryBuilder, $purchaseBuilder] = $this->getDependencyMocks();
         $purchaseHistoryBuilder->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn($this->getPurchaseHistoryObject());
 
         $purchaseClient = new PurchaseClient($izettleClientMock, $purchaseHistoryBuilder, $purchaseBuilder);
@@ -49,7 +49,7 @@ final class PurchaseClientTest extends AbstractClientTest
         $url = sprintf(PurchaseClient::GET_PURCHASE, (string) $purchaseUuid);
         $izettleClientMock = $this->getIzettleGetMock($url, $data);
 
-        list($purchaseHistoryBuilder, $purchaseBuilder) = $this->getDependencyMocks();
+        [$purchaseHistoryBuilder, $purchaseBuilder] = $this->getDependencyMocks();
         $purchaseBuilder->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn($this->getPurchaseObject());
 
         $purchaseClient = new PurchaseClient($izettleClientMock, $purchaseHistoryBuilder, $purchaseBuilder);
@@ -88,7 +88,7 @@ final class PurchaseClientTest extends AbstractClientTest
     {
         return [
             Mockery::mock(PurchaseHistoryBuilderInterface::class),
-            Mockery::mock(PurchaseBuilderInterface::class)
+            Mockery::mock(PurchaseBuilderInterface::class),
         ];
     }
 }

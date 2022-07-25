@@ -83,9 +83,9 @@ final class ProductTest extends TestCase
                         Money::EUR(500),
                         null,
                         12
-                    )
+                    ),
                 ]),
-                'externalReference1'
+                'externalReference1',
             ],
             [
                 'name2',
@@ -103,10 +103,10 @@ final class ProductTest extends TestCase
                         Money::EUR(500),
                         Money::EUR(100),
                         12
-                    )
+                    ),
                 ]),
-                'externalReference2'
-            ]
+                'externalReference2',
+            ],
         ];
     }
 }

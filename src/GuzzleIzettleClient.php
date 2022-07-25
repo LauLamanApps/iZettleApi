@@ -66,7 +66,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
         return $url;
     }
 
-    
+
     public function getAccessTokenFromAuthorizedCode(string $redirectUrl, string $code): AccessToken
     {
         $options = [
@@ -75,7 +75,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
               'client_id' => $this->clientId,
               'client_secret' => $this->clientSecret,
               'redirect_uri' => $redirectUrl,
-              'code' => $code
+              'code' => $code,
            ],
         ];
 
@@ -87,7 +87,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
 
         return $this->accessToken;
     }
-    
+
     public function getAccessTokenFromUserLogin(string $username, string $password): AccessToken
     {
         $options = [
@@ -96,7 +96,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
                 'username' => $username,
-                'password' => $password
+                'password' => $password,
             ],
         ];
 
@@ -115,7 +115,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
             'form_params' => [
                 'grant_type' => self::API_ACCESS_ASSERTION_GRANT,
                 'client_id' => $this->clientId,
-                'assertion' => $assertion
+                'assertion' => $assertion,
             ],
         ];
 
@@ -130,7 +130,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
 
     public function refreshAccessToken(?AccessToken $accessToken =  null): AccessToken
     {
-        $accessToken = $accessToken ?? $this->accessToken;
+        $accessToken ??= $this->accessToken;
 
         $refreshToken = $accessToken->getRefreshToken();
         if ($refreshToken === null) {
@@ -142,7 +142,7 @@ class GuzzleIzettleClient implements IzettleClientInterface
                 'grant_type' => self::API_ACCESS_TOKEN_REFRESH_TOKEN_GRANT,
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
-                'refresh_token' => $refreshToken
+                'refresh_token' => $refreshToken,
             ],
         ];
 

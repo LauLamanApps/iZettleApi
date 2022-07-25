@@ -17,7 +17,7 @@ final class ImageFileUploadTest extends TestCase
      */
     public function productImageUpload_withImage(): void
     {
-        $file = dirname(__FILE__) . '/files/50x50-good.png';
+        $file = __DIR__ . '/files/50x50-good.png';
         $imageFormat = 'PNG';
         $imageData = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode(file_get_contents($file)));
         $productImageUpload = new ImageFileUpload($file);
@@ -34,7 +34,7 @@ final class ImageFileUploadTest extends TestCase
      */
     public function fileSizeIsToBig_shouldThrowException(): void
     {
-        new ImageFileUpload(dirname(__FILE__) . '/files/3840x2160-filesize-to-big.png');
+        new ImageFileUpload(__DIR__ . '/files/3840x2160-filesize-to-big.png');
     }
 
     /**
@@ -43,7 +43,7 @@ final class ImageFileUploadTest extends TestCase
      */
     public function fileIsNotAnImage_shouldThrowException(): void
     {
-        new ImageFileUpload(dirname(__FILE__) . '/files/text.txt');
+        new ImageFileUpload(__DIR__ . '/files/text.txt');
     }
 
     /**
@@ -52,7 +52,7 @@ final class ImageFileUploadTest extends TestCase
      */
     public function notAllowedFileType_shouldThrowException(): void
     {
-        new ImageFileUpload(dirname(__FILE__) . '/files/50x50-file-type-not-allowed.swf');
+        new ImageFileUpload(__DIR__ . '/files/50x50-file-type-not-allowed.swf');
     }
 
     /**
@@ -61,6 +61,6 @@ final class ImageFileUploadTest extends TestCase
      */
     public function toSmallImageSize_shouldThrowException(): void
     {
-        new ImageFileUpload(dirname(__FILE__) . '/files/1x1-to-small.png');
+        new ImageFileUpload(__DIR__ . '/files/1x1-to-small.png');
     }
 }

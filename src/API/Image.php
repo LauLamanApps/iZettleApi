@@ -6,7 +6,7 @@ namespace LauLamanApps\IzettleApi\API;
 
 final class Image
 {
-    const BASE_URL = 'https://image.izettle.com/productimage/';
+    public const BASE_URL = 'https://image.izettle.com/productimage/';
 
     private $filename;
 

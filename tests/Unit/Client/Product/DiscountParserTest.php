@@ -24,7 +24,7 @@ final class DiscountBuilderTest extends TestCase
      */
     public function buildFromJsonSingle(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/json-files/single-discount.json');
+        $json = file_get_contents(__DIR__ . '/json-files/single-discount.json');
         $data = json_decode($json, true)[0];
 
         $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);
@@ -58,7 +58,7 @@ final class DiscountBuilderTest extends TestCase
      */
     public function buildFromJsonMultiple(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/json-files/multiple-discount.json');
+        $json = file_get_contents(__DIR__ . '/json-files/multiple-discount.json');
         $data = json_decode($json, true);
 
         $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);
@@ -95,7 +95,7 @@ final class DiscountBuilderTest extends TestCase
      */
     public function buildFromArray(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/json-files/multiple-discount.json');
+        $json = file_get_contents(__DIR__ . '/json-files/multiple-discount.json');
         $data = json_decode($json, true);
 
         $imageBuilderMock = Mockery::mock(ImageBuilderInterface::class);

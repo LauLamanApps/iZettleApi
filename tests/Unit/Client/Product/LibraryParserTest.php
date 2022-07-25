@@ -23,7 +23,7 @@ final class LibraryBuilderTest extends TestCase
      */
     public function createFromResponse(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/json-files/library.json');
+        $json = file_get_contents(__DIR__ . '/json-files/library.json');
         $data = json_decode($json, true);
 
         $productBuilderMock =  Mockery::mock(ProductBuilderInterface::class);
@@ -56,7 +56,7 @@ final class LibraryBuilderTest extends TestCase
      */
     public function createFromResponseWithNullfromEventLogUuid(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/json-files/library-null-fromEventLogUuid.json');
+        $json = file_get_contents(__DIR__ . '/json-files/library-null-fromEventLogUuid.json');
         $data = json_decode($json, true);
 
         $productBuilderMock =  Mockery::mock(ProductBuilderInterface::class);

@@ -23,14 +23,14 @@ final class Variant
 
     public static function create(
         UuidInterface $uuid,
-        ?string $name = null,
-        ?string $description = null,
-        ?string $sku = null,
-        ?string $barcode = null,
+        ?string $name,
+        ?string $description,
+        ?string $sku,
+        ?string $barcode,
         int $defaultQuantity,
-        ?string $unitName = null,
-        ?Money $price = null,
-        ?Money $costPrice = null,
+        ?string $unitName,
+        ?Money $price,
+        ?Money $costPrice,
         float $vatPercentage
     ): self {
         return new self(
@@ -48,14 +48,14 @@ final class Variant
     }
 
     public static function new(
-        ?string $name = null,
-        ?string $description = null,
-        ?string $sku = null,
-        ?string $barcode = null,
+        ?string $name,
+        ?string $description,
+        ?string $sku,
+        ?string $barcode,
         int $defaultQuantity,
-        ?string $unitName = null,
-        ?Money $price = null,
-        ?Money $costPrice = null,
+        ?string $unitName,
+        ?Money $price,
+        ?Money $costPrice,
         float $vatPercentage
     ): self {
         return new self(
@@ -136,13 +136,13 @@ final class Variant
                 'amount' => $this->price->getAmount(),
                 'currencyId' => (string) $this->price->getCurrency(),
             ],
-            'vatPercentage' => $this->getVatPercentage()
+            'vatPercentage' => $this->getVatPercentage(),
         ];
 
         if ($this->costPrice) {
             $data['costPrice'] =[
                 'amount' => $this->costPrice->getAmount(),
-                'currencyId' => (string) $this->costPrice->getCurrency()
+                'currencyId' => (string) $this->costPrice->getCurrency(),
             ];
         }
 
