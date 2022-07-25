@@ -6,29 +6,20 @@ on:
     branches:
         - master
 
-env:
-  COMPOSER_MEMORY_LIMIT: -1
-
 jobs:
   test:
-    name: "Test PHP ${{ matrix.php }} (${{ matrix.package-release }})"
+    name: "Test on PHP ${{ matrix.php }}"
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 12
+      fail-fast: false
       matrix:
         php:
-          - '7.3'
-          - '7.4'
-          - '8.0'
-
-        package-release:
-          - source
-          - dist
+          - '8.1'
+          - '8.2'
 
         include:
-          - php: '7.4'
-            package-release: 'dist'
-            coverage: true
+          - php: '8.1'
+            main: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -39,31 +30,18 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: json
           coverage: xdebug
+          tools: php-parallel-lint/php-parallel-lint
 
-      - name: Get user-level Composer cache
-        id: composer-cache
-        run: echo "::set-output name=dir::$( composer config cache-files-dir )"
+      - name: Lint PHP code
+        run: parallel-lint .
 
-      - name: Setup Composer cache
-        uses: actions/cache@v1
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v2
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ runner.os }}-${{ matrix.php }}-${{ matrix.package-release }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            composer-${{ runner.os }}-${{ matrix.php }}-${{ matrix.package-release }}-
-            composer-${{ runner.os }}-${{ matrix.php }}-
-            composer-${{ runner.os }}-
-
-      - name: Install composer dependencies
-        run: |
-          composer update \
-            --no-progress \
-            --no-interaction \
-            --ignore-platform-req=php \
-            --prefer-${{ matrix.package-release }}
+          composer-options: "--ignore-platform-req=php"
 
       - name: Lint files
-        if: matrix.php != '8.0'
+        if: matrix.main
         run: bin/php-cs-fixer fix --dry-run
 
       - name: Run tests
@@ -73,13 +51,13 @@ jobs:
 
       - name: Re-run tests to determine coverage
         run: bin/phpunit --coverage-clover=coverage-clover.xml
-        if: matrix.coverage
+        if: matrix.main
 
       - name: Determine coverage
-        uses: slavcodev/coverage-monitor-action@1.1.0
-        if: matrix.coverage
+        uses: slavcodev/coverage-monitor-action@v1
+        if: matrix.main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          clover_file: coverage-clover.xml
+          coverage_path: coverage-clover.xml
           threshold_alert: 75
           threshold_warning: 95
