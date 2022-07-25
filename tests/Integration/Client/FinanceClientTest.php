@@ -31,10 +31,10 @@ final class FinanceClientTest extends AbstractClientTest
         );
 
         foreach ($accountTransactions as $index => $accountTransaction) {
-            self::assertSame($data[$index]['originatingTransactionUuid'], (string) $accountTransaction->getOriginatingTransactionUuid());
-            self::assertSame($data[$index]['originatorTransactionType'], $accountTransaction->getOriginatorTransactionType()->value);
-            self::assertEquals(new DateTime($data[$index]['timestamp']), $accountTransaction->getTimestamp());
-            self::assertSame($data[$index]['amount'], $accountTransaction->getAmount());
+            $this->assertSame($data[$index]['originatingTransactionUuid'], (string) $accountTransaction->getOriginatingTransactionUuid());
+            $this->assertSame($data[$index]['originatorTransactionType'], $accountTransaction->getOriginatorTransactionType()->value);
+            $this->assertEquals(new DateTime($data[$index]['timestamp']), $accountTransaction->getTimestamp());
+            $this->assertSame($data[$index]['amount'], $accountTransaction->getAmount());
         }
     }
 
@@ -51,8 +51,8 @@ final class FinanceClientTest extends AbstractClientTest
 
         $balance = $purchaseClient->getBalanceInfo(AccountTypeGroup::LIQUID, new DateTime());
 
-        self::assertSame($data['currencyId'], $balance->getCurrency()->getCode());
-        self::assertSame($data['totalBalance'], (int) $balance->getAmount());
+        $this->assertSame($data['currencyId'], $balance->getCurrency()->getCode());
+        $this->assertSame($data['totalBalance'], (int) $balance->getAmount());
     }
 
     /**
@@ -68,12 +68,12 @@ final class FinanceClientTest extends AbstractClientTest
 
         $payoutInfo = $purchaseClient->getPayoutInfo(new DateTime());
 
-        self::assertSame($data['totalBalance'], (int) $payoutInfo->getTotalBalance()->getAmount());
-        self::assertSame($data['currencyId'], $payoutInfo->getTotalBalance()->getCurrency()->getCode());
-        self::assertSame($data['nextPayoutAmount'], (int) $payoutInfo->getNextPayoutAmount()->getAmount());
-        self::assertSame($data['currencyId'], $payoutInfo->getNextPayoutAmount()->getCurrency()->getCode());
-        self::assertSame($data['discountRemaining'], (int) $payoutInfo->getDiscountRemaining()->getAmount());
-        self::assertSame($data['currencyId'], $payoutInfo->getDiscountRemaining()->getCurrency()->getCode());
-        self::assertSame($data['periodicity'], $payoutInfo->getPeriodicity()->value);;
+        $this->assertSame($data['totalBalance'], (int) $payoutInfo->getTotalBalance()->getAmount());
+        $this->assertSame($data['currencyId'], $payoutInfo->getTotalBalance()->getCurrency()->getCode());
+        $this->assertSame($data['nextPayoutAmount'], (int) $payoutInfo->getNextPayoutAmount()->getAmount());
+        $this->assertSame($data['currencyId'], $payoutInfo->getNextPayoutAmount()->getCurrency()->getCode());
+        $this->assertSame($data['discountRemaining'], (int) $payoutInfo->getDiscountRemaining()->getAmount());
+        $this->assertSame($data['currencyId'], $payoutInfo->getDiscountRemaining()->getCurrency()->getCode());
+        $this->assertSame($data['periodicity'], $payoutInfo->getPeriodicity()->value);
     }
 }

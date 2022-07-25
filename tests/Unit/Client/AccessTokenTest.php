@@ -20,6 +20,6 @@ final class AccessTokenTest extends TestCase
     {
         $accessToken = new AccessToken('', new DateTimeImmutable(), '');
 
-        self::assertTrue($accessToken->isExpired());
+        $this->assertTrue($accessToken->isExpired());
     }
 }

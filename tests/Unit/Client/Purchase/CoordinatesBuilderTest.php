@@ -28,10 +28,10 @@ final class CoordinatesBuilderTest extends TestCase
         $builder = new CoordinatesBuilder();
         $coordinate = $builder->buildFromArray($data);
 
-        self::assertInstanceOf(Coordinates::class, $coordinate);
-        self::assertSame($latitude, $coordinate->getLatitude());
-        self::assertSame($longitude, $coordinate->getLongitude());
-        self::assertSame($accuracyMeters, $coordinate->getAccuracyMeters());
+        $this->assertInstanceOf(Coordinates::class, $coordinate);
+        $this->assertSame($latitude, $coordinate->getLatitude());
+        $this->assertSame($longitude, $coordinate->getLongitude());
+        $this->assertSame($accuracyMeters, $coordinate->getAccuracyMeters());
     }
 
     public function getCoordinates(): array

@@ -59,6 +59,20 @@ $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
 $library = $purchaseClient->getPurchaseHistory();
 ```
 
+Upgrading
+---------
+
+### From v0.9 to v1.0
+
+Version 1.0 requires PHP 8.1 and uses first-class Enums. This is a breaking change.
+
+If you're using the enums, make sure you replace calls to `get` with an instance reference:
+
+```diff
+-if ($payout->getPeriodicity() === Periodicity::get(Periodicity::DAILY)) {
++if ($payout->getPeriodicity() === Periodicity::DAILY) {
+```
+
 
 Credits
 -------

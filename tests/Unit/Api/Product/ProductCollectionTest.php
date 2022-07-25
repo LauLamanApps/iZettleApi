@@ -30,19 +30,19 @@ final class ProductCollectionTest extends TestCase
 
         //-- Check if collection contains all 3 products
         $collection = $productCollection->getAll();
-        self::assertEquals(3, count($collection));
-        self::assertEquals($product1, $collection[(string) $product1->getUuid()]);
-        self::assertEquals($product2, $collection[(string) $product2->getUuid()]);
-        self::assertEquals($product3, $collection[(string) $product3->getUuid()]);
+        $this->assertEquals(3, count($collection));
+        $this->assertEquals($product1, $collection[(string) $product1->getUuid()]);
+        $this->assertEquals($product2, $collection[(string) $product2->getUuid()]);
+        $this->assertEquals($product3, $collection[(string) $product3->getUuid()]);
 
         $productCollection->remove($product2);
 
         //-- Check if collection does not contains product 2 but does contain the others
         $collection = $productCollection->getAll();
-        self::assertEquals(2, count($collection));
-        self::assertEquals($product1, $collection[(string) $product1->getUuid()]);
-        self::assertEquals($product3, $productCollection->get($product3->getUuid()));
-        self::assertFalse(array_key_exists((string) $product2->getUuid(), $collection));
+        $this->assertEquals(2, count($collection));
+        $this->assertEquals($product1, $collection[(string) $product1->getUuid()]);
+        $this->assertEquals($product3, $productCollection->get($product3->getUuid()));
+        $this->assertFalse(array_key_exists((string) $product2->getUuid(), $collection));
     }
 
     private function getProductWithUuid(): Product

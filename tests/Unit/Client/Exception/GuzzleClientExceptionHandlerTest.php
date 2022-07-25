@@ -35,7 +35,7 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
      */
     public function handleClientException(GuzzleClientException $exception, string $expectedException): void
     {
-        self::expectException($expectedException);
+        $this->expectException($expectedException);
         GuzzleClientExceptionHandler::handleClientException($exception);
     }
 
@@ -63,7 +63,7 @@ final class GuzzleClientExceptionHandlerTest extends TestCase
      */
     public function handleRequestException(GuzzleRequestException $exception, string $expectedException): void
     {
-        self::expectException($expectedException);
+        $this->expectException($expectedException);
         GuzzleClientExceptionHandler::handleRequestException($exception);
     }
 

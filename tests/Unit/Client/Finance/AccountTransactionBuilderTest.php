@@ -24,10 +24,10 @@ final class AccountTransactionBuilderTest extends TestCase
         $accountTransactions = $accountTransactionBuilder->buildFromJson($json);
 
         foreach ($accountTransactions as $index => $accountTransaction) {
-            self::assertSame($data[$index]['originatingTransactionUuid'], (string) $accountTransaction->getOriginatingTransactionUuid());
-            self::assertSame($data[$index]['originatorTransactionType'], $accountTransaction->getOriginatorTransactionType()->value);
-            self::assertSame($data[$index]['timestamp'], $accountTransaction->getTimestamp()->format('Y-m-d H:i:s'));
-            self::assertSame($data[$index]['amount'], $accountTransaction->getAmount());
+            $this->assertSame($data[$index]['originatingTransactionUuid'], (string) $accountTransaction->getOriginatingTransactionUuid());
+            $this->assertSame($data[$index]['originatorTransactionType'], $accountTransaction->getOriginatorTransactionType()->value);
+            $this->assertSame($data[$index]['timestamp'], $accountTransaction->getTimestamp()->format('Y-m-d H:i:s'));
+            $this->assertSame($data[$index]['amount'], $accountTransaction->getAmount());
         }
     }
 }

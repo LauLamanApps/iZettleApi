@@ -31,16 +31,16 @@ final class PurchaseHistoryTest extends TestCase
             [$this->getGeneratedPurchase(), $this->getGeneratedPurchase(), new stdClass()]
         );
 
-        self::assertEquals($initialPurchases, count($purchaseHistory->getPurchases()));
+        $this->assertEquals($initialPurchases, count($purchaseHistory->getPurchases()));
 
         $purchase = $this->getGeneratedPurchase();
         $purchaseHistory ->addPurchase($purchase);
 
-        self::assertEquals(($initialPurchases +1), count($purchaseHistory->getPurchases()));
+        $this->assertEquals(($initialPurchases +1), count($purchaseHistory->getPurchases()));
 
         $purchaseHistory ->removePurchase($purchase);
 
-        self::assertEquals($initialPurchases, count($purchaseHistory->getPurchases()));
+        $this->assertEquals($initialPurchases, count($purchaseHistory->getPurchases()));
     }
 
     private function getGeneratedPurchase(): Purchase

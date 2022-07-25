@@ -21,8 +21,7 @@ final class ImageUrlUploadTest extends TestCase
 
         $productImageUpload = new ImageUrlUpload($imageUrl);
 
-        self::assertInstanceOf(ImageUrlUpload::class, $productImageUpload);
-        self::assertAttributeEquals($imageUrl, 'imageUrl', $productImageUpload);
-        self::assertSame(['imageUrl' => $imageUrl], json_decode($productImageUpload->getPostBodyData(), true));
+        $this->assertInstanceOf(ImageUrlUpload::class, $productImageUpload);
+        $this->assertSame(['imageUrl' => $imageUrl], json_decode($productImageUpload->getPostBodyData(), true));
     }
 }

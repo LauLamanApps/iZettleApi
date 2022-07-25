@@ -22,8 +22,8 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setFinancesScope($rights);
 
-        self::assertContains($rights->value, $apiScope->getUrlParameters());
-        self::assertContains('FINANCE', $apiScope->getUrlParameters());
+        $this->assertStringContainsString($rights->value, $apiScope->getUrlParameters());
+        $this->assertStringContainsString('FINANCE', $apiScope->getUrlParameters());
     }
 
     /**
@@ -35,8 +35,8 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setPurchaseScope($rights);
 
-        self::assertContains($rights->value, $apiScope->getUrlParameters());
-        self::assertContains('PURCHASE', $apiScope->getUrlParameters());
+        $this->assertStringContainsString($rights->value, $apiScope->getUrlParameters());
+        $this->assertStringContainsString('PURCHASE', $apiScope->getUrlParameters());
     }
 
     /**
@@ -48,8 +48,8 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setProductScope($rights);
 
-        self::assertContains($rights->value, $apiScope->getUrlParameters());
-        self::assertContains('PRODUCT', $apiScope->getUrlParameters());
+        $this->assertStringContainsString($rights->value, $apiScope->getUrlParameters());
+        $this->assertStringContainsString('PRODUCT', $apiScope->getUrlParameters());
     }
 
     /**
@@ -61,8 +61,8 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setInventoryScope($rights);
 
-        self::assertContains($rights->value, $apiScope->getUrlParameters());
-        self::assertContains('INVENTORY', $apiScope->getUrlParameters());
+        $this->assertStringContainsString($rights->value, $apiScope->getUrlParameters());
+        $this->assertStringContainsString('INVENTORY', $apiScope->getUrlParameters());
     }
 
     /**

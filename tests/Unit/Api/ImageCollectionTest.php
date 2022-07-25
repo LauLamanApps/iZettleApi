@@ -27,19 +27,19 @@ final class ImageCollectionTest extends TestCase
 
         //-- Check if collection contains all 3 images
         $collection = $imageCollection->getAll();
-        self::assertEquals(3, count($collection));
-        self::assertEquals($image1, $collection[$image1->getFilename()]);
-        self::assertEquals($image2, $collection[$image2->getFilename()]);
-        self::assertEquals($image3, $collection[$image3->getFilename()]);
+        $this->assertEquals(3, count($collection));
+        $this->assertEquals($image1, $collection[$image1->getFilename()]);
+        $this->assertEquals($image2, $collection[$image2->getFilename()]);
+        $this->assertEquals($image3, $collection[$image3->getFilename()]);
 
         $imageCollection->remove($image2);
 
         //-- Check if collection does not contains image 2 but does contain the others
         $collection = $imageCollection->getAll();
-        self::assertEquals(2, count($collection));
-        self::assertEquals($image1, $collection[$image1->getFilename()]);
-        self::assertEquals($image3, $collection[$image3->getFilename()]);
-        self::assertFalse(array_key_exists($image2->getFilename(), $collection));
+        $this->assertEquals(2, count($collection));
+        $this->assertEquals($image1, $collection[$image1->getFilename()]);
+        $this->assertEquals($image3, $collection[$image3->getFilename()]);
+        $this->assertFalse(array_key_exists($image2->getFilename(), $collection));
     }
 
     /**
@@ -51,7 +51,7 @@ final class ImageCollectionTest extends TestCase
         $imageCollection = new ImageCollection([$this->getImageWithUuid($filename)]);
 
         $image = $imageCollection->get($filename);
-        self::assertSame($filename, $image->getFilename());
+        $this->assertSame($filename, $image->getFilename());
     }
 
     private function getImageWithUuid(string $filename): Image

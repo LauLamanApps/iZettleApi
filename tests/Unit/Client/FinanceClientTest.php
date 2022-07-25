@@ -75,7 +75,7 @@ final class FinanceClientTest extends AbstractClientTest
         $financeClient = new FinanceClient($izettleClientMock, $organizationUuid, $accountTransactionBuilderMock, $payoutInfoBuilderMock);
         $balance = $financeClient->getBalanceInfo($accountTypeGroup);
 
-        self::assertEquals($expectedBalance, $balance);
+        $this->assertEquals($expectedBalance, $balance);
     }
 
     /**

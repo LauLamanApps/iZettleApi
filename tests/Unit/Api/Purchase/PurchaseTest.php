@@ -45,8 +45,8 @@ final class PurchaseTest extends TestCase
             false
         );
 
-        self::assertSame($products, $purchase->getProducts());
-        self::assertSame($payments, $purchase->getPayments());
-        self::assertSame($vatAmounts, $purchase->getVatAmounts());
+        $this->assertSame($products, $purchase->getProducts());
+        $this->assertSame($payments, $purchase->getPayments());
+        $this->assertSame($vatAmounts, $purchase->getVatAmounts());
     }
 }

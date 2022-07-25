@@ -11,6 +11,7 @@ use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use LauLamanApps\IzettleApi\API\Universal\IzettlePostable;
 use LauLamanApps\IzettleApi\Client\AccessToken;
 use LauLamanApps\IzettleApi\Client\ApiScope;
+use LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException;
 use LauLamanApps\IzettleApi\Client\Exception\AccessTokenNotRefreshableException;
 use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use Mockery;
@@ -45,7 +46,7 @@ final class GuzzleIzettleClientTest extends TestCase
         $accessTokenFactory = new GuzzleIzettleClient(Mockery::mock(GuzzleClient::class), self::CLIENT_ID, self::CLIENT_SECRET);
         $authoriseUserLoginUrl =  $accessTokenFactory->authoriseUserLogin($redirectUrl, $apiScope);
 
-        self::assertSame($expectedUrl, $authoriseUserLoginUrl);
+        $this->assertSame($expectedUrl, $authoriseUserLoginUrl);
     }
 
     /**
@@ -84,9 +85,9 @@ final class GuzzleIzettleClientTest extends TestCase
         $accessTokenFactory = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
         $accessTokenObject =  $accessTokenFactory->getAccessTokenFromUserLogin($username, $password);
 
-        self::assertSame($accessToken, $accessTokenObject->getToken());
-        self::assertSame($refreshToken, $accessTokenObject->getRefreshToken());
-        self::assertEquals(
+        $this->assertSame($accessToken, $accessTokenObject->getToken());
+        $this->assertSame($refreshToken, $accessTokenObject->getRefreshToken());
+        $this->assertEquals(
             (new DateTime($expiresIn . ' second'))->format('Y-m-d H:i:s'),
             $accessTokenObject->getExpires()->format('Y-m-d H:i:s')
         );
@@ -123,9 +124,9 @@ final class GuzzleIzettleClientTest extends TestCase
         $accessTokenFactory = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
         $accessTokenObject =  $accessTokenFactory->getAccessTokenFromApiTokenAssertion($assertion);
 
-        self::assertSame($accessToken, $accessTokenObject->getToken());
-        self::assertNull($accessTokenObject->getRefreshToken());
-        self::assertEquals(
+        $this->assertSame($accessToken, $accessTokenObject->getToken());
+        $this->assertNull($accessTokenObject->getRefreshToken());
+        $this->assertEquals(
             (new DateTime($expiresIn . ' second'))->format('Y-m-d H:i:s'),
             $accessTokenObject->getExpires()->format('Y-m-d H:i:s')
         );
@@ -165,9 +166,9 @@ final class GuzzleIzettleClientTest extends TestCase
         $accessTokenFactory = new GuzzleIzettleClient($guzzleClientMock, self::CLIENT_ID, self::CLIENT_SECRET);
         $accessTokenObject = $accessTokenFactory->refreshAccessToken($oldAccessToken);
 
-        self::assertSame($newAccessToken, $accessTokenObject->getToken());
-        self::assertSame($newRefreshToken, $accessTokenObject->getRefreshToken());
-        self::assertEquals(
+        $this->assertSame($newAccessToken, $accessTokenObject->getToken());
+        $this->assertSame($newRefreshToken, $accessTokenObject->getRefreshToken());
+        $this->assertEquals(
             (new DateTime($newExpiresIn . ' second'))->format('Y-m-d H:i:s'),
             $accessTokenObject->getExpires()->format('Y-m-d H:i:s')
         );
@@ -314,17 +315,17 @@ final class GuzzleIzettleClientTest extends TestCase
         $izettleClient->setAccessToken($this->getAccessToken());
         $returnedData = $izettleClient->getJson($responseMock);
 
-        self::assertSame($data, $returnedData);
+        $this->assertSame($data, $returnedData);
     }
 
     /**
      * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Exception\AccessTokenExpiredException
      */
     public function validateAccessToken(): void
     {
         $invalidAccessToken = new AccessToken('', new DateTimeImmutable('-1 day'), '');
 
+        $this->expectException(AccessTokenExpiredException::class);
         $izettleClient = new GuzzleIzettleClient(new GuzzleClient(), self::CLIENT_ID, self::CLIENT_SECRET);
         $izettleClient->setAccessToken($invalidAccessToken);
     }

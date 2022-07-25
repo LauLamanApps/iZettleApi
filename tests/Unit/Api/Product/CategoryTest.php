@@ -22,7 +22,7 @@ final class CategoryTest extends TestCase
         $discount = Category::new($name);
 
         $createData = json_decode($discount->getPostBodyData(), true);
-        self::assertTrue(Uuid::isValid($createData['uuid']));
-        self::assertSame($name, $createData['name']);
+        $this->assertTrue(Uuid::isValid($createData['uuid']));
+        $this->assertSame($name, $createData['name']);
     }
 }

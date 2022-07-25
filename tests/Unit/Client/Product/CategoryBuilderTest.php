@@ -27,13 +27,13 @@ final class CategoryBuilderTest extends TestCase
         $data =  json_decode($json, true);
 
         foreach ($categories as $index => $category) {
-            self::assertInstanceOf(Category::class, $category);
-            self::assertSame($data[$index]['uuid'], (string) $category->getUuid());
-            self::assertSame($data[$index]['name'], $category->getName());
-            self::assertSame($data[$index]['etag'], $category->getEtag());
-            self::assertEquals(new DateTime($data[$index]['updated']), $category->getUpdatedAt());
-            self::assertSame($data[$index]['updatedBy'], (string) $category->getUpdatedBy());
-            self::assertEquals(new DateTime($data[$index]['created']), $category->getCreatedAt());
+            $this->assertInstanceOf(Category::class, $category);
+            $this->assertSame($data[$index]['uuid'], (string) $category->getUuid());
+            $this->assertSame($data[$index]['name'], $category->getName());
+            $this->assertSame($data[$index]['etag'], $category->getEtag());
+            $this->assertEquals(new DateTime($data[$index]['updated']), $category->getUpdatedAt());
+            $this->assertSame($data[$index]['updatedBy'], (string) $category->getUpdatedBy());
+            $this->assertEquals(new DateTime($data[$index]['created']), $category->getCreatedAt());
         }
     }
 
@@ -46,16 +46,16 @@ final class CategoryBuilderTest extends TestCase
         $builder = new CategoryBuilder();
         $categoryCollection = $builder->buildFromArray($data);
 
-        self::assertInstanceOf(CategoryCollection::class, $categoryCollection);
+        $this->assertInstanceOf(CategoryCollection::class, $categoryCollection);
 
         $i = 0;// we cannot use the array key here
         foreach ($categoryCollection->getAll() as $category) {
-            self::assertSame($data[$i]['uuid'], (string) $category->getUuid());
-            self::assertSame($data[$i]['name'], $category->getName());
-            self::assertSame($data[$i]['etag'], $category->getEtag());
-            self::assertEquals(new DateTime($data[$i]['updated']), $category->getUpdatedAt());
-            self::assertSame($data[$i]['updatedBy'], (string) $category->getUpdatedBy());
-            self::assertEquals(new DateTime($data[$i]['created']), $category->getCreatedAt());
+            $this->assertSame($data[$i]['uuid'], (string) $category->getUuid());
+            $this->assertSame($data[$i]['name'], $category->getName());
+            $this->assertSame($data[$i]['etag'], $category->getEtag());
+            $this->assertEquals(new DateTime($data[$i]['updated']), $category->getUpdatedAt());
+            $this->assertSame($data[$i]['updatedBy'], (string) $category->getUpdatedBy());
+            $this->assertEquals(new DateTime($data[$i]['created']), $category->getCreatedAt());
 
             $i++;
         }
