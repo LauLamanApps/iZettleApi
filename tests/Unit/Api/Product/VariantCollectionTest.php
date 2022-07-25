@@ -30,20 +30,20 @@ final class VariantCollectionTest extends TestCase
 
         //-- Check if collection contains all 3 variants
         $collection = $variantCollection->getAll();
-        self::assertEquals(3, count($collection));
-        self::assertEquals($variant1, $collection[(string) $variant1->getUuid()]);
-        self::assertEquals($variant2, $collection[(string) $variant2->getUuid()]);
-        self::assertEquals($variant3, $collection[(string) $variant3->getUuid()]);
+        $this->assertEquals(3, count($collection));
+        $this->assertEquals($variant1, $collection[(string) $variant1->getUuid()]);
+        $this->assertEquals($variant2, $collection[(string) $variant2->getUuid()]);
+        $this->assertEquals($variant3, $collection[(string) $variant3->getUuid()]);
 
 
         $variantCollection->remove($variant2);
 
         //-- Check if collection does not contains variant 2 but does contain the others
         $collection = $variantCollection->getAll();
-        self::assertEquals(2, count($collection));
-        self::assertEquals($variant1, $collection[(string) $variant1->getUuid()]);
-        self::assertEquals($variant3, $variantCollection->get($variant3->getUuid()));
-        self::assertFalse(array_key_exists((string) $variant2->getUuid(), $collection));
+        $this->assertEquals(2, count($collection));
+        $this->assertEquals($variant1, $collection[(string) $variant1->getUuid()]);
+        $this->assertEquals($variant3, $variantCollection->get($variant3->getUuid()));
+        $this->assertFalse(array_key_exists((string) $variant2->getUuid(), $collection));
     }
 
     private function getVariantWithUuid()

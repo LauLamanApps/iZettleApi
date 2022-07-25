@@ -25,10 +25,10 @@ final class ImageBuilderTest extends TestCase
         $builder = new ImageBuilder();
         $image = $builder->buildFromJson($json);
 
-        self::assertInstanceOf(Image::class, $image);
-        self::assertSame($data['imageLookupKey'], $image->getFilename());
-        self::assertContains($image->getSmallImageUrl(), $data['imageUrls']);
-        self::assertContains($image->getLargeImageUrl(), $data['imageUrls']);
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertSame($data['imageLookupKey'], $image->getFilename());
+        $this->assertContains($image->getSmallImageUrl(), $data['imageUrls']);
+        $this->assertContains($image->getLargeImageUrl(), $data['imageUrls']);
     }
 
     /**
@@ -45,11 +45,11 @@ final class ImageBuilderTest extends TestCase
         $builder = new ImageBuilder();
         $imageCollection = $builder->buildFromArray($data);
 
-        self::assertInstanceOf(ImageCollection::class, $imageCollection);
-        self::assertSame(count($data), count($imageCollection->getAll()));
+        $this->assertInstanceOf(ImageCollection::class, $imageCollection);
+        $this->assertSame(count($data), count($imageCollection->getAll()));
 
         foreach ($imageCollection->getAll() as $image) {
-            self::assertInstanceOf(Image::class, $image);
+            $this->assertInstanceOf(Image::class, $image);
         }
     }
 }

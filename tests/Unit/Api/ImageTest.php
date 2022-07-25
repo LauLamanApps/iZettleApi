@@ -21,7 +21,7 @@ final class ImageTest extends TestCase
 
         $image = new Image($filename);
 
-        self::assertSame(Image::BASE_URL . 'o/' . $filename, $image->getLargeImageUrl());
-        self::assertSame(Image::BASE_URL . 'L/' . $filename, $image->getSmallImageUrl());
+        $this->assertSame(Image::BASE_URL . 'o/' . $filename, $image->getLargeImageUrl());
+        $this->assertSame(Image::BASE_URL . 'L/' . $filename, $image->getSmallImageUrl());
     }
 }

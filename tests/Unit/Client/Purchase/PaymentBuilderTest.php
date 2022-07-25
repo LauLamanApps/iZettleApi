@@ -11,6 +11,7 @@ use LauLamanApps\IzettleApi\API\Purchase\Payment\InvoicePayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\MobilePayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\SwishPayment;
 use LauLamanApps\IzettleApi\API\Purchase\Payment\VippsPayment;
+use LauLamanApps\IzettleApi\Client\Purchase\Exception\PaymentTypeNotConfiguredException;
 use LauLamanApps\IzettleApi\Client\Purchase\PaymentBuilder;
 use Money\Currency;
 use PHPUnit\Framework\TestCase;
@@ -49,7 +50,7 @@ final class PaymentBuilderTest extends TestCase
         $payments = $builder->buildFromArray($paymentData, new Currency('EUR'));
 
         foreach ($payments as $payment) {
-            self::assertInstanceOf(AbstractPayment::class, $payment);
+            $this->assertInstanceOf(AbstractPayment::class, $payment);
         }
     }
 
@@ -62,10 +63,10 @@ final class PaymentBuilderTest extends TestCase
         $builder = new PaymentBuilder();
         $payment = $builder->build($paymentData, new Currency('EUR'));
 
-        self::assertInstanceOf(AbstractPayment::class, $payment);
-        self::assertInstanceOf($expectedClass, $payment);
-        self::assertSame($paymentData['uuid'], (string) $payment->getUuid());
-        self::assertSame($paymentData['amount'], (int) $payment->getAmount()->getAmount());
+        $this->assertInstanceOf(AbstractPayment::class, $payment);
+        $this->assertInstanceOf($expectedClass, $payment);
+        $this->assertSame($paymentData['uuid'], (string) $payment->getUuid());
+        $this->assertSame($paymentData['amount'], (int) $payment->getAmount()->getAmount());
 
         if ($payment instanceof CashPayment) {
             $this->cashPaymentTests($payment, $paymentData);
@@ -80,30 +81,30 @@ final class PaymentBuilderTest extends TestCase
 
     private function cashPaymentTests(CashPayment $payment, $paymentData): void
     {
-        self::assertSame($paymentData['attributes']['handedAmount'], (int) $payment->getHandedAmount()->getAmount());
+        $this->assertSame($paymentData['attributes']['handedAmount'], (int) $payment->getHandedAmount()->getAmount());
     }
 
     private function cardPaymentTests(CardPayment $payment, $paymentData): void
     {
-        self::assertSame($paymentData['attributes']['cardPaymentEntryMode'], $payment->getCardPaymentEntryMode());
-        self::assertSame($paymentData['attributes']['maskedPan'], $payment->getMaskedPan());
-        self::assertSame($paymentData['attributes']['referenceNumber'], $payment->getReferenceNumber());
-        self::assertSame($paymentData['attributes']['nrOfInstallments'], $payment->getNrOfInstallments());
-        self::assertSame($paymentData['attributes']['cardType'], $payment->getCardType());
-        self::assertSame($paymentData['attributes']['terminalVerificationResults'], $payment->getTerminalVerificationResults());
+        $this->assertSame($paymentData['attributes']['cardPaymentEntryMode'], $payment->getCardPaymentEntryMode());
+        $this->assertSame($paymentData['attributes']['maskedPan'], $payment->getMaskedPan());
+        $this->assertSame($paymentData['attributes']['referenceNumber'], $payment->getReferenceNumber());
+        $this->assertSame($paymentData['attributes']['nrOfInstallments'], $payment->getNrOfInstallments());
+        $this->assertSame($paymentData['attributes']['cardType'], $payment->getCardType());
+        $this->assertSame($paymentData['attributes']['terminalVerificationResults'], $payment->getTerminalVerificationResults());
         if (array_key_exists('applicationIdentifier', $paymentData['attributes'])) {
-            self::assertSame($paymentData['attributes']['applicationIdentifier'], $payment->getApplicationIdentifier());
+            $this->assertSame($paymentData['attributes']['applicationIdentifier'], $payment->getApplicationIdentifier());
         }
         if (array_key_exists('applicationName', $paymentData['attributes'])) {
-            self::assertSame($paymentData['attributes']['applicationName'], $payment->getApplicationName());
+            $this->assertSame($paymentData['attributes']['applicationName'], $payment->getApplicationName());
         }
     }
 
     private function invoicePaymentTests(InvoicePayment $payment, $paymentData): void
     {
-        self::assertSame($paymentData['attributes']['orderUUID'], (string) $payment->getOrderUuid());
-        self::assertSame($paymentData['attributes']['invoiceNr'], $payment->getInvoiceNr());
-        self::assertSame($paymentData['attributes']['dueDate'], $payment->getDueDate()->format('Y-m-d'));
+        $this->assertSame($paymentData['attributes']['orderUUID'], (string) $payment->getOrderUuid());
+        $this->assertSame($paymentData['attributes']['invoiceNr'], $payment->getInvoiceNr());
+        $this->assertSame($paymentData['attributes']['dueDate'], $payment->getDueDate()->format('Y-m-d'));
     }
 
     public function getPaymentData(): array
@@ -196,11 +197,13 @@ final class PaymentBuilderTest extends TestCase
 
     /**
      * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Purchase\Exception\PaymentTypeNotConfiguredException
      */
     public function parseNonConfiguredPaymentType(): void
     {
         $builder = new PaymentBuilder();
+
+        $this->expectException(PaymentTypeNotConfiguredException::class);
+
         $builder->build(['type' => 'IZETTLE_NON_EXISTENCE'], new Currency('EUR'));
     }
 }

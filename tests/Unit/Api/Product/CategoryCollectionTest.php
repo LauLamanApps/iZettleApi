@@ -28,19 +28,19 @@ final class CategoryCollectionTest extends TestCase
 
         //-- Check if collection contains all 3 categories
         $collection = $categoryCollection->getAll();
-        self::assertEquals(3, count($collection));
-        self::assertEquals($category1, $collection[(string) $category1->getUuid()]);
-        self::assertEquals($category2, $collection[(string) $category2->getUuid()]);
-        self::assertEquals($category3, $collection[(string) $category3->getUuid()]);
+        $this->assertEquals(3, count($collection));
+        $this->assertEquals($category1, $collection[(string) $category1->getUuid()]);
+        $this->assertEquals($category2, $collection[(string) $category2->getUuid()]);
+        $this->assertEquals($category3, $collection[(string) $category3->getUuid()]);
 
         $categoryCollection->remove($category2);
 
         //-- Check if collection does not contains category 2 but does contain the others
         $collection = $categoryCollection->getAll();
-        self::assertEquals(2, count($collection));
-        self::assertEquals($category1, $collection[(string) $category1->getUuid()]);
-        self::assertEquals($category3, $categoryCollection->get($category3->getUuid()));
-        self::assertFalse(array_key_exists((string) $category2->getUuid(), $collection));
+        $this->assertEquals(2, count($collection));
+        $this->assertEquals($category1, $collection[(string) $category1->getUuid()]);
+        $this->assertEquals($category3, $categoryCollection->get($category3->getUuid()));
+        $this->assertFalse(array_key_exists((string) $category2->getUuid(), $collection));
     }
 
     private function getCategoryWithUuid($name)

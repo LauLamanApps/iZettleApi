@@ -28,13 +28,13 @@ final class ProductClientTest extends AbstractClientTest
         $categories = $purchaseClient->getCategories();
 
         foreach ($categories as $index => $category) {
-            self::assertInstanceOf(Category::class, $category);
-            self::assertSame($data[$index]['uuid'], (string) $category->getUuid());
-            self::assertSame($data[$index]['name'], $category->getName());
-            self::assertSame($data[$index]['etag'], $category->getEtag());
-            self::assertEquals(new DateTime($data[$index]['updated']), $category->getUpdatedAt());
-            self::assertSame($data[$index]['updatedBy'], (string) $category->getUpdatedBy());
-            self::assertEquals(new DateTime($data[$index]['created']), $category->getCreatedAt());
+            $this->assertInstanceOf(Category::class, $category);
+            $this->assertSame($data[$index]['uuid'], (string) $category->getUuid());
+            $this->assertSame($data[$index]['name'], $category->getName());
+            $this->assertSame($data[$index]['etag'], $category->getEtag());
+            $this->assertEquals(new DateTime($data[$index]['updated']), $category->getUpdatedAt());
+            $this->assertSame($data[$index]['updatedBy'], (string) $category->getUpdatedBy());
+            $this->assertEquals(new DateTime($data[$index]['created']), $category->getCreatedAt());
         }
     }
 
@@ -51,21 +51,21 @@ final class ProductClientTest extends AbstractClientTest
         $discounts = $purchaseClient->getDiscounts();
 
         foreach ($discounts as $index => $discount) {
-            self::assertInstanceOf(Discount::class, $discount);
-            self::assertSame($data[$index]['uuid'], (string) $discount->getUuid());
-            self::assertSame($data[$index]['name'], $discount->getName());
-            self::assertSame($data[$index]['description'], $discount->getDescription());
-            self::assertInstanceOf(ImageCollection::class, $discount->getImageCollection());
+            $this->assertInstanceOf(Discount::class, $discount);
+            $this->assertSame($data[$index]['uuid'], (string) $discount->getUuid());
+            $this->assertSame($data[$index]['name'], $discount->getName());
+            $this->assertSame($data[$index]['description'], $discount->getDescription());
+            $this->assertInstanceOf(ImageCollection::class, $discount->getImageCollection());
             foreach ($data[$index]['imageLookupKeys'] as $image) {
-                self::assertTrue(array_key_exists($image, $discount->getImageCollection()->getAll()));
+                $this->assertTrue(array_key_exists($image, $discount->getImageCollection()->getAll()));
             }
-            self::assertSame($data[$index]['amount'], ($discount->getAmount()) ? $discount->getAmount()->getAmount() : $discount->getAmount());
-            self::assertSame((float) $data[$index]['percentage'], $discount->getPercentage());
-            self::assertSame($data[$index]['externalReference'], $discount->getExternalReference());
-            self::assertSame($data[$index]['etag'], $discount->getEtag());
-            self::assertEquals(new DateTime($data[$index]['updated']), $discount->getUpdatedAt());
-            self::assertSame($data[$index]['updatedBy'], (string) $discount->getUpdatedBy());
-            self::assertEquals(new DateTime($data[$index]['created']), $discount->getCreatedAt());
+            $this->assertSame($data[$index]['amount'], ($discount->getAmount()) ? $discount->getAmount()->getAmount() : $discount->getAmount());
+            $this->assertSame((float) $data[$index]['percentage'], $discount->getPercentage());
+            $this->assertSame($data[$index]['externalReference'], $discount->getExternalReference());
+            $this->assertSame($data[$index]['etag'], $discount->getEtag());
+            $this->assertEquals(new DateTime($data[$index]['updated']), $discount->getUpdatedAt());
+            $this->assertSame($data[$index]['updatedBy'], (string) $discount->getUpdatedBy());
+            $this->assertEquals(new DateTime($data[$index]['created']), $discount->getCreatedAt());
         }
     }
 
@@ -81,13 +81,13 @@ final class ProductClientTest extends AbstractClientTest
 
         $library = $purchaseClient->getLibrary();
 
-        self::assertSame($data['fromEventLogUuid'], (string) $library->getFromEventLogUuid());
-        self::assertSame($data['untilEventLogUuid'], (string) $library->getUntilEventLogUuid());
+        $this->assertSame($data['fromEventLogUuid'], (string) $library->getFromEventLogUuid());
+        $this->assertSame($data['untilEventLogUuid'], (string) $library->getUntilEventLogUuid());
 
-        self::assertEquals(count($data['products']), count($library->getProducts()->getAll()));
-        self::assertEquals(count($data['discounts']), count($library->getDiscounts()->getAll()));
-        self::assertEquals(count($data['deletedProducts']), count($library->getDeletedProducts()->getAll()));
-        self::assertEquals(count($data['deletedDiscounts']), count($library->getDeletedDiscounts()->getAll()));
+        $this->assertEquals(count($data['products']), count($library->getProducts()->getAll()));
+        $this->assertEquals(count($data['discounts']), count($library->getDiscounts()->getAll()));
+        $this->assertEquals(count($data['deletedProducts']), count($library->getDeletedProducts()->getAll()));
+        $this->assertEquals(count($data['deletedDiscounts']), count($library->getDeletedDiscounts()->getAll()));
     }
 
     /**
@@ -103,18 +103,18 @@ final class ProductClientTest extends AbstractClientTest
         $products = $purchaseClient->getProducts();
 
         foreach ($products as $index => $product) {
-            self::assertSame($data[$index]['uuid'], (string) $product->getUuid());
-//            self::assertSame($data[$index]['categories'], $product->getCategories());
-            self::assertSame($data[$index]['name'], $product->getName());
-            self::assertSame($data[$index]['description'], $product->getDescription());
-//            self::assertSame($data[$index]['imageLookupKeys'], $product->getImageLookupKeys());
-            self::assertSame($data[$index]['externalReference'], $product->getExternalReference());
-            self::assertSame($data[$index]['etag'], $product->getEtag());
-            self::assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
-            self::assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
-            self::assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
-//            self::assertSame($data[$index]['unitName'], $product->getUnitName());
-            self::assertSame((float) $data[$index]['vatPercentage'], $product->getVatPercentage());
+            $this->assertSame($data[$index]['uuid'], (string) $product->getUuid());
+//            $this->assertSame($data[$index]['categories'], $product->getCategories());
+            $this->assertSame($data[$index]['name'], $product->getName());
+            $this->assertSame($data[$index]['description'], $product->getDescription());
+//            $this->assertSame($data[$index]['imageLookupKeys'], $product->getImageLookupKeys());
+            $this->assertSame($data[$index]['externalReference'], $product->getExternalReference());
+            $this->assertSame($data[$index]['etag'], $product->getEtag());
+            $this->assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
+            $this->assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
+            $this->assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
+//            $this->assertSame($data[$index]['unitName'], $product->getUnitName());
+            $this->assertSame((float) $data[$index]['vatPercentage'], $product->getVatPercentage());
         }
     }
 }

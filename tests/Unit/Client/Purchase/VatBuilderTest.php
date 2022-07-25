@@ -26,8 +26,8 @@ final class VatBuilderTest extends TestCase
         $vatAmount = $builder->buildFromArray($data, new Currency('EUR'));
 
         foreach ($vatAmount as $vat => $amount) {
-            self::assertTrue(array_key_exists($vat, $data));
-            self::assertSame($data[$vat], (int) $amount->getAmount());
+            $this->assertTrue(array_key_exists($vat, $data));
+            $this->assertSame($data[$vat], (int) $amount->getAmount());
         }
     }
 }

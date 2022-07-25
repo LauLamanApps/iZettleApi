@@ -10,19 +10,20 @@
         convertWarningsToExceptions = "true"
         processIsolation            = "false"
         stopOnFailure               = "false"
-        syntaxCheck                 = "false"
         bootstrap                   = "phpunit.bootstrap.php" >
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+    <coverage processUncoveredFiles="true">
+        <include>
             <directory suffix=".php">./src</directory>
-        </whitelist>
-        <blacklist>
+        </include>
+
+        <exclude>
             <directory suffix=".php">./bin</directory>
             <directory suffix=".php">./vendor</directory>
             <directory suffix=".php">./tests</directory>
-        </blacklist>
-    </filter>
+        </exclude>
+    </coverage>
+
     <testsuites>
         <testsuite name="unit">
             <directory>./tests/Unit</directory>

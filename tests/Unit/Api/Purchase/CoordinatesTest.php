@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace LauLamanApps\IzettleApi\Tests\Unit\Api\Purchase;
 
 use LauLamanApps\IzettleApi\API\Purchase\Coordinates;
+use LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLatitudeException;
+use LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLongitudeException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,9 +22,9 @@ final class CoordinatesTest extends TestCase
     {
         $coordinate = new Coordinates($latitude, $longitude, $accuracyMeters);
 
-        self::assertSame($latitude, $coordinate->getLatitude());
-        self::assertSame($longitude, $coordinate->getLongitude());
-        self::assertSame($accuracyMeters, $coordinate->getAccuracyMeters());
+        $this->assertSame($latitude, $coordinate->getLatitude());
+        $this->assertSame($longitude, $coordinate->getLongitude());
+        $this->assertSame($accuracyMeters, $coordinate->getAccuracyMeters());
     }
 
     public function getCoordinates(): array
@@ -36,11 +38,12 @@ final class CoordinatesTest extends TestCase
 
     /**
      * @test
-     * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLatitudeException
      * @dataProvider getInvalidLatitude
      */
     public function invalidLatitude(float $latitude): void
     {
+        $this->expectException(InvalidLatitudeException::class);
+
         new Coordinates($latitude, 5.1511458, 10.0);
     }
 
@@ -54,11 +57,12 @@ final class CoordinatesTest extends TestCase
 
     /**
      * @test
-     * @expectedException  \LauLamanApps\IzettleApi\API\Purchase\Exception\InvalidLongitudeException
      * @dataProvider getInvalidLongitude
      */
     public function invalidLongitude(float $longitude): void
     {
+        $this->expectException(InvalidLongitudeException::class);
+
         new Coordinates(52.3504547, $longitude, 10.0);
     }
 

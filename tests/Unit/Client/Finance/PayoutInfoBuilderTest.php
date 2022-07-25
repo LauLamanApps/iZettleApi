@@ -23,12 +23,12 @@ final class PayoutInfoBuilderTest extends TestCase
         $payoutInfoBuilder = new PayoutInfoBuilder();
         $payoutInfo = $payoutInfoBuilder->buildFromJson($json);
 
-        self::assertSame($data['totalBalance'], (int) $payoutInfo->getTotalBalance()->getAmount());
-        self::assertSame($data['currencyId'], $payoutInfo->getTotalBalance()->getCurrency()->getCode());
-        self::assertSame($data['nextPayoutAmount'], (int) $payoutInfo->getNextPayoutAmount()->getAmount());
-        self::assertSame($data['currencyId'], $payoutInfo->getNextPayoutAmount()->getCurrency()->getCode());
-        self::assertSame($data['discountRemaining'], (int) $payoutInfo->getDiscountRemaining()->getAmount());
-        self::assertSame($data['currencyId'], $payoutInfo->getDiscountRemaining()->getCurrency()->getCode());
-        self::assertSame($data['periodicity'], $payoutInfo->getPeriodicity()->value);
+        $this->assertSame($data['totalBalance'], (int) $payoutInfo->getTotalBalance()->getAmount());
+        $this->assertSame($data['currencyId'], $payoutInfo->getTotalBalance()->getCurrency()->getCode());
+        $this->assertSame($data['nextPayoutAmount'], (int) $payoutInfo->getNextPayoutAmount()->getAmount());
+        $this->assertSame($data['currencyId'], $payoutInfo->getNextPayoutAmount()->getCurrency()->getCode());
+        $this->assertSame($data['discountRemaining'], (int) $payoutInfo->getDiscountRemaining()->getAmount());
+        $this->assertSame($data['currencyId'], $payoutInfo->getDiscountRemaining()->getCurrency()->getCode());
+        $this->assertSame($data['periodicity'], $payoutInfo->getPeriodicity()->value);
     }
 }

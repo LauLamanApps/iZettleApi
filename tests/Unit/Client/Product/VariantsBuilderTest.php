@@ -25,29 +25,29 @@ final class VariantsBuilderTest extends TestCase
         $builder = new VariantBuilder();
         $variantCollection = $builder->buildFromArray($data);
 
-        self::assertInstanceOf(VariantCollection::class, $variantCollection);
+        $this->assertInstanceOf(VariantCollection::class, $variantCollection);
 
         $i = 0;// we cannot use the array key here
         foreach ($variantCollection->getAll() as $variant) {
-            self::assertInstanceOf(Variant::class, $variant);
-            self::assertInstanceOf(Money::class, $variant->getPrice());
-            self::assertSame($data[$i]['uuid'], (string) $variant->getUuid());
-            self::assertSame($data[$i]['name'], $variant->getName());
-            self::assertSame($data[$i]['description'], $variant->getDescription());
-            self::assertSame($data[$i]['sku'], $variant->getSku());
-            self::assertSame($data[$i]['barcode'], $variant->getBarcode());
-            self::assertSame((int) $data[$i]['defaultQuantity'], $variant->getDefaultQuantity());
-            self::assertSame($data[$i]['unitName'], $variant->getUnitName());
-            self::assertSame((string) $data[$i]['price']['amount'], $variant->getPrice()->getAmount());
-            self::assertSame($data[$i]['price']['currencyId'], $variant->getPrice()->getCurrency()->getCode());
-            self::assertSame((float) $data[$i]['vatPercentage'], $variant->getVatPercentage());
+            $this->assertInstanceOf(Variant::class, $variant);
+            $this->assertInstanceOf(Money::class, $variant->getPrice());
+            $this->assertSame($data[$i]['uuid'], (string) $variant->getUuid());
+            $this->assertSame($data[$i]['name'], $variant->getName());
+            $this->assertSame($data[$i]['description'], $variant->getDescription());
+            $this->assertSame($data[$i]['sku'], $variant->getSku());
+            $this->assertSame($data[$i]['barcode'], $variant->getBarcode());
+            $this->assertSame((int) $data[$i]['defaultQuantity'], $variant->getDefaultQuantity());
+            $this->assertSame($data[$i]['unitName'], $variant->getUnitName());
+            $this->assertSame((string) $data[$i]['price']['amount'], $variant->getPrice()->getAmount());
+            $this->assertSame($data[$i]['price']['currencyId'], $variant->getPrice()->getCurrency()->getCode());
+            $this->assertSame((float) $data[$i]['vatPercentage'], $variant->getVatPercentage());
 
             if (is_null($data[$i]['costPrice'])) {
-                self::assertSame($data[$i]['costPrice'], $variant->getCostPrice());
+                $this->assertSame($data[$i]['costPrice'], $variant->getCostPrice());
             } else {
-                self::assertInstanceOf(Money::class, $variant->getCostPrice());
-                self::assertSame((string) $data[$i]['costPrice']['amount'], $variant->getCostPrice()->getAmount());
-                self::assertSame($data[$i]['costPrice']['currencyId'], $variant->getCostPrice()->getCurrency()->getCode());
+                $this->assertInstanceOf(Money::class, $variant->getCostPrice());
+                $this->assertSame((string) $data[$i]['costPrice']['amount'], $variant->getCostPrice()->getAmount());
+                $this->assertSame($data[$i]['costPrice']['currencyId'], $variant->getCostPrice()->getCurrency()->getCode());
             }
 
             $i++;

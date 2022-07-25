@@ -32,8 +32,8 @@ final class PurchaseHistoryBuilderTest extends TestCase
         $builder = new PurchaseHistoryBuilder($purchaseBuilderMock);
         $purchaseHistory = $builder->buildFromJson(json_encode($data));
 
-        self::assertInstanceOf(PurchaseHistory::class, $purchaseHistory);
-        self::assertSame($firstPurchaseHash, $purchaseHistory->getFirstPurchaseHash());
-        self::assertSame($lastPurchaseHash, $purchaseHistory->getLastPurchaseHash());
+        $this->assertInstanceOf(PurchaseHistory::class, $purchaseHistory);
+        $this->assertSame($firstPurchaseHash, $purchaseHistory->getFirstPurchaseHash());
+        $this->assertSame($lastPurchaseHash, $purchaseHistory->getLastPurchaseHash());
     }
 }

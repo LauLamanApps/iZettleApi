@@ -28,19 +28,19 @@ final class DiscountCollectionTest extends TestCase
 
         //-- Check if collection contains all 3 discounts
         $collection = $discountCollection->getAll();
-        self::assertEquals(3, count($collection));
-        self::assertEquals($discount1, $collection[(string) $discount1->getUuid()]);
-        self::assertEquals($discount2, $collection[(string) $discount2->getUuid()]);
-        self::assertEquals($discount3, $collection[(string) $discount3->getUuid()]);
+        $this->assertEquals(3, count($collection));
+        $this->assertEquals($discount1, $collection[(string) $discount1->getUuid()]);
+        $this->assertEquals($discount2, $collection[(string) $discount2->getUuid()]);
+        $this->assertEquals($discount3, $collection[(string) $discount3->getUuid()]);
 
         $discountCollection->remove($discount2);
 
         //-- Check if collection does not contains discount 2 but does contain the others
         $collection = $discountCollection->getAll();
-        self::assertEquals(2, count($collection));
-        self::assertEquals($discount1, $collection[(string) $discount1->getUuid()]);
-        self::assertEquals($discount3, $discountCollection->get($discount3->getUuid()));
-        self::assertFalse(array_key_exists((string) $discount2->getUuid(), $collection));
+        $this->assertEquals(2, count($collection));
+        $this->assertEquals($discount1, $collection[(string) $discount1->getUuid()]);
+        $this->assertEquals($discount3, $discountCollection->get($discount3->getUuid()));
+        $this->assertFalse(array_key_exists((string) $discount2->getUuid(), $collection));
     }
 
     private function getDiscountWithUuid(): Discount

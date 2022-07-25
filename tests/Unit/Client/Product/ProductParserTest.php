@@ -44,19 +44,19 @@ final class ProductBuilderTest extends TestCase
         $products = $builder->buildFromJson($json);
 
         foreach ($products as $index => $product) {
-            self::assertInstanceOf(Product::class, $product);
-            self::assertSame($data[$index]['uuid'], (string) $product->getUuid());
-            self::assertInstanceOf(CategoryCollection::class, $product->getCategories());
-            self::assertSame($data[$index]['name'], $product->getName());
-            self::assertSame($data[$index]['description'], $product->getDescription());
-            self::assertInstanceOf(ImageCollection::class, $product->getImageLookupKeys());
-            self::assertInstanceOf(VariantCollection::class, $product->getVariants());
-            self::assertSame($data[$index]['externalReference'], $product->getExternalReference());
-            self::assertSame($data[$index]['etag'], $product->getEtag());
-            self::assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
-            self::assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
-            self::assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
-            self::assertSame((float)$data[$index]['vatPercentage'], $product->getVatPercentage());
+            $this->assertInstanceOf(Product::class, $product);
+            $this->assertSame($data[$index]['uuid'], (string) $product->getUuid());
+            $this->assertInstanceOf(CategoryCollection::class, $product->getCategories());
+            $this->assertSame($data[$index]['name'], $product->getName());
+            $this->assertSame($data[$index]['description'], $product->getDescription());
+            $this->assertInstanceOf(ImageCollection::class, $product->getImageLookupKeys());
+            $this->assertInstanceOf(VariantCollection::class, $product->getVariants());
+            $this->assertSame($data[$index]['externalReference'], $product->getExternalReference());
+            $this->assertSame($data[$index]['etag'], $product->getEtag());
+            $this->assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
+            $this->assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
+            $this->assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
+            $this->assertSame((float)$data[$index]['vatPercentage'], $product->getVatPercentage());
         }
     }
 
@@ -84,19 +84,19 @@ final class ProductBuilderTest extends TestCase
 
         $index = 0;
         foreach ($products->getAll() as $product) {
-            self::assertInstanceOf(Product::class, $product);
-            self::assertSame($data[$index]['uuid'], (string) $product->getUuid());
-            self::assertInstanceOf(CategoryCollection::class, $product->getCategories());
-            self::assertSame($data[$index]['name'], $product->getName());
-            self::assertSame($data[$index]['description'], $product->getDescription());
-            self::assertInstanceOf(ImageCollection::class, $product->getImageLookupKeys());
-            self::assertInstanceOf(VariantCollection::class, $product->getVariants());
-            self::assertSame($data[$index]['externalReference'], $product->getExternalReference());
-            self::assertSame($data[$index]['etag'], $product->getEtag());
-            self::assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
-            self::assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
-            self::assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
-            self::assertSame((float)$data[$index]['vatPercentage'], $product->getVatPercentage());
+            $this->assertInstanceOf(Product::class, $product);
+            $this->assertSame($data[$index]['uuid'], (string) $product->getUuid());
+            $this->assertInstanceOf(CategoryCollection::class, $product->getCategories());
+            $this->assertSame($data[$index]['name'], $product->getName());
+            $this->assertSame($data[$index]['description'], $product->getDescription());
+            $this->assertInstanceOf(ImageCollection::class, $product->getImageLookupKeys());
+            $this->assertInstanceOf(VariantCollection::class, $product->getVariants());
+            $this->assertSame($data[$index]['externalReference'], $product->getExternalReference());
+            $this->assertSame($data[$index]['etag'], $product->getEtag());
+            $this->assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
+            $this->assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
+            $this->assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
+            $this->assertSame((float)$data[$index]['vatPercentage'], $product->getVatPercentage());
             $index++;
         }
     }

@@ -40,23 +40,23 @@ final class PurchaseBuilderTest extends TestCase
         $builder = new PurchaseBuilder($coordinatesBuilderMock, $productBuilderMock, $paymentBuilderMock, $vatBuilderMock);
         $purchase = $builder->buildFromJson(json_encode($data));
 
-        self::assertInstanceOf(Purchase::class, $purchase);
-        self::assertSame($data['purchaseUUID'], $purchase->getUuid());
-        self::assertSame($data['purchaseUUID1'], (string) $purchase->getUuid1());
-        self::assertSame($data['amount'], (int) $purchase->getAmount()->getAmount());
-        self::assertSame($data['currency'], $purchase->getAmount()->getCurrency()->getCode());
-        self::assertSame($data['vatAmount'], (int) $purchase->getVatAmount()->getAmount());
-        self::assertSame($data['country'], $purchase->getCountry());
-        self::assertEquals(new DateTime($data['timestamp']), $purchase->getTimestamp());
-        self::assertInstanceOf(Coordinates::class, $purchase->getCoordinates());
-        self::assertSame($data['purchaseNumber'], $purchase->getPurchaseNumber());
-        self::assertSame($data['userDisplayName'], (string) $purchase->getUser());
-        self::assertSame($data['userId'], $purchase->getUser()->getId());
-        self::assertSame($data['organizationId'], $purchase->getOrganizationId());
-        self::assertSame($data['receiptCopyAllowed'], $purchase->isReceiptCopyAllowed());
-        self::assertSame($data['published'], $purchase->getPublished());
-        self::assertSame($data['refund'], $purchase->isRefund());
-        self::assertSame($data['refunded'], $purchase->isRefunded());
+        $this->assertInstanceOf(Purchase::class, $purchase);
+        $this->assertSame($data['purchaseUUID'], $purchase->getUuid());
+        $this->assertSame($data['purchaseUUID1'], (string) $purchase->getUuid1());
+        $this->assertSame($data['amount'], (int) $purchase->getAmount()->getAmount());
+        $this->assertSame($data['currency'], $purchase->getAmount()->getCurrency()->getCode());
+        $this->assertSame($data['vatAmount'], (int) $purchase->getVatAmount()->getAmount());
+        $this->assertSame($data['country'], $purchase->getCountry());
+        $this->assertEquals(new DateTime($data['timestamp']), $purchase->getTimestamp());
+        $this->assertInstanceOf(Coordinates::class, $purchase->getCoordinates());
+        $this->assertSame($data['purchaseNumber'], $purchase->getPurchaseNumber());
+        $this->assertSame($data['userDisplayName'], (string) $purchase->getUser());
+        $this->assertSame($data['userId'], $purchase->getUser()->getId());
+        $this->assertSame($data['organizationId'], $purchase->getOrganizationId());
+        $this->assertSame($data['receiptCopyAllowed'], $purchase->isReceiptCopyAllowed());
+        $this->assertSame($data['published'], $purchase->getPublished());
+        $this->assertSame($data['refund'], $purchase->isRefund());
+        $this->assertSame($data['refunded'], $purchase->isRefunded());
     }
 
     /**
@@ -80,10 +80,10 @@ final class PurchaseBuilderTest extends TestCase
         $builder = new PurchaseBuilder($coordinatesBuilderMock, $productBuilderMock, $paymentBuilderMock, $vatBuilderMock);
         $purchases = $builder->buildFromArray($data);
 
-        self::assertSame(count($data), count($purchases));
+        $this->assertSame(count($data), count($purchases));
 
         foreach ($purchases as $purchase) {
-            self::assertInstanceOf(Purchase::class, $purchase);
+            $this->assertInstanceOf(Purchase::class, $purchase);
         }
     }
 

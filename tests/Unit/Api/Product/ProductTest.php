@@ -10,6 +10,7 @@ use LauLamanApps\IzettleApi\API\Product\CategoryCollection;
 use LauLamanApps\IzettleApi\API\Product\Product;
 use LauLamanApps\IzettleApi\API\Product\Variant;
 use LauLamanApps\IzettleApi\API\Product\VariantCollection;
+use LauLamanApps\IzettleApi\Client\Exception\CantCreateProductException;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -39,16 +40,15 @@ final class ProductTest extends TestCase
         );
 
         $createData = json_decode($product->getPostBodyData(), true);
-        self::assertTrue(Uuid::isValid($createData['uuid']));
-        self::assertSame($name, $createData['name']);
-        self::assertSame($description, $createData['description']);
-        self::assertSame($imageCollection->getCreateDataArray(), $createData['imageLookupKeys']);
-        self::assertSame($externalReference, $createData['externalReference']);
+        $this->assertTrue(Uuid::isValid($createData['uuid']));
+        $this->assertSame($name, $createData['name']);
+        $this->assertSame($description, $createData['description']);
+        $this->assertSame($imageCollection->getCreateDataArray(), $createData['imageLookupKeys']);
+        $this->assertSame($externalReference, $createData['externalReference']);
     }
 
     /**
      * @test
-     * @expectedException \LauLamanApps\IzettleApi\Client\Exception\CantCreateProductException
      */
     public function cantCreateProductWithoutVariant(): void
     {
@@ -61,6 +61,7 @@ final class ProductTest extends TestCase
             'externalReference3'
         );
 
+        $this->expectException(CantCreateProductException::class);
         $product->getPostBodyData();
     }
 

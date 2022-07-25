@@ -24,7 +24,7 @@ final class CashPaymentTest extends TestCase
 
         $payment = new CashPayment(Uuid::uuid1(), Money::EUR($shouldPay), Money::EUR($payed));
 
-        self::assertSame($shouldReceiveChange, (int) $payment->getChangeAmount()->getAmount());
+        $this->assertSame($shouldReceiveChange, (int) $payment->getChangeAmount()->getAmount());
     }
 
     public function getAmounts(): array

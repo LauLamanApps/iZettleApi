@@ -36,18 +36,18 @@ final class DiscountTest extends TestCase
         );
 
         $createData = json_decode($discount->getPostBodyData(), true);
-        self::assertTrue(Uuid::isValid($createData['uuid']));
-        self::assertSame($name, $createData['name']);
-        self::assertSame($description, $createData['description']);
-        self::assertSame($imageCollection->getCreateDataArray(), $createData['imageLookupKeys']);
+        $this->assertTrue(Uuid::isValid($createData['uuid']));
+        $this->assertSame($name, $createData['name']);
+        $this->assertSame($description, $createData['description']);
+        $this->assertSame($imageCollection->getCreateDataArray(), $createData['imageLookupKeys']);
         if ($amount) {
-            self::assertSame($amount->getAmount(), $createData['amount']['amount']);
-            self::assertSame($amount->getCurrency()->getCode(), $createData['amount']['currencyId']);
+            $this->assertSame($amount->getAmount(), $createData['amount']['amount']);
+            $this->assertSame($amount->getCurrency()->getCode(), $createData['amount']['currencyId']);
         } else {
-            self::assertSame((string) $percentage, $createData['percentage']);
+            $this->assertSame((string) $percentage, $createData['percentage']);
         }
-        self::assertSame($externalReference, $createData['externalReference']);
-        self::assertSame($name, $createData['name']);
+        $this->assertSame($externalReference, $createData['externalReference']);
+        $this->assertSame($name, $createData['name']);
     }
 
     public function getDiscountData(): array
