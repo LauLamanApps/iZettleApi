@@ -21,8 +21,7 @@ Run Tests
 To make sure everyting works you can run tests:
 
 ```bash
-$ make unit-tests 
-$ make integration-tests 
+$ composer test
 ```
 
 Usage

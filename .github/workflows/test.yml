@@ -40,24 +40,18 @@ jobs:
         with:
           composer-options: "--ignore-platform-req=php"
 
-      - name: Lint files
+      - name: Validate formatting
+        run: composer run format -- --dry-run
         if: matrix.main
-        run: bin/php-cs-fixer fix --dry-run
 
       - name: Run tests
-        run: |
-          make unit-tests
-          make integration-tests
-
-      - name: Re-run tests to determine coverage
-        run: bin/phpunit --coverage-clover=coverage-clover.xml
-        if: matrix.main
+        run: composer run test-coverage
 
       - name: Determine coverage
         uses: slavcodev/coverage-monitor-action@v1
         if: matrix.main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          coverage_path: coverage-clover.xml
+          coverage_path: coverage/clover.xml
           threshold_alert: 75
           threshold_warning: 95
