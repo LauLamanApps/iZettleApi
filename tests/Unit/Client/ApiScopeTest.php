@@ -22,7 +22,7 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setFinancesScope($rights);
 
-        self::assertContains($rights->getValue(), $apiScope->getUrlParameters());
+        self::assertContains($rights->value, $apiScope->getUrlParameters());
         self::assertContains('FINANCE', $apiScope->getUrlParameters());
     }
 
@@ -35,7 +35,7 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setPurchaseScope($rights);
 
-        self::assertContains($rights->getValue(), $apiScope->getUrlParameters());
+        self::assertContains($rights->value, $apiScope->getUrlParameters());
         self::assertContains('PURCHASE', $apiScope->getUrlParameters());
     }
 
@@ -48,7 +48,7 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setProductScope($rights);
 
-        self::assertContains($rights->getValue(), $apiScope->getUrlParameters());
+        self::assertContains($rights->value, $apiScope->getUrlParameters());
         self::assertContains('PRODUCT', $apiScope->getUrlParameters());
     }
 
@@ -61,7 +61,7 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setInventoryScope($rights);
 
-        self::assertContains($rights->getValue(), $apiScope->getUrlParameters());
+        self::assertContains($rights->value, $apiScope->getUrlParameters());
         self::assertContains('INVENTORY', $apiScope->getUrlParameters());
     }
 
@@ -74,15 +74,15 @@ final class ApiScopeTest extends TestCase
         $apiScope = new ApiScope();
         $apiScope->setImageScope($rights);
 
-        self::assertContains($rights->getValue(), $apiScope->getUrlParameters());
-        self::assertContains('IMAGE', $apiScope->getUrlParameters());
+        $this->assertStringContainsString($rights->value, $apiScope->getUrlParameters());
+        $this->assertStringContainsString('IMAGE', $apiScope->getUrlParameters());
     }
 
     public function getRights(): array
     {
         $rights = [];
-        foreach (Rights::getValidOptions() as $right) {
-            $rights[$right] = [Rights::get($right)];
+        foreach (Rights::cases() as $right) {
+            $rights[$right->value] = [$right];
         }
 
         return $rights;

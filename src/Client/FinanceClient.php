@@ -68,7 +68,7 @@ final class FinanceClient
         ?int $limit = null,
         ?int $offset = null
     ): array {
-        $url = sprintf(self::GET_ACCOUNT_TRANSACTIONS, $this->organizationUuid, $accountTypeGroup->getValue());
+        $url = sprintf(self::GET_ACCOUNT_TRANSACTIONS, $this->organizationUuid, $accountTypeGroup->value);
         $queryParams = [
             'start' => $start->format('Y-m-d'),
             'end' => $end->format('Y-m-d'),
@@ -88,7 +88,7 @@ final class FinanceClient
 
     public function getBalanceInfo(AccountTypeGroup $accountTypeGroup, ?DateTime $at = null): Money
     {
-        $url = sprintf(self::GET_ACCOUNT_BALANCE, $this->organizationUuid, $accountTypeGroup->getValue());
+        $url = sprintf(self::GET_ACCOUNT_BALANCE, $this->organizationUuid, $accountTypeGroup->value);
         $response = $this->client->get($url, ['at' => $at ? $at->format('Y-m-d') : null]);
         $data = json_decode($this->client->getJson($response), true)['data'];
         $currency = new Currency($data['currencyId']);
