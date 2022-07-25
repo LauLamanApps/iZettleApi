@@ -31,7 +31,21 @@
     "mockery/mockery": "^1.0",
     "friendsofphp/php-cs-fixer": "^2.7"
   },
-  "config": {
-    "bin-dir": "bin"
+  "scripts": {
+    "test": "phpunit",
+    "test-unit": "phpunit --testsuite unit",
+    "test-integration": "phpunit --testsuite integration",
+    "test-coverage": [
+      "rm -rf coverage || true",
+      "phpunit --coverage-html=coverage/ --coverage-clover=coverage/clover.xml"
+    ],
+    "format": "php-cs-fixer fix --verbose"
+  },
+  "scripts-descriptions": {
+    "test": "Run all unit and integration tests",
+    "test-unit": "Run unit tests",
+    "test-integration": "Run integration tests",
+    "test-coverage": "Run unit and integration tests and generate coverage report",
+    "format": "Run php-cs-fixer to fix the code formatting"
   }
 }
