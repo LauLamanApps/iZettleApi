@@ -23,7 +23,6 @@
     "guzzlehttp/guzzle": "^6.3",
     "moneyphp/money": "^3.0",
     "ramsey/uuid": "^3.7 || ^4.0",
-    "werkspot/enum": "^3.0",
     "ext-json": "*"
   },
   "require-dev": {

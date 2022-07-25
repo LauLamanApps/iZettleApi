@@ -41,7 +41,7 @@ final class AccountTransactionBuilder implements AccountTransactionBuilderInterf
         return new AccountTransaction(
             new DateTime($accountTransaction['timestamp']),
             $accountTransaction['amount'],
-            TransactionType::get($accountTransaction['originatorTransactionType']),
+            TransactionType::from($accountTransaction['originatorTransactionType']),
             Uuid::fromString($accountTransaction['originatingTransactionUuid'])
         );
     }
