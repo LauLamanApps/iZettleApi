@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    name: "Test on PHP ${{ matrix.php }}"
+    name: "Test on PHP ${{ matrix.php }} (guzzle ${{ matrix.guzzle-version }}, money ${{ matrix.money-version }})"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -17,8 +17,18 @@ jobs:
           - '8.1'
           - '8.2'
 
+        guzzle-version:
+          - '6.0'
+          - '7.0'
+
+        money-version:
+          - '3.0'
+          - '4.0'
+
         include:
           - php: '8.1'
+            guzzle-version: '7.0'
+            money-version: '4.0'
             main: true
     steps:
       - name: Checkout repository
@@ -34,6 +44,13 @@ jobs:
 
       - name: Lint PHP code
         run: parallel-lint .
+
+      - name: Pin dependency versions
+        run: |
+          composer require \
+            --no-update \
+            guzzlehttp/guzzle:^${{ matrix.guzzle-version }} \
+            moneyphp/money:^${{ matrix.money-version }}
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
