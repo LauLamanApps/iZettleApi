@@ -1,6 +1,6 @@
-iZettle Api
-===============
-The iZettle Api provides a simple integration of the [iZettle Api][izettleapi] for your PHP project.
+Zettle by PayPal API
+====================
+The Zettle by PayPal API provides a simple integration of the [Zettle by PayPal API][zettleapi] for your PHP project.
 
 [![Build Status](https://travis-ci.org/LauLamanApps/iZettleApi.svg?branch=master)](https://travis-ci.org/LauLamanApps/iZettleApi)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/LauLamanApps/iZettleApi/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/LauLamanApps/iZettleApi/?branch=master)
@@ -65,5 +65,5 @@ Credits
 
 iZettle Api has been developed by [LauLaman][LauLaman].
 
-[izettleapi]: https://github.com/iZettle/api-documentation
+[zettleapi]: https://developer.zettle.com/docs/api
 [LauLaman]: https://github.com/LauLaman
