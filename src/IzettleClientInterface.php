@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 
 interface IzettleClientInterface
 {
-    public const API_BASE_URL = 'https://oauth.izettle.net';
+    public const API_BASE_URL = 'https://oauth.zettle.com';
     public const API_AUTHORIZE_USER_LOGIN_URL = self::API_BASE_URL . '/authorize';
 
     public const API_ACCESS_TOKEN_REQUEST_URL = self::API_BASE_URL . '/token';
