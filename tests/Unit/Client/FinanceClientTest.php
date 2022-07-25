@@ -31,7 +31,7 @@ final class FinanceClientTest extends AbstractClientTest
         $start = new DateTime('now');
         $end = new DateTime("+10 seconds");
 
-        $url = sprintf(FinanceClient::GET_ACCOUNT_TRANSACTIONS, (string) $organizationUuid, $accountTypeGroup->getValue());
+        $url = sprintf(FinanceClient::GET_ACCOUNT_TRANSACTIONS, (string) $organizationUuid, $accountTypeGroup->value);
         $queryParams = [
             'start' => $start->format('Y-m-d'),
             'end' => $end->format('Y-m-d'),
@@ -59,7 +59,7 @@ final class FinanceClientTest extends AbstractClientTest
 
         $expectedBalance = Money::EUR(100);
 
-        $url = sprintf(FinanceClient::GET_ACCOUNT_BALANCE, (string) $organizationUuid, $accountTypeGroup->getValue());
+        $url = sprintf(FinanceClient::GET_ACCOUNT_BALANCE, (string) $organizationUuid, $accountTypeGroup->value);
         $queryParams = ['at' => null];
         $data = [
             'data' => [

@@ -29,6 +29,6 @@ final class PayoutInfoBuilderTest extends TestCase
         self::assertSame($data['currencyId'], $payoutInfo->getNextPayoutAmount()->getCurrency()->getCode());
         self::assertSame($data['discountRemaining'], (int) $payoutInfo->getDiscountRemaining()->getAmount());
         self::assertSame($data['currencyId'], $payoutInfo->getDiscountRemaining()->getCurrency()->getCode());
-        self::assertSame($data['periodicity'], $payoutInfo->getPeriodicity()->getValue());
+        self::assertSame($data['periodicity'], $payoutInfo->getPeriodicity()->value);
     }
 }

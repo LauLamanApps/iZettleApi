@@ -6,14 +6,8 @@ namespace LauLamanApps\IzettleApi\Client\ApiScope;
 
 use Werkspot\Enum\AbstractEnum;
 
-/**
- * @method static Rights read()
- * @method bool isRead()
- * @method static Rights write()
- * @method bool isWrite()
- */
-final class Rights extends AbstractEnum
+enum Rights: string
 {
-    public const READ = 'READ';
-    public const WRITE = 'WRITE';
+    case READ = 'READ';
+    case WRITE = 'WRITE';
 }

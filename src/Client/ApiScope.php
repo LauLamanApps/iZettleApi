@@ -68,36 +68,36 @@ final class ApiScope
     {
         $scope = [];
         if ($this->finance !== null) {
-            $scope[] = $this->finance->getValue() . ':' . self::FINANCE;
-            if ($this->finance->getValue() == Rights::WRITE) {
+            $scope[] = $this->finance->value . ':' . self::FINANCE;
+            if ($this->finance->value == Rights::WRITE) {
                 $scope[] = Rights::READ . ':' . self::FINANCE;
             }
         }
 
         if ($this->purchase !== null) {
-            $scope[] = $this->purchase->getValue() . ':' . self::PURCHASE;
-            if ($this->purchase->getValue() == Rights::WRITE) {
+            $scope[] = $this->purchase->value . ':' . self::PURCHASE;
+            if ($this->purchase->value == Rights::WRITE) {
                 $scope[] = Rights::READ . ':' . self::PURCHASE;
             }
         }
 
         if ($this->product !== null) {
-            $scope[] = $this->product->getValue() . ':' . self::PRODUCT;
-            if ($this->product->getValue() == Rights::WRITE) {
+            $scope[] = $this->product->value . ':' . self::PRODUCT;
+            if ($this->product->value == Rights::WRITE) {
                 $scope[] = Rights::READ . ':' . self::PRODUCT;
             }
         }
 
         if ($this->inventory !== null) {
-            $scope[] = $this->inventory->getValue() . ':' . self::INVENTORY;
-            if ($this->inventory->getValue() == Rights::WRITE) {
+            $scope[] = $this->inventory->value . ':' . self::INVENTORY;
+            if ($this->inventory->value == Rights::WRITE) {
                 $scope[] = Rights::READ . ':' . self::INVENTORY;
             }
         }
 
         if ($this->image !== null) {
-            $scope[] = $this->image->getValue() . ':' . self::IMAGE;
-            if ($this->image->getValue() == Rights::WRITE) {
+            $scope[] = $this->image->value . ':' . self::IMAGE;
+            if ($this->image->value == Rights::WRITE) {
                 $scope[] = Rights::READ . ':' . self::IMAGE;
             }
         }

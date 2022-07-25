@@ -32,7 +32,7 @@ final class FinanceClientTest extends AbstractClientTest
 
         foreach ($accountTransactions as $index => $accountTransaction) {
             self::assertSame($data[$index]['originatingTransactionUuid'], (string) $accountTransaction->getOriginatingTransactionUuid());
-            self::assertSame($data[$index]['originatorTransactionType'], $accountTransaction->getOriginatorTransactionType()->getValue());
+            self::assertSame($data[$index]['originatorTransactionType'], $accountTransaction->getOriginatorTransactionType()->value);
             self::assertEquals(new DateTime($data[$index]['timestamp']), $accountTransaction->getTimestamp());
             self::assertSame($data[$index]['amount'], $accountTransaction->getAmount());
         }
@@ -74,6 +74,6 @@ final class FinanceClientTest extends AbstractClientTest
         self::assertSame($data['currencyId'], $payoutInfo->getNextPayoutAmount()->getCurrency()->getCode());
         self::assertSame($data['discountRemaining'], (int) $payoutInfo->getDiscountRemaining()->getAmount());
         self::assertSame($data['currencyId'], $payoutInfo->getDiscountRemaining()->getCurrency()->getCode());
-        self::assertSame($data['periodicity'], $payoutInfo->getPeriodicity()->getValue());
+        self::assertSame($data['periodicity'], $payoutInfo->getPeriodicity()->value);;
     }
 }
