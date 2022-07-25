@@ -16,7 +16,7 @@ final class Library
     private $deletedDiscounts;
 
     public function __construct(
-        ?UuidInterface $fromEventLogUuid = null,
+        ?UuidInterface $fromEventLogUuid,
         UuidInterface $untilEventLogUuid,
         ProductCollection $products,
         DiscountCollection $discounts,

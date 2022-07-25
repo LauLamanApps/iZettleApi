@@ -12,17 +12,17 @@ use LauLamanApps\IzettleApi\Client\Image\Exceptions\MaximumImageFileSizeExcededE
 
 final class ImageFileUpload implements ImageUploadRequestInterface
 {
-    const ALLOWED_FILE_TYPES = [
+    public const ALLOWED_FILE_TYPES = [
         IMAGETYPE_GIF => 'GIF',
         IMAGETYPE_JPEG => 'JPEG',
         IMAGETYPE_PNG => 'PNG',
         IMAGETYPE_BMP => 'BMP',
         IMAGETYPE_TIFF_II => 'TIFF',
-        IMAGETYPE_TIFF_MM => 'TIFF'
+        IMAGETYPE_TIFF_MM => 'TIFF',
     ];
-    const MAX_FILE_SIZE_MB = 5;
-    const MINIMAL_HEIGHT = 50;
-    const MINIMAL_WIDTH = 50;
+    public const MAX_FILE_SIZE_MB = 5;
+    public const MINIMAL_HEIGHT = 50;
+    public const MINIMAL_WIDTH = 50;
 
     private $imageFormat;
     private $imageData;
@@ -82,7 +82,7 @@ final class ImageFileUpload implements ImageUploadRequestInterface
 
     private static function validateImageSize(string $file): void
     {
-        list($width, $height) = getimagesize($file);
+        [$width, $height] = getimagesize($file);
 
         if ($width < self::MINIMAL_WIDTH or $height < self::MINIMAL_HEIGHT) {
             throw new ImageIsToSmallException(

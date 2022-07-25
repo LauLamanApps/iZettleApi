@@ -18,7 +18,7 @@ final class ImageClientTest extends AbstractClientTest
      */
     public function getPurchaseHistory(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/ImageClient/postImage.json');
+        $json = file_get_contents(__DIR__ . '/files/ImageClient/postImage.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $imageClient = IzettleClientFactory::getImageClient($iZettleClient);

@@ -15,10 +15,10 @@ use Ramsey\Uuid\UuidInterface;
 
 final class PurchaseClient
 {
-    const BASE_URL = 'https://purchase.izettle.com';
+    public const BASE_URL = 'https://purchase.izettle.com';
 
-    const GET_PURCHASE = self::BASE_URL . '/purchase/v2/%s';
-    const GET_PURCHASES = self::BASE_URL . '/purchases/v2';
+    public const GET_PURCHASE = self::BASE_URL . '/purchase/v2/%s';
+    public const GET_PURCHASES = self::BASE_URL . '/purchases/v2';
 
     private $client;
     private $purchaseHistoryBuilder;

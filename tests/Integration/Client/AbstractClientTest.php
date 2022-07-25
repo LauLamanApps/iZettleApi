@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 
 abstract class AbstractClientTest extends TestCase
 {
-    const CLIENT_ID = 'clientId';
-    const CLIENT_SECRET = 'clientSecret';
+    public const CLIENT_ID = 'clientId';
+    public const CLIENT_SECRET = 'clientSecret';
 
     protected function getGuzzleIzettleClient(int $status, string $body): GuzzleIzettleClient
     {
@@ -29,7 +29,7 @@ abstract class AbstractClientTest extends TestCase
         return $izettleClient;
     }
 
-    private function getAccessToken() : AccessToken
+    private function getAccessToken(): AccessToken
     {
         return new AccessToken('', new DateTimeImmutable('+ 1 day'), '');
     }

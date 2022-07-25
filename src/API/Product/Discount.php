@@ -30,8 +30,8 @@ final class Discount implements IzettlePostable
         string $name,
         string $description,
         ImageCollection $imageCollection,
-        ?Money $amount = null,
-        ?float $percentage = null,
+        ?Money $amount,
+        ?float $percentage,
         string $externalReference,
         string $etag,
         DateTime $updatedAt,
@@ -161,7 +161,7 @@ final class Discount implements IzettlePostable
             'name' => $this->name,
             'description' => $this->description,
             'imageLookupKeys' => $this->imageCollection->getCreateDataArray(),
-            'externalReference' => $this->externalReference
+            'externalReference' => $this->externalReference,
         ];
 
         if ($this->amount) {

@@ -22,32 +22,32 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ProductClient
 {
-    const BASE_URL = 'https://products.izettle.com/organizations/%s';
+    public const BASE_URL = 'https://products.izettle.com/organizations/%s';
 
-    const POST_CATEGORY = self::BASE_URL . '/categories';
-    const GET_CATEGORY = self::BASE_URL . '/categories/%s';
-    const GET_CATEGORIES = self::BASE_URL . '/categories';
+    public const POST_CATEGORY = self::BASE_URL . '/categories';
+    public const GET_CATEGORY = self::BASE_URL . '/categories/%s';
+    public const GET_CATEGORIES = self::BASE_URL . '/categories';
 
-    const POST_DISCOUNT = self::BASE_URL . '/discounts';
-    const GET_DISCOUNT = self::BASE_URL . '/discounts/%s';
-    const PUT_DISCOUNT = self::BASE_URL . '/discounts/%s';
-    const DELETE_DISCOUNT = self::BASE_URL . '/discounts/%s';
-    const GET_DISCOUNTS = self::BASE_URL . '/discounts';
+    public const POST_DISCOUNT = self::BASE_URL . '/discounts';
+    public const GET_DISCOUNT = self::BASE_URL . '/discounts/%s';
+    public const PUT_DISCOUNT = self::BASE_URL . '/discounts/%s';
+    public const DELETE_DISCOUNT = self::BASE_URL . '/discounts/%s';
+    public const GET_DISCOUNTS = self::BASE_URL . '/discounts';
 
-    const GET_EXPORT = self::BASE_URL . '/products/%s';
-    const GET_EXPORT_TEMPLATE = self::BASE_URL . '/products/%s/template';
+    public const GET_EXPORT = self::BASE_URL . '/products/%s';
+    public const GET_EXPORT_TEMPLATE = self::BASE_URL . '/products/%s/template';
 
-    const GET_LIBRARY = self::BASE_URL . '/library';
+    public const GET_LIBRARY = self::BASE_URL . '/library';
 
-    const POST_PRODUCT = self::BASE_URL . '/products';
-    const GET_PRODUCT = self::BASE_URL . '/products/%s';
-    const PUT_PRODUCT = self::BASE_URL . '/products/v2/%s';
-    const DELETE_PRODUCT = self::BASE_URL . '/products/%s';
-    const POST_PRODUCT_VARIANT = self::BASE_URL . '/products/%s/variants';
-    const PUT_PRODUCT_VARIANT = self::BASE_URL . '/products/%s/variants/%s';
-    const DELETE_PRODUCT_VARIANT = self::BASE_URL . '/products/%s/variants/%s';
-    const GET_PRODUCTS = self::BASE_URL . '/products';
-    const DELETE_PRODUCTS = self::BASE_URL . '/products';
+    public const POST_PRODUCT = self::BASE_URL . '/products';
+    public const GET_PRODUCT = self::BASE_URL . '/products/%s';
+    public const PUT_PRODUCT = self::BASE_URL . '/products/v2/%s';
+    public const DELETE_PRODUCT = self::BASE_URL . '/products/%s';
+    public const POST_PRODUCT_VARIANT = self::BASE_URL . '/products/%s/variants';
+    public const PUT_PRODUCT_VARIANT = self::BASE_URL . '/products/%s/variants/%s';
+    public const DELETE_PRODUCT_VARIANT = self::BASE_URL . '/products/%s/variants/%s';
+    public const GET_PRODUCTS = self::BASE_URL . '/products';
+    public const DELETE_PRODUCTS = self::BASE_URL . '/products';
 
     private $client;
     private $organizationUuid;
@@ -58,7 +58,7 @@ final class ProductClient
 
     public function __construct(
         IzettleClientInterface $client,
-        ?UuidInterface $organizationUuid = null,
+        ?UuidInterface $organizationUuid,
         CategoryBuilderInterface $categoryBuilder,
         DiscountBuilderInterface $discountBuilder,
         LibraryBuilderInterface $libraryBuilder,

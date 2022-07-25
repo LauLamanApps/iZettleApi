@@ -22,8 +22,8 @@ final class DiscountTest extends TestCase
         string $name,
         string $description,
         ImageCollection $imageCollection,
-        ? Money $amount = null,
-        ?float $percentage = null,
+        ?Money $amount,
+        ?float $percentage,
         string $externalReference
     ): void {
         $discount =  Discount::new(
@@ -59,7 +59,7 @@ final class DiscountTest extends TestCase
                 new ImageCollection(),
                 Money::EUR(100),
                 null,
-                'externalReference1'
+                'externalReference1',
             ],
             [
                 'name2',
@@ -67,8 +67,8 @@ final class DiscountTest extends TestCase
                 new ImageCollection([new Image('file.jpg')]),
                 null,
                 10.0,
-                'externalReference2'
-            ]
+                'externalReference2',
+            ],
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LauLamanApps\IzettleApi\Client\Universal;
 
 use LauLamanApps\IzettleApi\API\Image;

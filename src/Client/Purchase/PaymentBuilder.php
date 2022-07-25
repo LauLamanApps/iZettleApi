@@ -19,12 +19,12 @@ use Ramsey\Uuid\Uuid;
 
 final class PaymentBuilder implements PaymentBuilderInterface
 {
-    const CARD = 'IZETTLE_CARD';
-    const CASH = 'IZETTLE_CASH';
-    const INVOICE = 'IZETTLE_INVOICE';
-    const MOBILE = 'MOBILE_PAY';
-    const SWISH = 'SWISH';
-    const VIPPS = 'VIPPS';
+    public const CARD = 'IZETTLE_CARD';
+    public const CASH = 'IZETTLE_CASH';
+    public const INVOICE = 'IZETTLE_INVOICE';
+    public const MOBILE = 'MOBILE_PAY';
+    public const SWISH = 'SWISH';
+    public const VIPPS = 'VIPPS';
 
     public function buildFromArray(array $payments, Currency $currency): array
     {

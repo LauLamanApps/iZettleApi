@@ -24,7 +24,7 @@ final class PurchaseClientTest extends AbstractClientTest
      */
     public function getPurchaseHistory(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/PurchaseClient/getPurchaseHistory.json');
+        $json = file_get_contents(__DIR__ . '/files/PurchaseClient/getPurchaseHistory.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
@@ -45,7 +45,7 @@ final class PurchaseClientTest extends AbstractClientTest
      */
     public function getPurchase(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/PurchaseClient/getPurchase.json');
+        $json = file_get_contents(__DIR__ . '/files/PurchaseClient/getPurchase.json');
         $data = json_decode($json, true);
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
         $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);

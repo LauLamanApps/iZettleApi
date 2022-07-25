@@ -34,7 +34,7 @@ final class ProductCollectionTest extends TestCase
         self::assertEquals($product1, $collection[(string) $product1->getUuid()]);
         self::assertEquals($product2, $collection[(string) $product2->getUuid()]);
         self::assertEquals($product3, $collection[(string) $product3->getUuid()]);
-        
+
         $productCollection->remove($product2);
 
         //-- Check if collection does not contains product 2 but does contain the others

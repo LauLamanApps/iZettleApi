@@ -18,7 +18,7 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getAccountTransactions(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/FinanceClient/getAccountTransactions.json');
+        $json = file_get_contents(__DIR__ . '/files/FinanceClient/getAccountTransactions.json');
         $data = json_decode($json, true)['data'];
 
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
@@ -43,7 +43,7 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getBalanceInfo(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/FinanceClient/getBalanceInfo.json');
+        $json = file_get_contents(__DIR__ . '/files/FinanceClient/getBalanceInfo.json');
         $data = json_decode($json, true)['data'];
 
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);
@@ -60,7 +60,7 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getPayoutInfo(): void
     {
-        $json = file_get_contents(dirname(__FILE__) . '/files/FinanceClient/getPayoutInfo.json');
+        $json = file_get_contents(__DIR__ . '/files/FinanceClient/getPayoutInfo.json');
         $data = json_decode($json, true)['data'];
 
         $iZettleClient = $this->getGuzzleIzettleClient(200, $json);

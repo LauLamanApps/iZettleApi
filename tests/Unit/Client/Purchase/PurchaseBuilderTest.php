@@ -108,7 +108,7 @@ final class PurchaseBuilderTest extends TestCase
             "published" => true,
             "groupedVatAmounts" => [(string) Uuid::uuid1()],
             "refund" => false,
-            "refunded" => false
+            "refunded" => false,
         ];
     }
 
@@ -131,7 +131,7 @@ final class PurchaseBuilderTest extends TestCase
             "receiptCopyAllowed" => true,
             "groupedVatAmounts" => [(string) Uuid::uuid1()],
             "refund" => false,
-            "refunded" => false
+            "refunded" => false,
         ];
     }
 }

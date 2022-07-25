@@ -32,7 +32,7 @@ final class CategoryCollectionTest extends TestCase
         self::assertEquals($category1, $collection[(string) $category1->getUuid()]);
         self::assertEquals($category2, $collection[(string) $category2->getUuid()]);
         self::assertEquals($category3, $collection[(string) $category3->getUuid()]);
-        
+
         $categoryCollection->remove($category2);
 
         //-- Check if collection does not contains category 2 but does contain the others

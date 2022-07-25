@@ -45,7 +45,7 @@ final class DiscountBuilder implements DiscountBuilderInterface
 
         return $discountCollection;
     }
-    
+
     private function build(array $product): Discount
     {
         return Discount::create(

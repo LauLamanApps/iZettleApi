@@ -19,12 +19,12 @@ use Ramsey\Uuid\UuidInterface;
 
 final class FinanceClient
 {
-    const BASE_URL = 'https://finance.izettle.com/organizations/%s';
+    public const BASE_URL = 'https://finance.izettle.com/organizations/%s';
 
-    const GET_ACCOUNT_TRANSACTIONS = self::BASE_URL . '/accounts/%s/transactions';
-    const GET_ACCOUNT_BALANCE = self::BASE_URL . '/accounts/%s/balance';
+    public const GET_ACCOUNT_TRANSACTIONS = self::BASE_URL . '/accounts/%s/transactions';
+    public const GET_ACCOUNT_BALANCE = self::BASE_URL . '/accounts/%s/balance';
 
-    const GET_PAYOUT_INFO = self::BASE_URL . '/payout-info';
+    public const GET_PAYOUT_INFO = self::BASE_URL . '/payout-info';
 
     /**
      * @var IzettleClientInterface
@@ -48,7 +48,7 @@ final class FinanceClient
 
     public function __construct(
         IzettleClientInterface $client,
-        ?UuidInterface $organizationUuid = null,
+        ?UuidInterface $organizationUuid,
         AccountTransactionBuilderInterface $accountTransactionBuilder,
         PayoutInfoBuilderInterface $payoutInfoBuilder
     ) {

@@ -32,7 +32,7 @@ final class DiscountCollectionTest extends TestCase
         self::assertEquals($discount1, $collection[(string) $discount1->getUuid()]);
         self::assertEquals($discount2, $collection[(string) $discount2->getUuid()]);
         self::assertEquals($discount3, $collection[(string) $discount3->getUuid()]);
-        
+
         $discountCollection->remove($discount2);
 
         //-- Check if collection does not contains discount 2 but does contain the others

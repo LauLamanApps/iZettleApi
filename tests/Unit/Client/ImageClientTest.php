@@ -32,7 +32,7 @@ final class ImageClientTest extends AbstractClientTest
         $izettleClientMock = $this->getIzettlePostMock($url, $imageUploadRequest);
         $izettleClientMock->shouldReceive('getJson')->once()->andReturn($data);
 
-        list($imageBuilderMock) = $this->getDependencyMocks();
+        [$imageBuilderMock] = $this->getDependencyMocks();
         $imageBuilderMock->shouldReceive('buildFromJson')->with($data)->once()->andReturn(new Image('image'));
 
         $financeClient = new ImageClient($izettleClientMock, $organizationUuid, $imageBuilderMock);
@@ -45,7 +45,7 @@ final class ImageClientTest extends AbstractClientTest
     public function postImage_WithImageFileUpload(): void
     {
         $organizationUuid = Uuid::uuid1();
-        $file = dirname(__FILE__) . '/Image/files/50x50-good.png';
+        $file = __DIR__ . '/Image/files/50x50-good.png';
         $imageUploadRequest =  new ImageFileUpload($file);
 
         $url = sprintf(ImageClient::POST_IMAGE, $organizationUuid->toString());
@@ -54,7 +54,7 @@ final class ImageClientTest extends AbstractClientTest
         $izettleClientMock = $this->getIzettlePostMock($url, $imageUploadRequest);
         $izettleClientMock->shouldReceive('getJson')->once()->andReturn($data);
 
-        list($imageBuilderMock) = $this->getDependencyMocks();
+        [$imageBuilderMock] = $this->getDependencyMocks();
         $imageBuilderMock->shouldReceive('buildFromJson')->with($data)->once()->andReturn(new Image('image'));
 
         $financeClient = new ImageClient($izettleClientMock, $organizationUuid, $imageBuilderMock);

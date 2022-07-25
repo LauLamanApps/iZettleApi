@@ -16,7 +16,7 @@ final class ImageUrlUpload implements ImageUploadRequestInterface
     public function getPostBodyData(): string
     {
         $data = [
-            'imageUrl' => $this->imageUrl
+            'imageUrl' => $this->imageUrl,
         ];
 
         return json_encode($data);

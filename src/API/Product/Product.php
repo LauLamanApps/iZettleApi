@@ -30,10 +30,10 @@ final class Product implements IzettlePostable
         UuidInterface $uuid,
         CategoryCollection $categories,
         string $name,
-        ?string $description = null,
+        ?string $description,
         ImageCollection $imageCollection,
         VariantCollection $variants,
-        ?string $externalReference =  null,
+        ?string $externalReference,
         string $etag,
         DateTime $updatedAt,
         UuidInterface $updatedBy,
@@ -146,7 +146,7 @@ final class Product implements IzettlePostable
             'description' => $this->description,
             'imageLookupKeys' => $this->imageCollection->getCreateDataArray(),
             'variants' => $this->variants->getCreateDataArray(),
-            'externalReference' => $this->externalReference
+            'externalReference' => $this->externalReference,
         ];
 
         return json_encode($data);

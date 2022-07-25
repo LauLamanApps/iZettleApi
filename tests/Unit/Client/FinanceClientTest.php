@@ -42,7 +42,7 @@ final class FinanceClientTest extends AbstractClientTest
 
         $izettleClientMock = $this->getIzettleGetMock($url, $data, $queryParams);
 
-        list($accountTransactionBuilderMock, $payoutInfoBuilderMock) = $this->getDependencyMocks();
+        [$accountTransactionBuilderMock, $payoutInfoBuilderMock] = $this->getDependencyMocks();
         $accountTransactionBuilderMock->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn([]);
 
         $financeClient = new FinanceClient($izettleClientMock, $organizationUuid, $accountTransactionBuilderMock, $payoutInfoBuilderMock);
@@ -64,13 +64,13 @@ final class FinanceClientTest extends AbstractClientTest
         $data = [
             'data' => [
                 'currencyId' => $expectedBalance->getCurrency()->getCode(),
-                'totalBalance' => (int) $expectedBalance->getAmount()
-            ]
+                'totalBalance' => (int) $expectedBalance->getAmount(),
+            ],
         ];
 
         $izettleClientMock = $this->getIzettleGetMock($url, $data, $queryParams);
 
-        list($accountTransactionBuilderMock, $payoutInfoBuilderMock) = $this->getDependencyMocks();
+        [$accountTransactionBuilderMock, $payoutInfoBuilderMock] = $this->getDependencyMocks();
 
         $financeClient = new FinanceClient($izettleClientMock, $organizationUuid, $accountTransactionBuilderMock, $payoutInfoBuilderMock);
         $balance = $financeClient->getBalanceInfo($accountTypeGroup);
@@ -91,7 +91,7 @@ final class FinanceClientTest extends AbstractClientTest
 
         $izettleClientMock = $this->getIzettleGetMock($url, $data, $queryParams);
 
-        list($accountTransactionBuilderMock, $payoutInfoBuilderMock) = $this->getDependencyMocks();
+        [$accountTransactionBuilderMock, $payoutInfoBuilderMock] = $this->getDependencyMocks();
         $payoutInfoBuilderMock->shouldReceive('buildFromJson')->with(json_encode($data))->once()->andReturn($this->getPayoutInfoObject());
 
         $financeClient = new FinanceClient($izettleClientMock, $organizationUuid, $accountTransactionBuilderMock, $payoutInfoBuilderMock);
@@ -105,7 +105,7 @@ final class FinanceClientTest extends AbstractClientTest
     {
         return [
             Mockery::mock(AccountTransactionBuilderInterface::class),
-            Mockery::mock(PayoutInfoBuilderInterface::class)
+            Mockery::mock(PayoutInfoBuilderInterface::class),
         ];
     }
 
