@@ -26,7 +26,7 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getAccountTransactions(): void
     {
-        $accountTypeGroup =  AccountTypeGroup::get(AccountTypeGroup::LIQUID);
+        $accountTypeGroup =  AccountTypeGroup::LIQUID;
         $organizationUuid = Uuid::uuid1();
         $start = new DateTime('now');
         $end = new DateTime("+10 seconds");
@@ -54,7 +54,7 @@ final class FinanceClientTest extends AbstractClientTest
      */
     public function getBalanceInfo(): void
     {
-        $accountTypeGroup =  AccountTypeGroup::get(AccountTypeGroup::LIQUID);
+        $accountTypeGroup =  AccountTypeGroup::LIQUID;
         $organizationUuid = Uuid::uuid1();
 
         $expectedBalance = Money::EUR(100);
@@ -115,7 +115,7 @@ final class FinanceClientTest extends AbstractClientTest
             Money::EUR(0),
             Money::EUR(1),
             Money::EUR(2),
-            Periodicity::get(Periodicity::DAILY)
+            Periodicity::DAILY
         );
     }
 }
