@@ -36,7 +36,7 @@
     "test-integration": "phpunit --testsuite integration",
     "test-coverage": [
       "rm -rf coverage || true",
-      "phpunit --coverage-html=coverage/ --coverage-clover=coverage/clover.xml"
+      "XDEBUG_MODE=coverage phpunit --coverage-html=coverage/ --coverage-clover=coverage/clover.xml"
     ],
     "format": "php-cs-fixer fix --verbose"
   },

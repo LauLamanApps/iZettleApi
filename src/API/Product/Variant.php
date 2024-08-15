@@ -140,7 +140,7 @@ final class Variant
         ];
 
         if ($this->costPrice) {
-            $data['costPrice'] =[
+            $data['costPrice'] = [
                 'amount' => $this->costPrice->getAmount(),
                 'currencyId' => (string) $this->costPrice->getCurrency(),
             ];

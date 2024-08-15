@@ -104,16 +104,16 @@ final class ProductClientTest extends AbstractClientTest
 
         foreach ($products as $index => $product) {
             $this->assertSame($data[$index]['uuid'], (string) $product->getUuid());
-//            $this->assertSame($data[$index]['categories'], $product->getCategories());
+            //            $this->assertSame($data[$index]['categories'], $product->getCategories());
             $this->assertSame($data[$index]['name'], $product->getName());
             $this->assertSame($data[$index]['description'], $product->getDescription());
-//            $this->assertSame($data[$index]['imageLookupKeys'], $product->getImageLookupKeys());
+            //            $this->assertSame($data[$index]['imageLookupKeys'], $product->getImageLookupKeys());
             $this->assertSame($data[$index]['externalReference'], $product->getExternalReference());
             $this->assertSame($data[$index]['etag'], $product->getEtag());
             $this->assertEquals(new DateTime($data[$index]['updated']), $product->getUpdatedAt());
             $this->assertSame($data[$index]['updatedBy'], (string) $product->getUpdatedBy());
             $this->assertEquals(new DateTime($data[$index]['created']), $product->getCreatedAt());
-//            $this->assertSame($data[$index]['unitName'], $product->getUnitName());
+            //            $this->assertSame($data[$index]['unitName'], $product->getUnitName());
             $this->assertSame((float) $data[$index]['vatPercentage'], $product->getVatPercentage());
         }
     }

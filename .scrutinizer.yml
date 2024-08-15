@@ -8,11 +8,11 @@ checks:
 build:
     environment:
         php:
-            version: 7.3
+            version: 8.1
     tests:
         override:
             -
-                command: 'make coverage'
+                command: 'composer run test-coverage'
                 coverage:
                     file: 'coverage/clover.xml'
                     format: 'php-clover'

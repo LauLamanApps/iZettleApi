@@ -92,7 +92,7 @@ final class CategoryBuilderTest extends TestCase
                     ],
                 ],
             ],
-            'Multiple Category' =>[
+            'Multiple Category' => [
                 [
                     [
                         'uuid' => (string) Uuid::uuid1(),

@@ -76,7 +76,7 @@ final class VariantsBuilderTest extends TestCase
                     ],
                 ],
             ],
-            'multiple variant' =>[
+            'multiple variant' => [
                 [
                     [
                         "uuid" => (string) Uuid::uuid1(),

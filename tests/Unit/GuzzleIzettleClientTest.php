@@ -20,6 +20,7 @@ use LauLamanApps\IzettleApi\GuzzleIzettleClient;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * @small
@@ -60,8 +61,8 @@ final class GuzzleIzettleClientTest extends TestCase
         $accessToken = 'accessToken';
         $refreshToken = 'refreshToken';
         $expiresIn = 7200;
-        $username ='username';
-        $password ='password';
+        $username = 'username';
+        $password = 'password';
         $options = [
             'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
             'form_params' => [
@@ -316,9 +317,12 @@ final class GuzzleIzettleClientTest extends TestCase
     public function getJson(): void
     {
         $data = 'getJsonTest';
-        $responseMock =  Mockery::mock(ResponseInterface::class);
-        $responseMock->shouldReceive('getBody')->once()->andReturnSelf();
-        $responseMock->shouldReceive('getContents')->once()->andReturn($data);
+
+        $streamMock = Mockery::mock(StreamInterface::class);
+        $streamMock->shouldReceive('getContents')->once()->andReturn($data);
+
+        $responseMock = Mockery::mock(ResponseInterface::class);
+        $responseMock->shouldReceive('getBody')->once()->andReturn($streamMock);
 
         $izettleClient = new GuzzleIzettleClient(new GuzzleClient(), self::CLIENT_ID, self::CLIENT_SECRET);
         $izettleClient->setAccessToken($this->getAccessToken());

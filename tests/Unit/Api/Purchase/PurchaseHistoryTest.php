@@ -36,7 +36,7 @@ final class PurchaseHistoryTest extends TestCase
         $purchase = $this->getGeneratedPurchase();
         $purchaseHistory ->addPurchase($purchase);
 
-        $this->assertEquals(($initialPurchases +1), count($purchaseHistory->getPurchases()));
+        $this->assertEquals(($initialPurchases + 1), count($purchaseHistory->getPurchases()));
 
         $purchaseHistory ->removePurchase($purchase);
 
